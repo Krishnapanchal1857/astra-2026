@@ -40,7 +40,6 @@
   #bgfill,#bg{position:absolute;inset:0;opacity:0;pointer-events:none;background-image:var(--city);background-position:center;background-repeat:no-repeat}
   #bgfill{background-size:cover;filter:blur(30px) saturate(1.15);transform:scale(1.2)}
   #bg{background-size:contain;will-change:transform,opacity}
-  #fog{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 
   /* Scroll hint: label + thin animated line */
   #hint{position:absolute;left:50%;bottom:clamp(20px,6vh,48px);transform:translateX(-50%);display:flex;flex-direction:column;
@@ -179,7 +178,6 @@
   <div class="shade"></div>
   <div id="bgfill"></div>
   <div id="bg"></div>
-  <canvas id="fog"></canvas>
   <div id="title" class="layer"><span>THE CITY OPENS</span></div>
   <div id="tagline" class="layer"><span class="brand"></span></div>
 
@@ -208,11 +206,11 @@
 
   <!-- Left sidebar -->
   <aside id="left" class="side ui" aria-label="Quick links">
-    <a href="home.html"><svg class="i" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9H4z"/><path d="M10 20v-6h4v6"/></svg>Home</a>
+    <a href="#"><svg class="i" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9H4z"/><path d="M10 20v-6h4v6"/></svg>Home</a>
     <a href="#"><svg class="i" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Events</a>
     <a href="#"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>Explore</a>
     <a href="#"><svg class="i" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>Contact Us</a>
-    <a href="about.html"><svg class="i" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M17 14c2.6 0 4.5 2 4.5 5"/></svg>About Us</a>
+    <a href="#"><svg class="i" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M17 14c2.6 0 4.5 2 4.5 5"/></svg>About Us</a>
   </aside>
 
   <!-- Right social bar -->
@@ -347,10 +345,6 @@
     bgEl.style.opacity = bgfillEl.style.opacity = ce;
     bgEl.style.transform = `scale(${1.08 - .08 * ce})`;
 
-    // fog: rolls in as the metro door opens (.42→.72), holds while the city image arrives, then lifts
-    const fi = clamp((current - .42) / .3, 0, 1), fo = clamp((current - .88) / .12, 0, 1);
-    window.__fogD = (fi * fi * (3 - 2 * fi)) * (1 - .92 * fo * fo * (3 - 2 * fo));
-
     const t = 1 - clamp(current / .35, 0, 1);
     titleEl.style.opacity = t;
     titleEl.style.transform = `translateY(${(1 - t) * -24}px) scale(${.96 + t * .04})`;
@@ -427,39 +421,6 @@
     requestAnimationFrame(draw);
   }
   requestAnimationFrame(draw);
-})();
-</script>
-<script>
-/* Fog everywhere — driven by window.__fogD (0..1) from the scroll loop */
-(() => {
-  const c = document.getElementById("fog"), ctx = c.getContext("2d");
-  let W, H;
-  const size = () => { const d = Math.min(devicePixelRatio, 1.5); W = c.width = innerWidth * d; H = c.height = innerHeight * d; };
-  size(); addEventListener("resize", size);
-  const spr = document.createElement("canvas"); spr.width = spr.height = 256;
-  const sx = spr.getContext("2d"), g = sx.createRadialGradient(128, 128, 0, 128, 128, 128);
-  g.addColorStop(0, "rgba(244,196,190,.9)"); g.addColorStop(.5, "rgba(238,184,180,.45)"); g.addColorStop(1, "rgba(238,184,180,0)");
-  sx.fillStyle = g; sx.fillRect(0, 0, 256, 256);
-  const puffs = Array.from({ length: 34 }, () => ({
-    x: Math.random(), y: Math.random(), r: .22 + Math.random() * .4,
-    v: (Math.random() * .012 + .003) * (Math.random() < .5 ? -1 : 1), p: Math.random() * 6.28, a: .5 + Math.random() * .5 }));
-  let t = 0, cleared = false;
-  (function draw() {
-    requestAnimationFrame(draw);
-    const d = window.__fogD || 0;
-    if (d < .004) { if (!cleared) { ctx.clearRect(0, 0, W, H); cleared = true; } return; }
-    cleared = false; t += .016;
-    ctx.clearRect(0, 0, W, H);
-    ctx.globalAlpha = d * .5; ctx.fillStyle = "rgb(216, 201, 200)"; ctx.fillRect(0, 0, W, H);
-    const m = Math.max(W, H);
-    for (const f of puffs) {
-      f.x += f.v * .016; if (f.x > 1.3) f.x = -.3; if (f.x < -.3) f.x = 1.3;
-      const r = f.r * m * (.8 + .4 * d), x = f.x * W, y = (f.y + Math.sin(t * .3 + f.p) * .03) * H;
-      ctx.globalAlpha = Math.min(1, d * f.a * 1.15);
-      ctx.drawImage(spr, x - r, y - r, r * 2, r * 2);
-    }
-    ctx.globalAlpha = 1;
-  })();
 })();
 </script>
 </body>
