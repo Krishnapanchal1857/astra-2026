@@ -1,0 +1,757 @@
+/* ASTRA nav + scroll add-on. Everything is prefixed .ax- so your page styles are untouched. */
+:root {
+  --ax-ink: #1a0b06;
+  --ax-cream: #fbe9c6;
+  --ax-sun: #f5b335;
+  --ax-red: #b3261e;
+  --ax-top: max(14px, env(safe-area-inset-top))
+}
+
+.ax-progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 4px;
+  z-index: 70;
+  transform-origin: 0 50%;
+  transform: scaleX(var(--ax-p, 0));
+  background: linear-gradient(90deg, var(--ax-sun), var(--ax-red));
+  box-shadow: 0 0 10px var(--ax-sun);
+  pointer-events: none
+}
+
+.ax-skip {
+  position: fixed;
+  left: 8px;
+  top: -60px;
+  z-index: 80;
+  background: var(--ax-cream);
+  color: var(--ax-ink);
+  padding: .7rem 1rem;
+  font-weight: 700
+}
+
+.ax-skip:focus {
+  top: 8px
+}
+
+.ax :focus-visible,
+.ax-menu :focus-visible {
+  outline: 3px solid var(--ax-sun);
+  outline-offset: 3px
+}
+
+/* logo chip */
+.ax-logo {
+  position: fixed;
+  top: var(--ax-top);
+  left: max(18px, env(safe-area-inset-left));
+  z-index: 60;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  background: rgba(26, 11, 6, .78);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(251, 233, 198, .25);
+  border-radius: 6px;
+  font: 400 1.5rem var(--display, 'Bungee', sans-serif);
+  color: var(--ax-cream);
+  text-decoration: none;
+  text-shadow: .07em .07em 0 var(--ax-red)
+}
+
+/* top nav: chamfered metallic glass strip */
+.ax-nav {
+  position: fixed;
+  top: var(--ax-top);
+  left: 50%;
+  translate: -50% 0;
+  z-index: 60;
+  width: min(880px, calc(100% - 440px));
+  padding: 2px;
+  background: linear-gradient(180deg, #f0dcb0, #7d5a4a);
+  clip-path: polygon(0 0, 100% 0, 100% 58%, 97% 100%, 3% 100%, 0 58%)
+}
+
+.ax-nav ul {
+  margin: 0;
+  padding: 0 2rem;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 56px;
+  background: rgba(26, 11, 6, .8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  clip-path: polygon(0 0, 100% 0, 100% 58%, 97% 100%, 3% 100%, 0 58%)
+}
+
+.ax-nav a {
+  position: relative;
+  display: block;
+  padding: .9rem .3rem;
+  color: var(--ax-cream);
+  text-decoration: none;
+  font: 700 .8rem var(--body, sans-serif);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color .25s, translate .2s
+}
+
+.ax-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: .45rem;
+  height: 2px;
+  background: var(--ax-sun);
+  box-shadow: 0 0 10px var(--ax-sun);
+  transform: scaleX(0);
+  transition: transform .35s cubic-bezier(.2, .7, .2, 1)
+}
+
+.ax-nav a:hover,
+.ax-nav a:focus-visible {
+  color: var(--ax-sun)
+}
+
+.ax-nav a:hover::after,
+.ax-nav a:focus-visible::after,
+.ax-nav a[aria-current]::after {
+  transform: scaleX(1)
+}
+
+.ax-sign {
+  position: fixed;
+  top: var(--ax-top);
+  right: max(18px, env(safe-area-inset-right));
+  z-index: 60;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  padding: 0 1.1rem;
+  background: rgba(26, 11, 6, .8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(251, 233, 198, .3);
+  border-radius: 6px;
+  color: var(--ax-cream);
+  text-decoration: none;
+  font: 700 .82rem var(--body, sans-serif);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  transition: background .25s, color .25s, translate .2s
+}
+
+.ax-sign:hover,
+.ax-sign:focus-visible {
+  background: var(--ax-sun);
+  color: var(--ax-ink)
+}
+
+/* floating side panels */
+.ax-side {
+  position: fixed;
+  top: 50%;
+  translate: 0 -50%;
+  z-index: 55;
+  display: flex;
+  flex-direction: column;
+  gap: .2rem;
+  padding: .5rem;
+  background: rgba(26, 11, 6, .76);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(251, 233, 198, .22);
+  border-radius: 12px
+}
+
+.ax-side.l {
+  left: 16px
+}
+
+.ax-side.r {
+  right: 16px
+}
+
+.ax-side a {
+  position: relative;
+  width: 64px;
+  min-height: 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: var(--ax-cream);
+  text-decoration: none;
+  font: 700 .66rem var(--body, sans-serif);
+  border-radius: 8px;
+  transition: background .25s, color .25s, transform .25s
+}
+
+.ax-side.r a {
+  width: 48px;
+  min-height: 48px
+}
+
+.ax-side a:hover,
+.ax-side a:focus-visible,
+.ax-side a[aria-current] {
+  background: rgba(245, 179, 53, .2);
+  color: var(--ax-sun)
+}
+
+.ax-side a:hover {
+  transform: scale(1.07)
+}
+
+.ax-side svg,
+.ax-menu svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round
+}
+
+.ax-side.r a::before {
+  content: attr(data-tip);
+  position: absolute;
+  right: 62px;
+  padding: .3rem .6rem;
+  border-radius: 4px;
+  background: var(--ax-ink);
+  color: var(--ax-cream);
+  font-size: .75rem;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(6px);
+  transition: .2s;
+  pointer-events: none
+}
+
+.ax-side.r a:hover::before,
+.ax-side.r a:focus-visible::before {
+  opacity: 1;
+  transform: none
+}
+
+a[aria-disabled=true] {
+  opacity: .5;
+  cursor: default
+}
+
+@media (min-width:1180px) and (min-height:561px) {
+  .sec {
+    padding-left: max(6vw, 112px);
+    padding-right: max(6vw, 112px)
+  }
+}
+
+/* keep text clear of the side panels */
+
+/* mobile menu */
+.ax-burger {
+  display: none;
+  position: fixed;
+  top: var(--ax-top);
+  right: max(14px, env(safe-area-inset-right));
+  z-index: 75;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 6px;
+  background: rgba(26, 11, 6, .85);
+  border: 1px solid rgba(251, 233, 198, .3);
+  border-radius: 6px;
+  cursor: pointer
+}
+
+.ax-burger i {
+  display: block;
+  width: 22px;
+  height: 3px;
+  background: var(--ax-cream);
+  transition: transform .35s, opacity .2s
+}
+
+.ax-burger[aria-expanded=true] i:nth-child(1) {
+  transform: translateY(9px) rotate(45deg)
+}
+
+.ax-burger[aria-expanded=true] i:nth-child(2) {
+  opacity: 0
+}
+
+.ax-burger[aria-expanded=true] i:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg)
+}
+
+.ax-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 72;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: calc(var(--ax-top) + 64px) max(24px, env(safe-area-inset-right)) max(28px, env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left));
+  background: rgba(26, 11, 6, .97);
+  color: var(--ax-cream);
+  transform: translateX(100%);
+  visibility: hidden;
+  transition: transform .45s cubic-bezier(.2, .7, .2, 1), visibility 0s .45s
+}
+
+.ax-menu.open {
+  transform: none;
+  visibility: visible;
+  transition: transform .45s cubic-bezier(.2, .7, .2, 1)
+}
+
+.ax-menu ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: .2rem
+}
+
+.ax-menu li a {
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+  min-height: 52px;
+  padding: .5rem .2rem;
+  border-bottom: 1px solid rgba(251, 233, 198, .14);
+  color: var(--ax-cream);
+  text-decoration: none;
+  font: 400 clamp(1.3rem, 6vw, 1.9rem) var(--display, 'Bungee', sans-serif)
+}
+
+.ax-menu li a[aria-current] {
+  color: var(--ax-sun)
+}
+
+.ax-menu .ax-msign {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  background: var(--ax-sun);
+  color: var(--ax-ink);
+  font: 700 1.1rem var(--body, sans-serif);
+  text-decoration: none;
+  border-radius: 4px
+}
+
+.ax-menu .ax-msoc {
+  display: flex;
+  gap: .6rem;
+  flex-wrap: wrap
+}
+
+.ax-menu .ax-msoc a {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(251, 233, 198, .3);
+  border-radius: 8px;
+  color: var(--ax-cream)
+}
+
+@media (orientation:landscape) and (max-height:520px) {
+  .ax-menu ul {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2rem
+  }
+}
+
+@media (max-width:1179px),
+(max-height:560px) {
+
+  .ax-nav,
+  .ax-sign,
+  .ax-side {
+    display: none
+  }
+
+  .ax-burger {
+    display: flex
+  }
+}
+
+@media (max-width:420px) {
+  .ax-logo {
+    font-size: 1.2rem;
+    padding: 0 .75rem
+  }
+}
+
+/* ===== stronger scroll motion (progressive enhancement, no scroll-lock) ===== */
+.big,
+.huge {
+  transform: skewY(var(--ax-sk, 0deg));
+  transform-origin: left center
+}
+
+@supports (animation-timeline:view()) {
+  @media (prefers-reduced-motion:no-preference) {
+    .hero .l-far {
+      --zs: 1.12
+    }
+
+    .hero .l-mid {
+      --zs: 1.24
+    }
+
+    .hero .l-near {
+      --zs: 1.45
+    }
+
+    .hero .l-sun {
+      --zs: 1.6
+    }
+
+    .hero .layer {
+      animation: ax-zoom linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 100vh
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background: var(--ax-ink);
+      opacity: 0;
+      animation: ax-dim linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 100vh
+    }
+
+    .gallery .big {
+      animation: slideL linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 40%
+    }
+
+    .spirit .huge {
+      animation: slideR linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 45%
+    }
+
+    .stage {
+      animation: ax-stage linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 50%
+    }
+
+    .story-p {
+      animation-range: entry 0% cover 45%
+    }
+
+    .gallery .grid {
+      animation: ax-grid linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 35%
+    }
+  }
+}
+
+@keyframes ax-zoom {
+  to {
+    scale: var(--zs, 1.2)
+  }
+}
+
+@keyframes ax-dim {
+  to {
+    opacity: .7
+  }
+}
+
+@keyframes ax-stage {
+  from {
+    scale: .7;
+    rotate: 1 0 0 28deg;
+    opacity: .2
+  }
+
+  to {
+    scale: 1;
+    rotate: 1 0 0 0deg;
+    opacity: 1
+  }
+}
+
+@keyframes ax-grid {
+  from {
+    opacity: .2;
+    rotate: 1 0 0 14deg;
+    translate: 0 60px
+  }
+
+  to {
+    opacity: 1;
+    rotate: 1 0 0 0deg;
+    translate: 0 0
+  }
+}
+
+@media (prefers-reduced-motion:reduce) {
+
+  .big,
+  .huge {
+    transform: none
+  }
+
+  .ax-menu,
+  .ax-burger i {
+    transition-duration: .01ms !important
+  }
+}
+
+
+/* =========================================
+   ASTRA NAVIGATION — SIZE & VISIBILITY FIX
+   Add at the END of astra-nav.css
+========================================= */
+
+/* ASTRA logo */
+.ax-logo {
+  min-height: 60px;
+  padding: 0 22px;
+  font-size: 2rem;
+  letter-spacing: 2px;
+}
+
+/* Desktop top navigation bar */
+.ax-nav {
+  width: min(1000px, calc(100% - 420px));
+}
+
+.ax-nav ul {
+  height: 70px;
+  padding: 0 32px;
+  gap: 22px;
+}
+
+.ax-nav a {
+  font-size: 0.95rem;
+  padding: 1.2rem 0.4rem;
+  letter-spacing: 1.2px;
+}
+
+/* Sign-in button */
+.ax-sign {
+  min-height: 58px;
+  padding: 0 24px;
+  font-size: 0.95rem;
+}
+
+/* Left and right floating navigation panels */
+.ax-side {
+  gap: 8px;
+  padding: 10px;
+  border-radius: 16px;
+}
+
+.ax-side.l {
+  left: 20px;
+}
+
+.ax-side.r {
+  right: 20px;
+}
+
+/* Left panel: larger clickable items */
+.ax-side.l a {
+  width: 84px;
+  min-height: 76px;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+/* Right panel: larger social icons */
+.ax-side.r a {
+  width: 60px;
+  min-height: 60px;
+}
+
+/* Make SVG icons larger and visible */
+.ax-side svg {
+  display: block;
+  width: 30px;
+  height: 30px;
+  stroke-width: 2.2;
+}
+
+/* If the HTML uses text characters inside spans */
+.ax-side a span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  line-height: 1;
+  font-weight: 700;
+}
+
+/* Better hover visibility */
+.ax-side a:hover,
+.ax-side a:focus-visible {
+  background: rgba(245, 179, 53, 0.24);
+  color: #ffc857;
+  transform: scale(1.06);
+}
+
+/* Mobile hamburger */
+.ax-burger {
+  width: 56px;
+  height: 56px;
+}
+
+.ax-burger i {
+  width: 27px;
+  height: 3px;
+}
+
+/* Mobile navigation links */
+.ax-menu li a {
+  min-height: 62px;
+  gap: 16px;
+  font-size: clamp(1.25rem, 5vw, 1.8rem);
+}
+
+/* Mobile navigation icons */
+.ax-menu svg {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+}
+
+/* Mobile sign-in button */
+.ax-menu .ax-msign {
+  min-height: 60px;
+  font-size: 1.1rem;
+}
+
+/* Tablet and smaller desktop screens */
+@media (min-width: 1180px) and (max-width: 1450px) {
+  .ax-nav {
+    width: calc(100% - 400px);
+  }
+
+  .ax-nav ul {
+    gap: 12px;
+    padding: 0 22px;
+  }
+
+  .ax-nav a {
+    font-size: 0.82rem;
+  }
+
+  .ax-side.l a {
+    width: 74px;
+  }
+}
+
+/* Mobile logo and hamburger */
+@media (max-width: 1179px),
+(max-height: 560px) {
+  .ax-logo {
+    min-height: 52px;
+    font-size: 1.6rem;
+  }
+
+  .ax-burger {
+    width: 52px;
+    height: 52px;
+  }
+}
+
+/* Small mobile screens */
+@media (max-width: 380px) {
+  .ax-logo {
+    font-size: 1.35rem;
+    padding: 0 12px;
+  }
+
+  .ax-menu {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+
+
+/* ASTRA: six social icons */
+.ax-side.r {
+  gap: 8px;
+  padding: 10px;
+}
+
+.ax-side.r a {
+  width: 58px;
+  min-height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff7e8;
+  border-radius: 10px;
+  transition:
+    color 0.25s ease,
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+.ax-side.r svg {
+  display: block;
+  width: 30px;
+  height: 30px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
+.ax-side.r a:hover,
+.ax-side.r a:focus-visible {
+  color: #ffc857;
+  background: rgba(245, 179, 53, 0.2);
+  transform: scale(1.1);
+}
+
+/* Keep the tooltip readable */
+.ax-side.r a::before {
+  right: 70px;
+  font-size: 13px;
+  z-index: 5;
+}
+
+/* Keep social links responsive */
+@media (max-width: 1179px),
+(max-height: 560px) {
+  .ax-side.r {
+    display: none;
+  }
+}

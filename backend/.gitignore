@@ -1,0 +1,13 @@
+
+
+@"
+.env
+.env.*
+!.env.example
+node_modules/
+.next/
+dist/
+build/
+.vercel/
+*.log
+"@ | Set-Content .gitignore

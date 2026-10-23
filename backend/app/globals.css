@@ -1,0 +1,7 @@
+@tailwind base; @tailwind components; @tailwind utilities;
+html { scroll-behavior: smooth; }
+body { @apply bg-night text-bone font-ui antialiased; }
+.clip-card { clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px)); }
+.field { @apply w-full rounded-md border border-white/15 bg-white/5 px-3 py-2.5 text-bone placeholder:text-bone/40 focus:border-gold focus:outline-none; }
+.btn { @apply inline-flex items-center justify-center gap-2 rounded-md bg-ember px-5 py-2.5 font-semibold uppercase tracking-wider text-night transition hover:bg-gold disabled:opacity-50; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
