@@ -35,13 +35,14 @@
     }
 
     body {
-      min-height: 100vh;
-      background: radial-gradient(ellipse at 50% -10%, #754538 0%, var(--deep-brown) 48%, var(--near-black) 100%);
-      color: var(--cream);
-      font-family: Georgia, 'Times New Roman', serif;
-      overflow-x: hidden
-    }
-
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(34, 25, 24, 0.35), rgba(17, 15, 17, 0.70)),
+    url("informal events.png") center top / cover fixed no-repeat;
+  color: var(--cream);
+  font-family: Georgia, 'Times New Roman', serif;
+  overflow-x: hidden
+}
     /* Ambient background */
     .background-glow {
       position: fixed;
@@ -586,8 +587,8 @@
       letter-spacing: 2px;
       margin-top: 45px
     }
-
-    @media(max-width:1000px) {
+   /*laptop view*/
+@media(max-width:1000px) {
       .nav-links {
         gap: 13px
       }
@@ -601,120 +602,99 @@
       }
 
       main {
-        width: min(760px, calc(100% - 48px));
+        width: min(px, calc(100% - 48px));
         padding-top: 48px
       }
 
       .cards-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 22px
+        gap: 45px
       }
 
       .popup-card {
-        min-height: 510px
+        min-height: 300px
+        min-w
       }
 
       .popup-content h2 {
-        font-size: 27px
+        font-size: 22px
       }
     }
 
-    @media(max-width:700px) {
-      .site-nav {
-        padding: 12px 16px;
-        gap: 12px
-      }
+    /* Phones: still 2 cards per row, with everything scaled down to fit */
+@media(max-width:620px) {
+  .site-nav { padding: 12px 16px; gap: 12px }
+  .brand-mark { font-size: 15px; gap: 8px }
+  .brand-mark .brand-symbol { width: 33px; height: 33px; font-size: 16px }
+  .nav-links a:not(.nav-cta) { display: none }
+  .nav-links .nav-cta { padding: 11px 13px; font-size: 9px; letter-spacing: .7px }
+  .nav-links { gap: 0 }
 
-      .brand-mark {
-        font-size: 15px;
-        gap: 8px
-      }
+  main { width: calc(100% - 24px); padding: 36px 0 55px }
+  .intro { margin-bottom: 30px }
+  .intro h1 { font-size: clamp(35px, 10vw, 54px) }
+  .intro p { font-size: 13px }
 
-      .brand-mark .brand-symbol {
-        width: 33px;
-        height: 33px;
-        font-size: 16px
-      }
+  /* 2 columns on mobile */
+  .cards-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    max-width: none;
+    margin: 0
+  }
 
-      .nav-links a:not(.nav-cta) {
-        display: none
-      }
+  /* Centre the last card when the count is odd (5 cards) */
+  .card-container:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    width: calc(50% - 6px);
+    justify-self: center
+  }
 
-      .nav-links .nav-cta {
-        padding: 11px 13px;
-        font-size: 9px;
-        letter-spacing: .7px
-      }
+  .popup-card {
+    min-height: 300px;
+    padding: 40px 10px 50px
+  }
+  .popup-card:before { inset: 10px }
+  .popup-card:after { top: 16px; font-size: 8px; letter-spacing: 2px }
+  .top-flourish { top: 16px; font-size: 26px }
+  .bottom-flourish { bottom: 12px; font-size: 16px }
 
-      .nav-links {
-        gap: 0
-      }
+  .eyebrow-card { font-size: 7px; letter-spacing: 2px; margin-bottom: 8px }
+  .popup-content .ornament { font-size: 14px; margin-bottom: 8px }
+  .popup-content h2 { font-size: 14px; margin-bottom: 10px }
+  .divider { margin-bottom: 11px }
+  .popup-content p { font-size: 11.5px; line-height: 1.55 }
 
-      main {
-        width: calc(100% - 34px);
-        padding: 42px 0 55px
-      }
+  /* Instructions overlay – scrollable in case text is long */
+  .instructions-overlay {
+    padding: 30px 14px 56px;
+    justify-content: flex-start;
+    overflow-y: auto
+  }
+  .instructions-overlay h3 { font-size: 16px; letter-spacing: 1px }
+  .instruction-divider { font-size: 12px; margin-bottom: 10px }
+  .instructions-overlay ul { padding-left: 14px }
+  .instructions-overlay li { font-size: 10.5px; line-height: 1.45; margin-bottom: 7px }
 
-      .intro {
-        margin-bottom: 36px
-      }
+  .join-btn {
+    bottom: 18px;
+    min-width: 0;
+    width: calc(100% - 28px);
+    padding: 9px 10px;
+    font-size: 11px;
+    gap: 6px
+  }
 
-      .intro h1 {
-        font-size: clamp(35px, 10vw, 54px)
-      }
-
-      .intro p {
-        font-size: 13px
-      }
-
-      .cards-grid {
-        grid-template-columns: 1fr;
-        gap: 22px;
-        max-width: 380px;
-        margin: auto
-      }
-
-      .popup-card {
-        min-height: 510px;
-        padding-left: 27px;
-        padding-right: 27px
-      }
-
-      .popup-content h2 {
-        font-size: 29px
-      }
-
-      .popup-content p {
-        font-size: 14px
-      }
-
-      .instructions-overlay {
-        padding: 35px 29px 50px
-      }
-
-      .instructions-overlay li {
-        font-size: 13px;
-        margin-bottom: 10px
-      }
-
-      .card-container:hover .popup-card {
-        transform: none
-      }
-
-      .card-container:hover .instructions-overlay {
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(15px);
-        pointer-events: none
-      }
-
-      .popup-card.is-open .instructions-overlay {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-        pointer-events: auto
-      }
-    }
+  .card-container:hover .popup-card { transform: none }
+  .card-container:hover .instructions-overlay {
+    opacity: 0; visibility: hidden;
+    transform: translateY(15px); pointer-events: none
+  }
+  .popup-card.is-open .instructions-overlay {
+    opacity: 1; visibility: visible;
+    transform: translateY(0); pointer-events: auto
+  }
+}
 
     @media(prefers-reduced-motion:reduce) {
 
