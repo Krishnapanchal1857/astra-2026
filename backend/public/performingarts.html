@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#221918">
   <title>ASTRA | Performing Arts</title>
+  <script>if ('IntersectionObserver' in window) document.documentElement.classList.add('js-reveal');</script>
   <style>
     :root {
       --sunset-peach: #F5BC89;
@@ -24,26 +25,67 @@
       --pale-gold: #EFCE93
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0
-    }
-
     html {
-      scroll-behavior: smooth
+      scroll-behavior: smooth;
+      scroll-padding-top: var(--pa-offset, 118px);
+      -webkit-text-size-adjust: 100%
     }
 
-    body {
+    body.astra-pa {
       min-height: 100vh;
-      background: radial-gradient(ellipse at 50% -10%, #754538 0%, var(--deep-brown) 48%, var(--near-black) 100%);
+      background: var(--deep-brown);
       color: var(--cream);
       font-family: Georgia, 'Times New Roman', serif;
       overflow-x: hidden
     }
 
-    /* Ambient background */
-    .background-glow {
+    @media(prefers-reduced-motion:reduce) {
+      html {
+        scroll-behavior: auto !important
+      }
+    }
+
+    .astra-pa * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    .astra-pa .pa-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      opacity: 0;
+      transform: scale(1.04);
+      transition: opacity .9s ease, transform 1.8s ease;
+      pointer-events: none;
+      background-color: var(--deep-brown)
+    }
+
+    .astra-pa .pa-bg.is-active {
+      opacity: 1;
+      transform: none
+    }
+
+    .astra-pa .pa-bg-dance {
+      background-image: linear-gradient(rgba(34, 25, 24, .35), rgba(17, 15, 17, .70)), url("Dance.jpg");
+      background-position: center top;
+      background-size: cover;
+      background-repeat: no-repeat
+    }
+
+    .astra-pa .pa-bg-drama {
+      background-image: radial-gradient(ellipse at 50% -10%, #754538 0%, var(--deep-brown) 48%, var(--near-black) 100%)
+    }
+
+    .astra-pa .pa-bg-music {
+      background-image: linear-gradient(rgba(34, 25, 24, .35), rgba(17, 15, 17, .70)), url("Music.jpg");
+      background-position: center top;
+      background-size: cover;
+      background-repeat: no-repeat
+    }
+
+    .astra-pa .background-glow {
       position: fixed;
       inset: 0;
       z-index: -2;
@@ -52,8 +94,8 @@
       background: radial-gradient(circle at 15% 30%, rgba(245, 188, 137, .09), transparent 25%), radial-gradient(circle at 85% 70%, rgba(228, 158, 115, .08), transparent 27%)
     }
 
-    .background-glow:before,
-    .background-glow:after {
+    .astra-pa .background-glow:before,
+    .astra-pa .background-glow:after {
       content: "";
       position: absolute;
       width: 42vw;
@@ -68,7 +110,7 @@
       box-shadow: 0 0 70px rgba(228, 158, 115, .06), inset 0 0 60px rgba(228, 158, 115, .04)
     }
 
-    .background-glow:after {
+    .astra-pa .background-glow:after {
       width: 34vw;
       height: 34vw;
       left: auto;
@@ -78,7 +120,7 @@
       animation-direction: reverse
     }
 
-    #particles {
+    .astra-pa #particles {
       position: fixed;
       inset: 0;
       width: 100%;
@@ -118,20 +160,7 @@
       }
     }
 
-    @keyframes float {
-
-      0%,
-      100% {
-        transform: translateY(0)
-      }
-
-      50% {
-        transform: translateY(-7px)
-      }
-    }
-
-    /* Top navigation */
-    .site-nav {
+    .astra-pa .site-nav {
       position: sticky;
       top: 0;
       z-index: 50;
@@ -148,7 +177,7 @@
       box-shadow: 0 10px 35px rgba(0, 0, 0, .16)
     }
 
-    .brand-mark {
+    .astra-pa .brand-mark {
       display: flex;
       align-items: center;
       gap: 11px;
@@ -161,7 +190,7 @@
       flex-shrink: 0
     }
 
-    .brand-mark .brand-symbol {
+    .astra-pa .brand-mark .brand-symbol {
       display: grid;
       place-items: center;
       width: 39px;
@@ -174,30 +203,36 @@
       transition: transform .45s, box-shadow .45s
     }
 
-    .brand-mark:hover .brand-symbol {
+    .astra-pa .brand-mark:hover .brand-symbol {
       transform: rotate(90deg) scale(1.08);
       box-shadow: 0 0 25px #e9b88666
     }
 
-    .brand-copy {
+    .astra-pa .brand-copy {
       display: flex;
       flex-direction: column;
       gap: 3px
     }
 
-    .brand-copy small {
+    .astra-pa .brand-copy small {
       font-size: 9px;
       letter-spacing: 4px;
       color: var(--sunset-peach)
     }
 
-    .nav-links {
+    .astra-pa .nav-links {
       display: flex;
       align-items: center;
       gap: clamp(14px, 2.4vw, 32px)
     }
 
-    .nav-links a {
+    .astra-pa .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: clamp(14px, 2.4vw, 32px)
+    }
+
+    .astra-pa .nav-links a {
       position: relative;
       text-decoration: none;
       color: #f7e9d5;
@@ -208,7 +243,7 @@
       transition: color .25s
     }
 
-    .nav-links a:not(.nav-cta):after {
+    .astra-pa .nav-links a:not(.nav-cta):after {
       content: "";
       position: absolute;
       left: 0;
@@ -221,16 +256,17 @@
       transition: transform .3s
     }
 
-    .nav-links a:hover {
+    .astra-pa .nav-links a:hover {
       color: var(--pale-gold)
     }
 
-    .nav-links a:hover:after {
+    .astra-pa .nav-links a:hover:after,
+    .astra-pa .nav-links a:focus-visible:after {
       transform: scaleX(1);
       transform-origin: left
     }
 
-    .nav-links .nav-cta {
+    .astra-pa .nav-links .nav-cta {
       padding: 12px 19px;
       border: 1px solid var(--pale-gold);
       border-radius: 30px;
@@ -240,26 +276,159 @@
       transition: transform .25s, box-shadow .25s
     }
 
-    .nav-links .nav-cta:hover {
+    .astra-pa .nav-links .nav-cta:hover {
       transform: translateY(-3px);
       box-shadow: 0 8px 25px #e9b88640;
       color: var(--deep-brown)
     }
 
-    main {
+    .astra-pa .nav-links .nav-cta:active,
+    .astra-pa .sub-nav a:active {
+      transform: scale(.97)
+    }
+
+    .astra-pa .nav-links .nav-cta span {
+      display: inline-block;
+      transition: transform .3s
+    }
+
+    .astra-pa .nav-links .nav-cta:hover span {
+      transform: translate(2px, -2px)
+    }
+
+    .astra-pa .nav-toggle {
+      display: none;
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      place-content: center;
+      gap: 5px;
+      background: transparent;
+      border: 1px solid var(--pale-gold);
+      border-radius: 50%;
+      cursor: pointer;
+      touch-action: manipulation
+    }
+
+    .astra-pa .nav-toggle span {
+      display: block;
+      width: 16px;
+      height: 1.5px;
+      background: var(--pale-gold);
+      transition: transform .3s, opacity .2s
+    }
+
+    .astra-pa .site-nav.is-open .nav-toggle span:nth-child(1) {
+      transform: translateY(6.5px) rotate(45deg)
+    }
+
+    .astra-pa .site-nav.is-open .nav-toggle span:nth-child(2) {
+      opacity: 0
+    }
+
+    .astra-pa .site-nav.is-open .nav-toggle span:nth-child(3) {
+      transform: translateY(-6.5px) rotate(-45deg)
+    }
+
+    .astra-pa .sub-nav {
+      position: sticky;
+      top: calc(var(--pa-nav-h, 71px) - 1px);
+      z-index: 49;
+      display: flex;
+      justify-content: center;
+      gap: clamp(6px, 2vw, 14px);
+      padding: 6px clamp(12px, 5vw, 72px);
+      background: rgba(25, 17, 17, .7);
+      border-bottom: 1px solid rgba(239, 206, 147, .16);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px)
+    }
+
+    .astra-pa .sub-nav a {
+      position: relative;
+      flex: 1 1 0;
+      max-width: 170px;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: #f7e9d5;
+      font: 700 11px Arial, sans-serif;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      border-radius: 30px;
+      touch-action: manipulation;
+      transition: color .25s, background .3s, transform .2s
+    }
+
+    .astra-pa .sub-nav a:after {
+      content: "";
+      position: absolute;
+      left: 20%;
+      right: 20%;
+      bottom: 8px;
+      height: 1px;
+      background: var(--pale-gold);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform .3s
+    }
+
+    .astra-pa .sub-nav a:hover,
+    .astra-pa .sub-nav a.is-active {
+      color: var(--pale-gold)
+    }
+
+    .astra-pa .sub-nav a.is-active {
+      background: rgba(233, 184, 134, .1)
+    }
+
+    .astra-pa .sub-nav a:hover:after,
+    .astra-pa .sub-nav a.is-active:after,
+    .astra-pa .sub-nav a:focus-visible:after {
+      transform: scaleX(1);
+      transform-origin: left
+    }
+
+    .astra-pa .nav-links a:focus-visible,
+    .astra-pa .sub-nav a:focus-visible,
+    .astra-pa .nav-toggle:focus-visible,
+    .astra-pa .brand-mark:focus-visible {
+      outline: 2px solid var(--pale-gold);
+      outline-offset: 3px
+    }
+
+    .astra-pa main {
       width: min(1200px, calc(100% - 70px));
       margin: 0 auto;
       padding: 58px 0 90px
     }
 
-    .intro {
+    .astra-pa .pa-section+.pa-section {
+      margin-top: clamp(44px, 7vw, 92px)
+    }
+
+    .astra-pa .pa-section+.pa-section:before {
+      content: "";
+      display: block;
+      height: 1px;
+      margin: 0 auto clamp(40px, 6vw, 76px);
+      width: min(520px, 80%);
+      background: linear-gradient(90deg, transparent, #e9b88670, transparent)
+    }
+
+    .astra-pa .intro {
       text-align: center;
       margin: 0 auto 52px;
-      max-width: 760px;
+      max-width: 760px
+    }
+
+    .astra-pa #dance .intro {
       animation: rise .8s both
     }
 
-    .eyebrow {
+    .astra-pa .eyebrow {
       display: inline-block;
       color: var(--pale-gold);
       font: 700 10px Arial, sans-serif;
@@ -267,7 +436,7 @@
       margin-bottom: 19px
     }
 
-    .intro h1 {
+    .astra-pa .intro h1 {
       font-size: clamp(38px, 6vw, 76px);
       line-height: .98;
       color: var(--cream);
@@ -275,19 +444,30 @@
       text-shadow: 0 5px 35px #e49e7320
     }
 
-    .intro h1 em {
+    .astra-pa .intro h1 em {
       font-style: normal;
       color: var(--sunset-peach)
     }
 
-    .intro .ornament {
+    .astra-pa .intro h2 {
+      font-size: clamp(28px, 3.6vw, 42px);
+      line-height: 1.1;
+      color: var(--cream);
+      margin-top: 6px
+    }
+
+    .astra-pa .intro h1+h2 {
+      margin-top: 10px
+    }
+
+    .astra-pa .intro .ornament {
       margin: 20px auto 17px;
       color: var(--sunset-peach);
       letter-spacing: 8px;
       animation: shimmer 4s ease-in-out infinite
     }
 
-    .intro p {
+    .astra-pa .intro p {
       color: #e8d5c0b8;
       line-height: 1.8;
       font-size: 15px;
@@ -295,7 +475,12 @@
       margin: auto
     }
 
-    .section-label {
+    .astra-pa .intro .pa-stray {
+      display: block;
+      color: var(--cream)
+    }
+
+    .astra-pa .section-label {
       display: flex;
       align-items: center;
       gap: 15px;
@@ -305,58 +490,56 @@
       letter-spacing: 3px
     }
 
-    .section-label:before,
-    .section-label:after {
+    .astra-pa .section-label:before,
+    .astra-pa .section-label:after {
       content: "";
       height: 1px;
       background: linear-gradient(90deg, transparent, #e9b88670);
       flex: 1
     }
 
-    .section-label:after {
+    .astra-pa .section-label:after {
       transform: scaleX(-1)
     }
 
-    .cards-grid {
+    .astra-pa .cards-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(6, minmax(0, 1fr));
       gap: 28px;
       align-items: stretch
     }
 
-    .card-container {
+    .astra-pa .card-container {
+      grid-column: span 2;
       min-width: 0;
       perspective: 1200px;
-      transition: opacity .7s ease, transform .7s cubic-bezier(.2, .75, .25, 1)
+      filter: drop-shadow(0 14px 16px rgba(0, 0, 0, .36));
+      transition: opacity .7s ease, transform .7s cubic-bezier(.2, .75, .25, 1), filter .4s ease
     }
 
-    .js-reveal .card-container {
+    .astra-pa .card-container:nth-child(4) {
+      grid-column: 2/4
+    }
+
+    .astra-pa .card-container:nth-child(5) {
+      grid-column: 4/6
+    }
+
+    .astra-pa .js-reveal .card-container {
       opacity: 0;
       transform: translateY(42px) scale(.975)
     }
 
-    .js-reveal .card-container.is-visible {
+    .astra-pa .js-reveal .card-container.is-visible {
       opacity: 1;
-      transform: translateY(0) scale(1)
+      transform: none
     }
 
-    .card-container:nth-child(2) {
-      animation-delay: .08s
-    }
-
-    .card-container:nth-child(3) {
-      animation-delay: .16s
-    }
-
-    .card-container:nth-child(4) {
-      animation-delay: .24s
-    }
-
-    .card-container:nth-child(5) {
-      animation-delay: .32s
-    }
-
-    .popup-card {
+    .astra-pa .popup-card {
+      --rx: 0deg;
+      --ry: 0deg;
+      --ty: 0px;
+      --s: 1;
       position: relative;
       isolation: isolate;
       overflow: hidden;
@@ -371,12 +554,14 @@
       color: var(--deep-brown);
       background: radial-gradient(ellipse at 20% 20%, #fff0be8c, transparent 42%), radial-gradient(ellipse at 85% 75%, #bc897433, transparent 45%), linear-gradient(145deg, var(--golden-peach), var(--sand-gold), var(--sunset-peach));
       clip-path: polygon(5% 2%, 24% 1%, 40% 2%, 53% 0, 75% 2%, 95% 5%, 100% 13%, 98% 30%, 100% 48%, 98% 66%, 100% 86%, 93% 98%, 74% 99%, 53% 98%, 32% 100%, 6% 97%, 0 87%, 3% 69%, 0 50%, 2% 31%, 0 13%);
-      filter: drop-shadow(0 16px 18px #0005);
       transform-style: preserve-3d;
-      transition: transform .4s ease, filter .4s ease;
+      transform: translateY(var(--ty)) rotateX(var(--rx)) rotateY(var(--ry)) scale(var(--s));
+      transition: transform .4s cubic-bezier(.2, .75, .25, 1);
+      -webkit-tap-highlight-color: transparent;
+      outline: none
     }
 
-    .popup-card:before {
+    .astra-pa .popup-card:before {
       content: "";
       position: absolute;
       inset: 17px;
@@ -385,11 +570,12 @@
       outline: 1px dashed #693b3166;
       outline-offset: -7px;
       background: repeating-linear-gradient(45deg, transparent 0, transparent 8px, #693b3108 9px, transparent 10px);
-      pointer-events: none
+      pointer-events: none;
+      transition: inset .5s ease, border-color .4s, outline-color .4s
     }
 
-    .popup-card:after {
-      content: "✦  ❧  ✦  ❧  ✦";
+    .astra-pa .popup-card:after {
+      content: "\2726  \2767  \2726  \2767  \2726";
       position: absolute;
       top: 24px;
       left: 0;
@@ -398,32 +584,34 @@
       color: var(--rust);
       font-size: 12px;
       letter-spacing: 5px;
-      pointer-events: none
+      pointer-events: none;
+      transition: transform .5s ease
     }
 
-    .card-container:hover .popup-card {
-      transform: translateY(-9px) rotateX(2deg) rotateY(-1deg) scale(1.012);
-      filter: drop-shadow(0 25px 25px #0007)
+    .astra-pa .popup-card:focus-visible {
+      outline: 3px solid var(--rust);
+      outline-offset: -9px
     }
 
-    .top-flourish {
+    .astra-pa .top-flourish {
       position: absolute;
       top: 25px;
       left: 50%;
       transform: translateX(-50%) rotate(180deg);
       font-size: 38px;
       line-height: 1;
-      color: var(--rust)
+      color: var(--rust);
+      transition: transform .5s ease
     }
 
-    .popup-content {
+    .astra-pa .popup-content {
       position: relative;
       z-index: 1;
       width: 100%;
       transition: transform .45s ease
     }
 
-    .eyebrow-card {
+    .astra-pa .eyebrow-card {
       display: block;
       color: var(--rust);
       font: 800 9px Arial, sans-serif;
@@ -431,13 +619,13 @@
       margin-bottom: 14px
     }
 
-    .ornament {
+    .astra-pa .ornament {
       font-size: 22px;
       color: var(--copper);
       margin-bottom: 12px
     }
 
-    .popup-content h2 {
+    .astra-pa .popup-content h2 {
       font-size: clamp(23px, 2vw, 29px);
       line-height: 1.12;
       color: var(--rust);
@@ -445,7 +633,7 @@
       text-shadow: 1px 1px 0 #fcf9f08c
     }
 
-    .divider {
+    .astra-pa .divider {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -456,30 +644,31 @@
       font-size: 12px
     }
 
-    .divider span {
+    .astra-pa .divider span {
       height: 1px;
       flex: 1;
       background: linear-gradient(90deg, transparent, var(--copper), var(--rust))
     }
 
-    .popup-content p {
+    .astra-pa .popup-content p {
       color: var(--charcoal);
       font-size: 14px;
       line-height: 1.75;
       margin-bottom: 12px
     }
 
-    .bottom-flourish {
+    .astra-pa .bottom-flourish {
       position: absolute;
       bottom: 18px;
       left: 50%;
       transform: translateX(-50%);
       color: var(--rust);
       font-size: 21px;
-      line-height: 1
+      line-height: 1;
+      transition: transform .5s ease
     }
 
-    .instructions-overlay {
+    .astra-pa .instructions-overlay {
       position: absolute;
       inset: 0;
       z-index: 5;
@@ -487,7 +676,11 @@
       flex-direction: column;
       justify-content: center;
       align-items: flex-start;
-      padding: 39px 28px 47px;
+      padding: 39px 28px 88px;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+      scrollbar-color: var(--copper) transparent;
       background: rgba(34, 25, 24, .97);
       color: var(--cream);
       opacity: 0;
@@ -498,15 +691,29 @@
       clip-path: inherit
     }
 
-    .card-container:hover .instructions-overlay,
-    .popup-card.is-open .instructions-overlay {
+    .astra-pa .instructions-overlay:before {
+      content: "";
+      position: absolute;
+      inset: 26px;
+      border: 1px solid rgba(239, 206, 147, .3);
+      outline: 1px dashed rgba(239, 206, 147, .16);
+      outline-offset: -7px;
+      pointer-events: none;
+      transition: inset .5s ease
+    }
+
+    .astra-pa .is-open .instructions-overlay {
       opacity: 1;
       visibility: visible;
-      transform: translateY(0) scale(1);
+      transform: none;
       pointer-events: auto
     }
 
-    .instructions-overlay h3 {
+    .astra-pa .is-open .instructions-overlay:before {
+      inset: 17px
+    }
+
+    .astra-pa .instructions-overlay h3 {
       width: 100%;
       margin: 0 0 10px;
       text-align: center;
@@ -515,7 +722,7 @@
       letter-spacing: 2px
     }
 
-    .instruction-divider {
+    .astra-pa .instruction-divider {
       width: 100%;
       text-align: center;
       color: var(--sunset-peach);
@@ -523,25 +730,53 @@
       margin-bottom: 17px
     }
 
-    .instructions-overlay ul {
+    .astra-pa .instructions-overlay ul {
       width: 100%;
       padding-left: 18px;
       text-align: left
     }
 
-    .instructions-overlay li {
+    .astra-pa .instructions-overlay li {
       margin-bottom: 10px;
       padding-left: 2px;
       color: var(--cream);
       font-size: 12px;
-      line-height: 1.6
+      line-height: 1.6;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity .35s ease, transform .35s ease
     }
 
-    .instructions-overlay li::marker {
+    .astra-pa .instructions-overlay li::marker {
       color: var(--sunset-peach)
     }
 
-    .join-btn {
+    .astra-pa .is-open .instructions-overlay li {
+      opacity: 1;
+      transform: none
+    }
+
+    .astra-pa .is-open .instructions-overlay li:nth-child(1) {
+      transition-delay: .1s
+    }
+
+    .astra-pa .is-open .instructions-overlay li:nth-child(2) {
+      transition-delay: .16s
+    }
+
+    .astra-pa .is-open .instructions-overlay li:nth-child(3) {
+      transition-delay: .22s
+    }
+
+    .astra-pa .is-open .instructions-overlay li:nth-child(4) {
+      transition-delay: .28s
+    }
+
+    .astra-pa .is-open .instructions-overlay li:nth-child(5) {
+      transition-delay: .34s
+    }
+
+    .astra-pa .join-btn {
       position: absolute;
       z-index: 7;
       bottom: 32px;
@@ -552,34 +787,37 @@
       align-items: center;
       gap: 10px;
       min-width: 145px;
+      min-height: 44px;
       padding: 12px 19px;
       white-space: nowrap;
       text-decoration: none;
       color: var(--deep-brown);
       font-size: 13px;
       font-weight: bold;
-      background: linear-gradient(135deg, var(--cream), var(--golden-peach), var(--sunset-orange));
+      touch-action: manipulation;
+      background: linear-gradient(135deg, var(--ivory), var(--golden-peach)) no-repeat 50% 100%/100% 0%, linear-gradient(135deg, var(--cream), var(--golden-peach), var(--sunset-orange)) 0 0/100% 100%;
       border: 2px solid var(--rust);
       border-radius: 35px;
       box-shadow: inset 0 0 0 2px #fcf9f073, 0 4px 8px #2f252733;
-      transition: box-shadow .3s, background .3s, transform .3s
+      transition: box-shadow .3s, background-size .35s ease, transform .3s
     }
 
-    .join-btn:hover {
-      background: linear-gradient(135deg, var(--ivory), var(--golden-peach));
-      box-shadow: 0 7px 18px #693b3145;
-      transform: translateX(-50%) translateY(-3px)
-    }
-
-    .join-btn span {
+    .astra-pa .join-btn span {
+      display: inline-block;
       transition: transform .3s
     }
 
-    .join-btn:hover span {
-      transform: translate(3px, -3px)
+    .astra-pa .join-btn:focus-visible {
+      outline: 3px solid var(--rust);
+      outline-offset: 3px;
+      background-size: 100% 100%, 100% 100%
     }
 
-    .footer-note {
+    .astra-pa .join-btn:active {
+      transform: translateX(-50%) scale(.96)
+    }
+
+    .astra-pa .footer-note {
       text-align: center;
       color: #e8d5c080;
       font: 10px Arial, sans-serif;
@@ -587,328 +825,928 @@
       margin-top: 45px
     }
 
-    @media(max-width:1000px) {
-      .nav-links {
+    @media(hover:hover) and (pointer:fine) {
+      .astra-pa .card-container:hover {
+        filter: drop-shadow(0 22px 22px rgba(0, 0, 0, .42)) drop-shadow(0 0 20px rgba(239, 206, 147, .2))
+      }
+
+      .astra-pa .card-container:hover .popup-card {
+        --ty: -9px;
+        --rx: 2deg;
+        --ry: -1deg;
+        --s: 1.012
+      }
+
+      .astra-pa .card-container:hover .popup-card:before {
+        inset: 13px;
+        border-color: #693b31e6;
+        outline-color: #693b3199
+      }
+
+      .astra-pa .card-container:hover .popup-card:after {
+        transform: scale(1.05)
+      }
+
+      .astra-pa .card-container:hover .top-flourish {
+        transform: translateX(-50%) rotate(180deg) scale(1.12)
+      }
+
+      .astra-pa .card-container:hover .bottom-flourish {
+        transform: translateX(-50%) scale(1.15)
+      }
+
+      .astra-pa .card-container:hover .instructions-overlay {
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        pointer-events: auto
+      }
+
+      .astra-pa .card-container:hover .instructions-overlay:before {
+        inset: 17px
+      }
+
+      .astra-pa .card-container:hover .instructions-overlay li {
+        opacity: 1;
+        transform: none
+      }
+
+      .astra-pa .card-container:hover .instructions-overlay li:nth-child(1) {
+        transition-delay: .1s
+      }
+
+      .astra-pa .card-container:hover .instructions-overlay li:nth-child(2) {
+        transition-delay: .16s
+      }
+
+      .astra-pa .card-container:hover .instructions-overlay li:nth-child(3) {
+        transition-delay: .22s
+      }
+
+      .astra-pa .card-container:hover .instructions-overlay li:nth-child(4) {
+        transition-delay: .28s
+      }
+
+      .astra-pa .card-container:hover .instructions-overlay li:nth-child(5) {
+        transition-delay: .34s
+      }
+
+      .astra-pa .join-btn:hover {
+        background-size: 100% 100%, 100% 100%;
+        box-shadow: 0 7px 18px #693b3145;
+        transform: translateX(-50%) translateY(-3px) scale(1.03)
+      }
+
+      .astra-pa .join-btn:hover span {
+        transform: translate(3px, -3px)
+      }
+    }
+
+    @media(hover:none), (pointer:coarse) {
+      .astra-pa .popup-card:active {
+        --s: .985
+      }
+
+      .astra-pa .join-btn:active span {
+        transform: translate(3px, -3px)
+      }
+    }
+
+    @media(min-width:1600px) {
+      .astra-pa main {
+        width: min(1320px, calc(100% - 120px))
+      }
+    }
+
+    @media(max-width:1023px) {
+
+      .astra-pa .nav-links,
+      .astra-pa .nav-menu {
         gap: 13px
       }
 
-      .nav-links a {
+      .astra-pa .nav-links a {
         font-size: 10px
       }
 
-      .nav-links .nav-cta {
+      .astra-pa .nav-links .nav-cta {
         padding: 11px 14px
       }
 
-      main {
+      .astra-pa main {
         width: min(760px, calc(100% - 48px));
         padding-top: 48px
       }
 
-      .cards-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 22px
+      .astra-pa .cards-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 26px
       }
 
-      .popup-card {
-        min-height: 510px
+      .astra-pa .card-container:nth-child(4) {
+        grid-column: span 2
       }
 
-      .popup-content h2 {
+      .astra-pa .card-container:nth-child(5) {
+        grid-column: 2/4
+      }
+
+      .astra-pa .popup-content h2 {
         font-size: 27px
       }
     }
 
     @media(max-width:700px) {
-      .site-nav {
+      .astra-pa .site-nav {
         padding: 12px 16px;
-        gap: 12px
+        gap: 10px
       }
 
-      .brand-mark {
+      .astra-pa .brand-mark {
         font-size: 15px;
         gap: 8px
       }
 
-      .brand-mark .brand-symbol {
+      .astra-pa .brand-mark .brand-symbol {
         width: 33px;
         height: 33px;
         font-size: 16px
       }
 
-      .nav-links a:not(.nav-cta) {
-        display: none
+      .astra-pa .nav-links {
+        gap: 10px
       }
 
-      .nav-links .nav-cta {
+      .astra-pa .nav-links .nav-cta {
         padding: 11px 13px;
         font-size: 9px;
         letter-spacing: .7px
       }
 
-      .nav-links {
-        gap: 0
+      .astra-pa .nav-toggle {
+        display: grid
       }
 
-      main {
-        width: calc(100% - 34px);
-        padding: 42px 0 55px
+      .astra-pa .nav-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 4px 16px 12px;
+        background: rgba(25, 17, 17, .97);
+        border-bottom: 1px solid rgba(239, 206, 147, .22);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        pointer-events: none;
+        transition: opacity .3s ease, transform .3s ease, visibility .3s
       }
 
-      .intro {
-        margin-bottom: 36px
+      .astra-pa .site-nav.is-open .nav-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        pointer-events: auto
       }
 
-      .intro h1 {
+      .astra-pa .nav-menu a {
+        display: flex;
+        align-items: center;
+        min-height: 48px;
+        padding: 0 4px;
+        font-size: 12px;
+        border-bottom: 1px solid rgba(239, 206, 147, .1)
+      }
+
+      .astra-pa .nav-menu a:last-child {
+        border-bottom: 0
+      }
+
+      .astra-pa .nav-menu a:after {
+        display: none
+      }
+
+      .astra-pa .sub-nav {
+        padding: 4px 10px;
+        gap: 6px
+      }
+
+      .astra-pa .sub-nav a {
+        font-size: 10.5px;
+        letter-spacing: 1px
+      }
+
+      .astra-pa .background-glow:before,
+      .astra-pa .background-glow:after {
+        animation: none
+      }
+
+      .astra-pa main {
+        width: calc(100% - 24px);
+        padding: 36px 0 55px
+      }
+
+      .astra-pa .intro {
+        margin-bottom: 34px
+      }
+
+      .astra-pa .intro h1 {
         font-size: clamp(35px, 10vw, 54px)
       }
 
-      .intro p {
+      .astra-pa .intro p {
         font-size: 13px
       }
 
-      .cards-grid {
-        grid-template-columns: 1fr;
-        gap: 22px;
-        max-width: 380px;
-        margin: auto
+      .astra-pa .cards-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        max-width: none;
+        margin: 0
       }
 
-      .popup-card {
-        min-height: 510px;
-        padding-left: 27px;
-        padding-right: 27px
+      .astra-pa .card-container:nth-child(n) {
+        grid-column: auto
       }
 
-      .popup-content h2 {
-        font-size: 29px
+      .astra-pa .card-container:nth-child(5) {
+        grid-column: 1/-1;
+        width: calc(50% - 6px);
+        justify-self: center
       }
 
-      .popup-content p {
-        font-size: 14px
+      .astra-pa .card-container {
+        filter: drop-shadow(0 6px 8px rgba(0, 0, 0, .32))
       }
 
-      .instructions-overlay {
-        padding: 35px 29px 50px
+      .astra-pa .popup-card {
+        min-height: 300px;
+        padding: 40px 10px 64px
       }
 
-      .instructions-overlay li {
-        font-size: 13px;
+      .astra-pa .popup-card:before {
+        inset: 10px
+      }
+
+      .astra-pa .popup-card:after {
+        top: 16px;
+        font-size: 8px;
+        letter-spacing: 2px
+      }
+
+      .astra-pa .top-flourish {
+        top: 16px;
+        font-size: 26px
+      }
+
+      .astra-pa .bottom-flourish {
+        display: none
+      }
+
+      .astra-pa .eyebrow-card {
+        font-size: 7px;
+        letter-spacing: 2px;
+        margin-bottom: 8px
+      }
+
+      .astra-pa .popup-content .ornament {
+        font-size: 14px;
+        margin-bottom: 8px
+      }
+
+      .astra-pa .popup-content h2 {
+        font-size: 15px;
         margin-bottom: 10px
       }
 
-      .card-container:hover .popup-card {
-        transform: none
+      .astra-pa .divider {
+        margin-bottom: 11px
       }
 
-      .card-container:hover .instructions-overlay {
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(15px);
-        pointer-events: none
+      .astra-pa .popup-content p {
+        font-size: 12px;
+        line-height: 1.55
       }
 
-      .popup-card.is-open .instructions-overlay {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-        pointer-events: auto
+      .astra-pa .instructions-overlay {
+        justify-content: flex-start;
+        padding: 30px 14px 64px
+      }
+
+      .astra-pa .instructions-overlay:before {
+        inset: 12px
+      }
+
+      .astra-pa .is-open .instructions-overlay:before {
+        inset: 8px
+      }
+
+      .astra-pa .instructions-overlay h3 {
+        font-size: 16px;
+        letter-spacing: 1px
+      }
+
+      .astra-pa .instruction-divider {
+        font-size: 12px;
+        margin-bottom: 10px
+      }
+
+      .astra-pa .instructions-overlay ul {
+        padding-left: 14px
+      }
+
+      .astra-pa .instructions-overlay li {
+        font-size: 11px;
+        line-height: 1.45;
+        margin-bottom: 7px
+      }
+
+      .astra-pa .join-btn {
+        bottom: 14px;
+        min-width: 0;
+        min-height: 40px;
+        width: calc(100% - 24px);
+        padding: 9px 8px;
+        font-size: 11px;
+        gap: 6px
+      }
+    }
+
+    @media(max-width:400px) {
+      .astra-pa .eyebrow {
+        letter-spacing: 3px
+      }
+
+      .astra-pa .site-nav {
+        padding: 10px 12px;
+        gap: 6px
+      }
+
+      .astra-pa .brand-mark {
+        font-size: 13px;
+        gap: 6px;
+        letter-spacing: 2px
+      }
+
+      .astra-pa .brand-mark .brand-symbol {
+        width: 30px;
+        height: 30px;
+        font-size: 14px
+      }
+
+      .astra-pa .nav-links .nav-cta {
+        padding: 10px 10px;
+        font-size: 8px;
+        letter-spacing: .4px
+      }
+
+      .astra-pa .nav-toggle {
+        width: 36px;
+        height: 36px
+      }
+
+      .astra-pa .popup-content h2 {
+        font-size: 14px
+      }
+
+      .astra-pa .popup-content p {
+        font-size: 11.5px
+      }
+
+      .astra-pa .instructions-overlay li {
+        font-size: 10.5px
+      }
+
+      .astra-pa .brand-copy small {
+        letter-spacing: 3px
       }
     }
 
     @media(prefers-reduced-motion:reduce) {
 
-      *,
-      *:before,
-      *:after {
+      .astra-pa *,
+      .astra-pa *:before,
+      .astra-pa *:after {
         animation-duration: .01ms !important;
         animation-iteration-count: 1 !important;
         scroll-behavior: auto !important;
-        transition-duration: .01ms !important
+        transition-duration: .01ms !important;
+        transition-delay: 0s !important
       }
     }
   </style>
 </head>
 
-<body>
+<body class="astra-pa">
+  <div class="pa-bg pa-bg-dance is-active" data-bg="dance" aria-hidden="true"></div>
+  <div class="pa-bg pa-bg-drama" data-bg="drama" aria-hidden="true"></div>
+  <div class="pa-bg pa-bg-music" data-bg="music" aria-hidden="true"></div>
   <div class="background-glow" aria-hidden="true"></div><canvas id="particles" aria-hidden="true"></canvas>
   <nav class="site-nav" aria-label="Main navigation"><a class="brand-mark" href="#top" aria-label="ASTRA home"><span
         class="brand-symbol">✦</span><span class="brand-copy">ASTRA<small>FEST</small></span></a>
-    <div class="nav-links"><a href="#top">Home</a><a href="#events">Events</a><a href="#register">Contact</a><a
-        class="nav-cta" href="#events">Explore Events <span aria-hidden="true">↗</span></a></div>
+    <div class="nav-links">
+      <div class="nav-menu" id="nav-menu"><a href="#top">Home</a><a href="#events">Events</a><a
+          href="#register">Contact</a></div>
+      <a class="nav-cta" href="#events">Explore Events <span aria-hidden="true">↗</span></a>
+      <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false"
+        aria-controls="nav-menu"><span></span><span></span><span></span></button>
+    </div>
   </nav>
+  <nav class="sub-nav" aria-label="Performing arts categories"><a href="#dance" class="is-active"
+      aria-current="true">Dance</a><a href="#drama">Drama</a><a href="#music">Music</a></nav>
   <main id="top">
-    <header class="intro"><span class="eyebrow">✦ &nbsp; SATHAYE COLLEGE PRESENTS &nbsp; ✦</span>
-      <h1>Performing <em>Arts</em></h1>
-      <div class="ornament">❧ ✧ ✦ ✧ ❧</div>
-      <p>Har kirdar, ek kahani,
-Step into the spotlight and make Mumbai listen. 
-      </p>ASTRA</p>
-    </header>
-    <div class="section-label" id="events">THE LINE-UP</div>
-    <section class="cards-grid" aria-label="Performing arts events">
-      <!-- Card 1: Ek Mumbai, Anek Chehre -->
-      <article class="card-container">
-        <div class="popup-card">
-          <div class="top-flourish">❧</div>
-          <div class="popup-content"><span class="eyebrow-card">✦ ASTRA ✦</span>
-            <div class="ornament">❧ ✧ ❧</div>
-            <h2>Ek Mumbai, Anek Chehre</h2>
-            <div class="divider"><span></span>✦<span></span></div>
-            <p>Perform a powerful solo portrayal of a distinctive character from Mumbai's many social worlds.</p>
+    <section class="pa-section" id="dance" aria-labelledby="dance-title">
+      <header class="intro"><span class="eyebrow">✦ &nbsp; SATHAYE COLLEGE PRESENTS &nbsp; ✦</span>
+        <h1>Performing <em>Arts</em></h1>
+        <h2 id="dance-title">Dance</h2>
+        <div class="ornament">❧ ✧ ✦ ✧ ❧</div>
+        <p>Find your voice. Feel the rhythm. Celebrate the many sounds and stories of Mumbai at ASTRA.</p>
+      </header>
+      <div class="section-label" id="events">THE LINE-UP</div>
+      <div class="cards-grid" role="group" aria-label="Dance events">
+        <article class="card-container" data-category="dance">
+          <div class="popup-card" tabindex="0" role="group" aria-label="Mumbai Moves">
+            <div class="top-flourish">❧</div>
+            <div class="popup-content"><span class="eyebrow-card">✦ ASTRA ✦</span>
+              <div class="ornament">❧ ✧ ❧</div>
+              <h2>Mumbai Moves</h2>
+              <div class="divider"><span></span>✦<span></span></div>
+              <p>Solo performers showcase the different dance cultures and rhythms that move Mumbai.</p>
+            </div>
+            <div class="instructions-overlay">
+              <h3>Instructions</h3>
+              <div class="instruction-divider">✦ ❧ ✦</div>
+              <ul>
+                <li>Team Size: 1</li>
+                <li>Duration: 3 - 5 min</li>
+                <li>Format: Individual</li>
+                <li>Components Included: Bollywood, Western/Urban, Hip-Hop, Freestyle, Contemporary, Jazz, Breaking,
+                  Locking/Popping, Folk, Marathi Dance</li>
+                <li> Concept: Dance the Many Moods of Mumbai — from Bollywood and street dance to Maharashtrian folk
+                  traditions
+                </li>
+              </ul>
+            </div><a href="#register" class="join-btn">Register Now <span>↗</span></a>
+            <div class="bottom-flourish">✧</div>
           </div>
-          <div class="instructions-overlay">
-            <h3>Instructions</h3>
-            <div class="instruction-divider">✦ ❧ ✦</div>
-            <ul>
-              <li>Team Size: 1</li>
-              <li>Duration: 5 - 7 min</li>
-              <li>Format: Individual</li>
-              <li>Components Included:Monoact, Mimicry, Character Acting, Voice Modulation, Marathi Characters,
-                Bollywood Characters, Street Characters.</li>
-              <li> Concept: One City, Many Faces — Dabbawala, local commuter, fisherwoman, tapori, student, office-goer
-                and other Mumbai characters.</li>
-            </ul>
-          </div><a href="#register" class="join-btn">Register Now <span>↗</span></a>
-          <div class="bottom-flourish">✧</div>
-        </div>
-      </article>
-      <!-- Card 2: Galli Theatre -->
-      <article class="card-container">
-        <div class="popup-card">
-          <div class="top-flourish">❧</div>
-          <div class="popup-content"><span class="eyebrow-card">✦ ASTRA ✦</span>
-            <div class="ornament">❧ ✧ ❧</div>
-            <h2>Galli Theatre</h2>
-            <div class="divider"><span></span>✦<span></span></div>
-            <p>Teams present an entertaining short play based on stories emerging from Mumbai's streets and
-              neighbourhoods.</p>
+        </article>
+        <article class="card-container" data-category="dance">
+          <div class="popup-card" tabindex="0" role="group" aria-label="Apna Beat Battle">
+            <div class="top-flourish">❧</div>
+            <div class="popup-content"><span class="eyebrow-card">✦ ASTRA ✦</span>
+              <div class="ornament">❧ ✧ ❧</div>
+              <h2>Apna Beat Battle</h2>
+              <div class="divider"><span></span>✦<span></span></div>
+              <p>Teams compete with energetic choreography blending popular dance styles with Mumbai's youthful spirit.
+              </p>
+            </div>
+            <div class="instructions-overlay">
+              <h3>Instructions</h3>
+              <div class="instruction-divider">✦ ❧ ✦</div>
+              <ul>
+                <li>Team Size: 4 – 12</li>
+                <li>Duration: 5 – 8 min</li>
+                <li>Format: Team (Flagship event)</li>
+                <li>Components Included: Bollywood, Contemporary, Western/Urban, Hip-Hop, Freestyle, Fusion, Folk Fusion
+                </li>
+                <li> Concept: Mumbai on the Beat — Bollywood, street culture and contemporary Mumbai</li>
+              </ul>
+            </div><a href="#register" class="join-btn">Register Now <span>↗</span></a>
+            <div class="bottom-flourish">✧</div>
           </div>
-          <div class="instructions-overlay">
-            <h3>Instructions</h3>
-            <div class="instruction-divider">✦ ❧ ✦</div>
-            <ul>
-              <li>Team Size: 5 – 12</li>
-              <li>Duration: 8 - 12 min</li>
-              <li>Format: Team</li>
-              <li>Components Included: Skit, Comedy, Drama, Satire, Character Acting, Dialogue, Marathi Theatre, Hindi
-                Theatre.</li>
-              <li> Concept: Stories from the Galli — chawls, neighbourhoods, families and everyday Mumbai life.</li>
-            </ul>
-          </div><a href="#register" class="join-btn">Register Now <span>↗</span></a>
-          <div class="bottom-flourish">✧</div>
-        </div>
-      </article>
-      <!-- Card 3: Bolti Deewarein -->
-      <article class="card-container">
-        <div class="popup-card">
-          <div class="top-flourish">❧</div>
-          <div class="popup-content"><span class="eyebrow-card">✦ ASTRA ✦</span>
-            <div class="ornament">❧ ✧ ❧</div>
-            <h2>Bolti Deewarein</h2>
-            <div class="divider"><span></span>✦<span></span></div>
-            <p>Teams use street theatre to raise awareness about contemporary issues affecting Mumbai.</p>
+        </article>
+        <article class="card-container" data-category="dance">
+          <div class="popup-card" tabindex="0" role="group" aria-label="Mumbai Local – Flash Mob">
+            <div class="top-flourish">❧</div>
+            <div class="popup-content"><span class="eyebrow-card">✦ ASTRA ✦</span>
+              <div class="ornament">❧ ✧ ❧</div>
+              <h2>Mumbai Local – Flash Mob</h2>
+              <div class="divider"><span></span>✦<span></span></div>
+              <p>Performers transform an ordinary space into a Mumbai local through a surprise high-energy group
+                performance.</p>
+            </div>
+            <div class="instructions-overlay">
+              <h3>Instructions</h3>
+              <div class="instruction-divider">✦ ❧ ✦</div>
+              <ul>
+                <li>Team Size: 10 – 30</li>
+                <li>Duration: 5 – 8 min</li>
+                <li>Format: Team(Flagship event)</li>
+                <li>Components Included: Flash Mob, Bollywood, Hip-Hop, Contemporary, Freestyle, Folk, Mime/Movement,
+                  Group Choreography</li>
+                <li> Concept: Local Se Global — rush hour, train journeys, platforms, Masti and Mumbai hustle.</li>
+              </ul>
+            </div><a href="#register" class="join-btn">Register Now <span>↗</span></a>
+            <div class="bottom-flourish">✧</div>
           </div>
-          <div class="instructions-overlay">
-            <h3>Instructions</h3>
-            <div class="instruction-divider">✦ ❧ ✦</div>
-            <ul>
-              <li>Team Size: 8 - 15</li>
-              <li>Duration: 10 -15 min</li>
-              <li>Format: Team </li>
-              <li>Components Included: Pathnatya, Street Theatre, Chorus, Slogans, Placards, Music, Movement, Social Commentary.</li>
-              <li> Concept:Mumbai Speaks — housing, pollution, traffic, public transport, inequality, environment and civic responsibility.</li>
-            </ul>
-          </div><a href="#register" class="join-btn">Register Now <span>↗</span></a>
-          <div class="bottom-flourish">✧</div>
-        </div>
-      </article>
-      <!-- Card 4:Mime-Bai -->
-      <article class="card-container">
-        <div class="popup-card">
-          <div class="top-flourish">❧</div>
-          <div class="popup-content"><span class="eyebrow-card">✦ ASTRA ✦</span>
-            <div class="ornament">❧ ✧ ❧</div>
-            <h2>Mime-Bai</h2>
-            <div class="divider"><span></span>✦<span></span></div>
-            <p>Teams tell a recognisable Mumbai story entirely through expression, movement and visual performance.</p>
+        </article>
+        <article class="card-container" data-category="dance">
+          <div class="popup-card" tabindex="0" role="group" aria-label="Mumbai Dance Adda">
+            <div class="top-flourish">❧</div>
+            <div class="popup-content"><span class="eyebrow-card">✦ ASTRA ✦</span>
+              <div class="ornament">❧ ✧ ❧</div>
+              <h2>Mumbai Dance Adda</h2>
+              <div class="divider"><span></span>✦<span></span></div>
+              <p>Dancers face off in an energetic battle where spontaneity, musicality and street-style skills decide
+                who owns the dance floor.</p>
+            </div>
+            <div class="instructions-overlay">
+              <h3>Instructions</h3>
+              <div class="instruction-divider">✦ ❧ ✦</div>
+              <ul>
+                <li>Team Size: 1 – 2</li>
+                <li>Duration: 3 – 5 min per round</li>
+                <li>Format: Individual / Duo Battle</li>
+                <li>Components Included: Hip-Hop, Breaking, Popping, Locking, Freestyle, Bollywood, House, Waacking</li>
+                <li> Concept:Mumbai's street culture and dance adda — inspired by the energy of gullies, college
+                  campuses and Mumbai's street performers</li>
+              </ul>
+            </div><a href="#register" class="join-btn">Register Now <span>↗</span></a>
+            <div class="bottom-flourish">✧</div>
           </div>
-          <div class="instructions-overlay">
-            <h3>Instructions</h3>
-            <div class="instruction-divider">✦ ❧ ✦</div>
-            <ul>
-              <li>Team Size: 3 - 8</li>
-              <li>Duration: 5 - 8 min</li>
-              <li>Format: Team</li>
-              <li>Components Included:Mime, Facial Expression, Body Movement, Visual Storytelling, Group Formation, Music-based Mime</li>
-              <li> Concept: The Silent City — Mumbai's stories told without words</li>
-            </ul>
-          </div><a href="#register" class="join-btn">Register Now <span>↗</span></a>
-          <div class="bottom-flourish">✧</div>
-        </div>
-      </article>
-      <!-- Card 5: The Last Local -->
-      <article class="card-container">
-        <div class="popup-card">
-          <div class="top-flourish">❧</div>
-          <div class="popup-content"><span class="eyebrow-card">✦ ASTRA ✦</span>
-            <div class="ornament">❧ ✧ ❧</div>
-            <h2>The Last Local</h2>
-            <div class="divider"><span></span>✦<span></span></div>
-            <p>A complete theatrical production narrating an emotional, dramatic or humorous story set in Mumbai.</p>
+        </article>
+        <article class="card-container" data-category="dance">
+          <div class="popup-card" tabindex="0" role="group" aria-label="Ek Mumbai, Anek Chehre">
+            <div class="top-flourish">❧</div>
+            <div class="popup-content"><span class="eyebrow-card">✦ ASTRA ✦</span>
+              <div class="ornament">❧ ✧ ❧</div>
+              <h2>Ek Mumbai, Anek Chehre</h2>
+              <div class="divider"><span></span>✦<span></span></div>
+              <p>Teams portray different faces of Mumbai through
+                a creative dance performance, with each performance telling a distinct Mumbai story.</p>
+            </div>
+            <div class="instructions-overlay">
+              <h3>Instructions</h3>
+              <div class="instruction-divider">✦ ❧ ✦</div>
+              <ul>
+                <li>Team Size: 4 – 10</li>
+                <li>Duration:5 – 7 min</li>
+                <li>Format: Team </li>
+                <li>Components Included: Bollywood, Contemporary, Folk Fusion, Hip-Hop, Theatre Movement, Freestyle,
+                  Fusion</li>
+                <li>concept: The many faces of Mumbai — Koliwada, local trains, Bollywood, chawls, corporate Mumbai,
+                  nightlife, monsoon, Ganpati and the city's dreams
+                </li>
+              </ul>
+            </div><a href="#register" class="join-btn">Register Now <span>↗</span></a>
+            <div class="bottom-flourish">✧</div>
           </div>
-          <div class="instructions-overlay">
-            <h3>Instructions</h3>
-            <div class="instruction-divider">✦ ❧ ✦</div>
-            <ul>
-              <li>Team Size: 8 - 20</li>
-              <li>Duration: 15 - 25 min</li>
-              <li>Format: Team / (Flagship event) </li>
-              <li>Components Included: Theatre, Acting, Direction, Dialogue, Stage Design, Music, Sound Effects, Costume, Lighting</li>
-              <li>concept: One Last Journey — a complete Mumbai story centred around the iconic local train
-              </li>
-            </ul>
-          </div><a href="#register" class="join-btn">Register Now <span>↗</span></a>
-          <div class="bottom-flourish">✧</div>
-        </div>
-      </article>
+        </article>
+      </div>
+    </section>
+    <section class="pa-section" id="drama" aria-labelledby="drama-title">
+      <header class="intro">
+        <h2 id="drama-title">Drama</h2>
+        <div class="ornament">❧ ✧ ✦ ✧ ❧</div>
+        <p>Har kirdar, ek kahani,
+          Step into the spotlight and make Mumbai listen.</p>
+        <span class="pa-stray">ASTRA</span>
+      </header>
+      <div class="section-label">THE LINE-UP</div>
+      <div class="cards-grid" role="group" aria-label="Drama events">
+        <article class="card-container" data-category="drama">
+          <div class="popup-card" tabindex="0" role="group" aria-label="Ek Mumbai, Anek Chehre">
+            <div class="top-flourish">❧</div>
+            <div class="popup-content"><span class="eyebrow-card">✦ ASTRA ✦</span>
+              <div class="ornament">❧ ✧ ❧</div>
+              <h2>Ek Mumbai, Anek Chehre</h2>
+              <div class="divider"><span></span>✦<span></span></div>
+              <p>Perform a powerful solo portrayal of a distinctive character from Mumbai's many social worlds.</p>
+            </div>
+            <div class="instructions-overlay">
+              <h3>Instructions</h3>
+              <div class="instruction-divider">✦ ❧ ✦</div>
+              <ul>
+                <li>Team Size: 1</li>
+                <li>Duration: 5 - 7 min</li>
+                <li>Format: Individual</li>
+                <li>Components Included:Monoact, Mimicry, Character Acting, Voice Modulation, Marathi Characters,
+                  Bollywood Characters, Street Characters.</li>
+                <li> Concept: One City, Many Faces — Dabbawala, local commuter, fisherwoman, tapori, student,
+                  office-goer
+                  and other Mumbai characters.</li>
+              </ul>
+            </div><a href="#register" class="join-btn">Register Now <span>↗</span></a>
+            <div class="bottom-flourish">✧</div>
+          </div>
+        </article>
+        <article class="card-container" data-category="drama">
+          <div class="popup-card" tabindex="0" role="group" aria-label="Galli Theatre">
+            <div class="top-flourish">❧</div>
+            <div class="popup-content"><span class="eyebrow-card">✦ ASTRA ✦</span>
+              <div class="ornament">❧ ✧ ❧</div>
+              <h2>Galli Theatre</h2>
+              <div class="divider"><span></span>✦<span></span></div>
+              <p>Teams present an entertaining short play based on stories emerging from Mumbai's streets and
+                neighbourhoods.</p>
+            </div>
+            <div class="instructions-overlay">
+              <h3>Instructions</h3>
+              <div class="instruction-divider">✦ ❧ ✦</div>
+              <ul>
+                <li>Team Size: 5 – 12</li>
+                <li>Duration: 8 - 12 min</li>
+                <li>Format: Team</li>
+                <li>Components Included: Skit, Comedy, Drama, Satire, Character Acting, Dialogue, Marathi Theatre, Hindi
+                  Theatre.</li>
+                <li> Concept: Stories from the Galli — chawls, neighbourhoods, families and everyday Mumbai life.</li>
+              </ul>
+            </div><a href="#register" class="join-btn">Register Now <span>↗</span></a>
+            <div class="bottom-flourish">✧</div>
+          </div>
+        </article>
+        <article class="card-container" data-category="drama">
+          <div class="popup-card" tabindex="0" role="group" aria-label="Bolti Deewarein">
+            <div class="top-flourish">❧</div>
+            <div class="popup-content"><span class="eyebrow-card">✦ ASTRA ✦</span>
+              <div class="ornament">❧ ✧ ❧</div>
+              <h2>Bolti Deewarein</h2>
+              <div class="divider"><span></span>✦<span></span></div>
+              <p>Teams use street theatre to raise awareness about contemporary issues affecting Mumbai.</p>
+            </div>
+            <div class="instructions-overlay">
+              <h3>Instructions</h3>
+              <div class="instruction-divider">✦ ❧ ✦</div>
+              <ul>
+                <li>Team Size: 8 - 15</li>
+                <li>Duration: 10 -15 min</li>
+                <li>Format: Team </li>
+                <li>Components Included: Pathnatya, Street Theatre, Chorus, Slogans, Placards, Music, Movement, Social
+                  Commentary.</li>
+                <li> Concept:Mumbai Speaks — housing, pollution, traffic, public transport, inequality, environment and
+                  civic responsibility.</li>
+              </ul>
+            </div><a href="#register" class="join-btn">Register Now <span>↗</span></a>
+            <div class="bottom-flourish">✧</div>
+          </div>
+        </article>
+        <article class="card-container" data-category="drama">
+          <div class="popup-card" tabindex="0" role="group" aria-label="Mime-Bai">
+            <div class="top-flourish">❧</div>
+            <div class="popup-content"><span class="eyebrow-card">✦ ASTRA ✦</span>
+              <div class="ornament">❧ ✧ ❧</div>
+              <h2>Mime-Bai</h2>
+              <div class="divider"><span></span>✦<span></span></div>
+              <p>Teams tell a recognisable Mumbai story entirely through expression, movement and visual performance.
+              </p>
+            </div>
+            <div class="instructions-overlay">
+              <h3>Instructions</h3>
+              <div class="instruction-divider">✦ ❧ ✦</div>
+              <ul>
+                <li>Team Size: 3 - 8</li>
+                <li>Duration: 5 - 8 min</li>
+                <li>Format: Team</li>
+                <li>Components Included:Mime, Facial Expression, Body Movement, Visual Storytelling, Group Formation,
+                  Music-based Mime</li>
+                <li> Concept: The Silent City — Mumbai's stories told without words</li>
+              </ul>
+            </div><a href="#register" class="join-btn">Register Now <span>↗</span></a>
+            <div class="bottom-flourish">✧</div>
+          </div>
+        </article>
+        <article class="card-container" data-category="drama">
+          <div class="popup-card" tabindex="0" role="group" aria-label="The Last Local">
+            <div class="top-flourish">❧</div>
+            <div class="popup-content"><span class="eyebrow-card">✦ ASTRA ✦</span>
+              <div class="ornament">❧ ✧ ❧</div>
+              <h2>The Last Local</h2>
+              <div class="divider"><span></span>✦<span></span></div>
+              <p>A complete theatrical production narrating an emotional, dramatic or humorous story set in Mumbai.</p>
+            </div>
+            <div class="instructions-overlay">
+              <h3>Instructions</h3>
+              <div class="instruction-divider">✦ ❧ ✦</div>
+              <ul>
+                <li>Team Size: 8 - 20</li>
+                <li>Duration: 15 - 25 min</li>
+                <li>Format: Team / (Flagship event) </li>
+                <li>Components Included: Theatre, Acting, Direction, Dialogue, Stage Design, Music, Sound Effects,
+                  Costume, Lighting</li>
+                <li>concept: One Last Journey — a complete Mumbai story centred around the iconic local train
+                </li>
+              </ul>
+            </div><a href="#register" class="join-btn">Register Now <span>↗</span></a>
+            <div class="bottom-flourish">✧</div>
+          </div>
+        </article>
+      </div>
+    </section>
+    <section class="pa-section" id="music" aria-labelledby="music-title">
+      <header class="intro">
+        <h2 id="music-title">Music</h2>
+        <div class="ornament">❧ ✧ ✦ ✧ ❧</div>
+        <p>Find your voice. Feel the rhythm. Celebrate the many sounds and stories of Mumbai at ASTRA.</p>
+      </header>
+      <div class="section-label">THE LINE-UP</div>
+      <div class="cards-grid" role="group" aria-label="Music events">
+        <article class="card-container" data-category="music">
+          <div class="popup-card" tabindex="0" role="group" aria-label="Aamcha Awaaz">
+            <div class="top-flourish">❧</div>
+            <div class="popup-content"><span class="eyebrow-card">✦ ASTRA ✦</span>
+              <div class="ornament">❧ ✧ ❧</div>
+              <h2>Aamcha Awaaz</h2>
+              <div class="divider"><span></span>✦<span></span></div>
+              <p>Showcase your individual vocal talent through songs that capture the many musical moods of Mumbai.</p>
+            </div>
+            <div class="instructions-overlay">
+              <h3>Instructions</h3>
+              <div class="instruction-divider">✦ ❧ ✦</div>
+              <ul>
+                <li>Team Size: 1</li>
+                <li>Duration: 5 - 7 min</li>
+                <li>Format: Indivisual</li>
+                <li>Components Included: Indian Classical, Semi-Classical, Indian Light Music, Bollywood, Western Vocal,
+                  Marathi Songs, Hindi Songs.</li>
+                <li> Concept: The musical voice of Mumbai - from Marathi melodies to Bollywood and contemporary music.
+                </li>
+              </ul>
+            </div><a href="#register" class="join-btn">Register Now <span>↗</span></a>
+            <div class="bottom-flourish">✧</div>
+          </div>
+        </article>
+        <article class="card-container" data-category="music">
+          <div class="popup-card" tabindex="0" role="group" aria-label="Dhun Unplugged">
+            <div class="top-flourish">❧</div>
+            <div class="popup-content"><span class="eyebrow-card">✦ ASTRA ✦</span>
+              <div class="ornament">❧ ✧ ❧</div>
+              <h2>Dhun Unplugged</h2>
+              <div class="divider"><span></span>✦<span></span></div>
+              <p>Teams create a live musical experience inspired by the sounds and spirit of Mumbai.</p>
+            </div>
+            <div class="instructions-overlay">
+              <h3>Instructions</h3>
+              <div class="instruction-divider">✦ ❧ ✦</div>
+              <ul>
+                <li>Team Size: 4 - 8</li>
+                <li>Duration: 8 - 10 min</li>
+                <li>Format: Team</li>
+                <li>Components Included: Acoustic Music, Fusion, Band Performance, Indian Instruments, Western
+                  Instruments, Indian Vocal, Western Vocal.</li>
+                <li> Concept: Create the Sound of Mumbai - a fusion of street sounds, rhythms and contemporary music.
+                </li>
+              </ul>
+            </div><a href="#register" class="join-btn">Register Now <span>↗</span></a>
+            <div class="bottom-flourish">✧</div>
+          </div>
+        </article>
+        <article class="card-container" data-category="music">
+          <div class="popup-card" tabindex="0" role="group" aria-label="Mumbaiya Mic Drop">
+            <div class="top-flourish">❧</div>
+            <div class="popup-content"><span class="eyebrow-card">✦ ASTRA ✦</span>
+              <div class="ornament">❧ ✧ ❧</div>
+              <h2>Mumbaiya Mic Drop</h2>
+              <div class="divider"><span></span>✦<span></span></div>
+              <p>A high-energy rap battle celebrating Mumbai's slang, streets, struggles and youth culture.</p>
+            </div>
+            <div class="instructions-overlay">
+              <h3>Instructions</h3>
+              <div class="instruction-divider">✦ ❧ ✦</div>
+              <ul>
+                <li>Team Size: 1</li>
+                <li>Duration: 3 - 5 min</li>
+                <li>Format: Indivisual</li>
+                <li>Components Included: Freestyle Rap, Written Rap, Hindi Rap, Marathi Rap, English Rap, Battle Rap,
+                  Beatboxing.</li>
+                <li> Concept: Galli se Mic Tak - Mumbai's street language and youth voice.</li>
+              </ul>
+            </div><a href="#register" class="join-btn">Register Now <span>↗</span></a>
+            <div class="bottom-flourish">✧</div>
+          </div>
+        </article>
+        <article class="card-container" data-category="music">
+          <div class="popup-card" tabindex="0" role="group" aria-label="Aamche Sur, Aamchi Jodi">
+            <div class="top-flourish">❧</div>
+            <div class="popup-content"><span class="eyebrow-card">✦ ASTRA ✦</span>
+              <div class="ornament">❧ ✧ ❧</div>
+              <h2>Aamche Sur, Aamchi Jodi</h2>
+              <div class="divider"><span></span>✦<span></span></div>
+              <p>Groups combine their voices to create a memorable musical performance celebrating Mumbai.</p>
+            </div>
+            <div class="instructions-overlay">
+              <h3>Instructions</h3>
+              <div class="instruction-divider">✦ ❧ ✦</div>
+              <ul>
+                <li>Team Size: 4 - 8</li>
+                <li>Duration: 6 - 8 min</li>
+                <li>Format: Team</li>
+                <li>Components Included: Group Singing, Harmony, Bollywood Songs, Marathi Songs, Hindi Songs, Medleys,
+                  Folk Songs.</li>
+                <li> Concept: Aamchi Sur, Aamchi Mumbai - musical chemistry inspired by Mumbai's diverse communities.
+                </li>
+              </ul>
+            </div><a href="#register" class="join-btn">Register Now <span>↗</span></a>
+            <div class="bottom-flourish">✧</div>
+          </div>
+        </article>
+        <article class="card-container" data-category="music">
+          <div class="popup-card" tabindex="0" role="group" aria-label="War of DJ – 90s Mehfil">
+            <div class="top-flourish">❧</div>
+            <div class="popup-content"><span class="eyebrow-card">✦ ASTRA ✦</span>
+              <div class="ornament">❧ ✧ ❧</div>
+              <h2>War of DJ – 90s Mehfil</h2>
+              <div class="divider"><span></span>✦<span></span></div>
+              <p>DJs battle through iconic sounds of the 1990s to recreate Mumbai's nostalgic musical era.0</p>
+            </div>
+            <div class="instructions-overlay">
+              <h3>Instructions</h3>
+              <div class="instruction-divider">✦ ❧ ✦</div>
+              <ul>
+                <li>Team Size: 1 - 2</li>
+                <li>Duration: 10 - 15 min</li>
+                <li>Format: Indivisual/Duo </li>
+                <li>Components Included: 90s Bollywood, Indi-Pop, Marathi Hits, Hindi Film Songs, Remix, Retro Dance
+                  Tracks.</li>
+                <li>concept: 90s Mumbai Nostalgia - the music of cable TV, cassette tapes, Bollywood and Mumbai
+                  nightlife.
+                </li>
+              </ul>
+            </div><a href="#register" class="join-btn">Register Now <span>↗</span></a>
+            <div class="bottom-flourish">✧</div>
+          </div>
+        </article>
+      </div>
     </section>
     <p class="footer-note" id="register">ASTRA FEST &nbsp; • &nbsp; CELEBRATING THE SPIRIT OF MUMBAI</p>
   </main>
   <script>
-    // Reveal cards as they enter the viewport, with a small stagger.
-    document.documentElement.classList.add("js-reveal");
-    const revealObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const cards = [...document.querySelectorAll('.card-container')];
-          const index = cards.indexOf(entry.target);
-          entry.target.style.transitionDelay = `${(index % 3) * 90}ms`;
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('.card-container').forEach(card => revealObserver.observe(card));
+    (() => {
+      const root = document.documentElement, nav = document.querySelector('.site-nav'), sub = document.querySelector('.sub-nav');
+      const fine = matchMedia('(hover: hover) and (pointer: fine)'), reduced = matchMedia('(prefers-reduced-motion: reduce)');
+      const offsets = () => { const n = nav.offsetHeight; root.style.setProperty('--pa-nav-h', n + 'px'); root.style.setProperty('--pa-offset', (n + sub.offsetHeight + 14) + 'px') };
+      offsets(); addEventListener('resize', offsets); addEventListener('load', offsets);
 
-    // Subtle pointer tilt on desktop; leave touch/mobile interactions simple.
-    if (matchMedia('(hover: hover) and (pointer: fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.querySelectorAll('.popup-card').forEach(card => {
-        card.addEventListener('pointermove', event => {
-          if (event.target.closest('.instructions-overlay')) return;
-          const rect = card.getBoundingClientRect();
-          const x = (event.clientX - rect.left) / rect.width - .5;
-          const y = (event.clientY - rect.top) / rect.height - .5;
-          card.style.transform = `translateY(-8px) rotateX(${(-y * 5).toFixed(2)}deg) rotateY(${(x * 6).toFixed(2)}deg) scale(1.012)`;
+      // Mobile menu
+      const toggle = nav.querySelector('.nav-toggle');
+      const setMenu = open => { nav.classList.toggle('is-open', open); toggle.setAttribute('aria-expanded', open) };
+      toggle.addEventListener('click', () => setMenu(!nav.classList.contains('is-open')));
+      nav.querySelectorAll('.nav-menu a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+      addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false) });
+      addEventListener('resize', () => { if (innerWidth > 700) setMenu(false) });
+      document.addEventListener('click', e => { if (!nav.contains(e.target)) setMenu(false) });
+
+      // Section tracking: highlights the sub-nav link and cross-fades the matching background
+      const links = [...sub.querySelectorAll('a')], bgs = [...document.querySelectorAll('.pa-bg')];
+      const activate = id => {
+        links.forEach(a => { const on = a.getAttribute('href') === '#' + id; a.classList.toggle('is-active', on); on ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current') });
+        bgs.forEach(b => b.classList.toggle('is-active', b.dataset.bg === id));
+      };
+      if ('IntersectionObserver' in window) {
+        const spy = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) activate(e.target.id) }), { rootMargin: '-45% 0px -50% 0px' });
+        document.querySelectorAll('.pa-section').forEach(s => spy.observe(s));
+      }
+
+      // Reveal cards as they enter the viewport, with a small stagger
+      const all = [...document.querySelectorAll('.card-container')];
+      if ('IntersectionObserver' in window) {
+        const reveal = new IntersectionObserver((es, o) => es.forEach(e => {
+          if (!e.isIntersecting) return;
+          const sibs = [...e.target.parentNode.children], t = e.target;
+          t.style.transitionDelay = ((sibs.indexOf(t) % 3) * 90) + 'ms';
+          t.classList.add('is-visible'); o.unobserve(t);
+          setTimeout(() => { t.style.transitionDelay = '' }, 1000);
+        }), { threshold: 0.12 });
+        all.forEach(c => reveal.observe(c));
+      } else all.forEach(c => c.classList.add('is-visible'));
+
+      // Gentle pointer tilt: mouse on desktop only
+      if (fine.matches && !reduced.matches) {
+        all.forEach(c => {
+          const pc = c.querySelector('.popup-card'); let raf;
+          c.addEventListener('pointermove', e => {
+            if (e.pointerType !== 'mouse') return;
+            cancelAnimationFrame(raf);
+            raf = requestAnimationFrame(() => {
+              const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+              pc.style.setProperty('--rx', (-y * 4).toFixed(2) + 'deg'); pc.style.setProperty('--ry', (x * 5).toFixed(2) + 'deg');
+            });
+          });
+          c.addEventListener('pointerleave', () => { cancelAnimationFrame(raf); pc.style.removeProperty('--rx'); pc.style.removeProperty('--ry') });
         });
-        card.addEventListener('pointerleave', () => { card.style.transform = ''; });
-      });
-    }
+      }
 
-    // Mobile/touch: tap a card to reveal its instructions. Tap again to close.
-    document.querySelectorAll('.popup-card').forEach(card => { card.addEventListener('click', event => { if (event.target.closest('.join-btn')) return; if (window.matchMedia('(max-width: 620px), (hover: none)').matches) { const wasOpen = card.classList.contains('is-open'); document.querySelectorAll('.popup-card.is-open').forEach(other => other.classList.remove('is-open')); if (!wasOpen) card.classList.add('is-open') } }) });
+      // Touch / keyboard: tap a card (or focus it and press Enter or Space) to show its instructions
+      const cards = [...document.querySelectorAll('.popup-card')];
+      document.addEventListener('click', e => {
+        const pc = e.target.closest('.popup-card');
+        cards.forEach(o => { if (o !== pc) o.classList.remove('is-open') });
+        if (pc && !e.target.closest('.join-btn') && !fine.matches) pc.classList.toggle('is-open');
+      });
+      cards.forEach(pc => {
+        pc.addEventListener('keydown', e => {
+          if (e.target === pc && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); pc.classList.toggle('is-open') }
+          if (e.key === 'Escape') pc.classList.remove('is-open');
+        });
+        pc.addEventListener('focusin', e => { if (e.target.matches(':focus-visible')) pc.classList.add('is-open') });
+        pc.addEventListener('focusout', e => { if (!pc.contains(e.relatedTarget)) pc.classList.remove('is-open') });
+      });
+    })();
+
     // Lightweight animated gold dust background.
-    (() => { const canvas = document.getElementById('particles'), ctx = canvas.getContext('2d'); let w, h, dpr, particles = []; function resize() { dpr = Math.min(window.devicePixelRatio || 1, 2); w = innerWidth; h = innerHeight; canvas.width = w * dpr; canvas.height = h * dpr; canvas.style.width = w + 'px'; canvas.style.height = h + 'px'; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); particles = Array.from({ length: Math.min(85, Math.floor(w / 15)) }, () => ({ x: Math.random() * w, y: Math.random() * h, r: Math.random() * 1.5 + .35, vx: (Math.random() - .5) * .22, vy: Math.random() * .28 + .06, a: Math.random() * .55 + .15, phase: Math.random() * 6.28 })) } function draw(t) { ctx.clearRect(0, 0, w, h); for (const p of particles) { p.x += p.vx; p.y -= p.vy; p.phase += .012; if (p.y < -5) { p.y = h + 5; p.x = Math.random() * w } if (p.x < -5) p.x = w + 5; if (p.x > w + 5) p.x = -5; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(239,206,147,${p.a * (.65 + .35 * Math.sin(p.phase))})`; ctx.fill() } requestAnimationFrame(draw) } resize(); addEventListener('resize', resize); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) requestAnimationFrame(draw) })();
+    (() => { const canvas = document.getElementById('particles'), ctx = canvas.getContext('2d'); let w, h, dpr, particles = []; function resize() { dpr = Math.min(window.devicePixelRatio || 1, 2); w = innerWidth; h = innerHeight; canvas.width = w * dpr; canvas.height = h * dpr; canvas.style.width = w + 'px'; canvas.style.height = h + 'px'; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); particles = Array.from({ length: Math.min(85, Math.floor(w / 15)) }, () => ({ x: Math.random() * w, y: Math.random() * h, r: Math.random() * 1.5 + .35, vx: (Math.random() - .5) * .22, vy: Math.random() * .28 + .06, a: Math.random() * .55 + .15, phase: Math.random() * 6.28 })) } function draw(t) { ctx.clearRect(0, 0, w, h); for (const p of particles) { p.x += p.vx; p.y -= p.vy; p.phase += .012; if (p.y < -5) { p.y = h + 5; p.x = Math.random() * w } if (p.x < -5) p.x = w + 5; if (p.x > w + 5) p.x = -5; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(239,206,147,${p.a * (.65 + .35 * Math.sin(p.phase))})`; ctx.fill() } requestAnimationFrame(draw) } resize(); (() => { let lw = innerWidth; addEventListener('resize', () => { if (innerWidth !== lw) { lw = innerWidth; resize() } }) })(); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) requestAnimationFrame(draw) })();
   </script>
 </body>
 
