@@ -1,0 +1,17 @@
+{
+  "name": "astra-2026",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=20.6" },
+  "scripts": {
+    "dev": "node --env-file=.env.local dev-server.js",
+    "seed": "node --env-file=.env.local scripts/seed.js",
+    "create-admin": "node --env-file=.env.local scripts/create-admin.js",
+    "test": "node tests/run.js"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "0.10.4",
+    "jose": "5.9.6"
+  }
+}

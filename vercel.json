@@ -1,0 +1,52 @@
+{
+  "outputDirectory": "public",
+  "rewrites": [
+    {
+      "source": "/events",
+      "destination": "/event.html"
+    },
+    {
+      "source": "/login",
+      "destination": "/login.html"
+    },
+    {
+      "source": "/register",
+      "destination": "/register.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/admin/login",
+      "destination": "/admin.html",
+      "permanent": false
+    },
+    {
+      "source": "/html/register.html",
+      "destination": "/register.html",
+      "permanent": false
+    }
+  ]
+}

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Register — ASTRA FEST 2026</title>
+
+
+<style>
+:root{--or:#e8732a;--mar:#7a1f2b;--cr:rgb(255, 255, 255);--ch:#2a2328;--ln:#e6d5bd}
+*{box-sizing:border-box}html,body{margin:0}
+body{font-family:system-ui,Segoe UI,Roboto,sans-serif;color:var(--ch);background:#2a1424;min-height:100vh;overflow-x:hidden}
+#bg{position:fixed;inset:0;z-index:-1;background:linear-gradient(#2a1a3a 0%,#7a1f2b 38%,#e8732a 72%,#ffc27a 100%);overflow:hidden}
+#bg svg{position:absolute;bottom:0;left:0;width:100%;height:45%}
+.sun{position:absolute;left:50%;bottom:22%;width:180px;height:180px;margin-left:-90px;border-radius:50%;background:radial-gradient(#ffe3a8,#ffb35c 55%,transparent 70%);opacity:.8}
+.train{animation:go 38s linear infinite}
+@keyframes go{from{transform:translateX(-300px)}to{transform:translateX(1300px)}}
+.win{animation:tw 3s ease-in-out infinite alternate}.win:nth-child(3n){animation-delay:1s}.win:nth-child(4n){animation-delay:2s}
+@keyframes tw{from{opacity:.25}to{opacity:1}}
+.par{animation:sway 24s ease-in-out infinite alternate}
+@keyframes sway{to{transform:translateX(-24px)}}
+@media(prefers-reduced-motion:reduce),(max-width:520px){.train,.win,.par{animation:none}}
+nav{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(42,35,40,.75);backdrop-filter:blur(8px);position:sticky;top:0;z-index:5}
+nav .logo{color:#ffd9a0;font-weight:800;letter-spacing:.12em;text-decoration:none}
+nav .links{display:flex;gap:6px}
+nav a.l{color:#fff;text-decoration:none;padding:10px 14px;position:relative;min-height:44px;display:flex;align-items:center}
+nav a.l:after{content:"";position:absolute;left:14px;right:14px;bottom:6px;height:2px;background:var(--or);transform:scaleX(0);transition:.25s}
+nav a.l:hover:after,nav a.l:focus-visible:after{transform:scaleX(1)}
+:focus-visible{outline:3px solid #1a6fd6;outline-offset:2px}
+header{text-align:center;color:#fff;padding:28px 16px 8px}
+h1{margin:0;font-size:clamp(1.5rem,5vw,2.6rem);letter-spacing:.06em}
+header p{margin:6px 0 0;color:#ffe3bd}.tag{font-size:.85rem;opacity:.9}
+.panel{max-width:860px;margin:16px auto 60px;padding:22px;background:rgba(255,247,234,.96);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.prog{display:flex;gap:6px;margin-bottom:18px;list-style:none;padding:0}
+.prog li{flex:1;text-align:center;font-size:.72rem;padding-top:8px;border-top:4px solid var(--ln);color:#7b6d60}
+.prog li.on{border-color:var(--or);color:var(--mar);font-weight:700}.prog li.done{border-color:var(--mar)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.card{text-align:left;background:#fff;border:2px solid var(--ln);border-radius:12px;padding:14px;cursor:pointer;font:inherit;color:inherit;min-height:44px}
+.card:hover{border-color:var(--or)}.card[aria-pressed=true]{border-color:var(--mar);background:#fff0dc}
+.card:disabled{opacity:.55;cursor:not-allowed}
+.card b{display:block;color:var(--mar)}.card small{color:#6b5d50}
+h2{color:var(--mar);margin:0 0 12px}h3{margin:18px 0 8px;color:var(--ch)}
+.sub{margin:16px 0 6px;font-weight:700;color:var(--or);text-transform:uppercase;font-size:.8rem;letter-spacing:.08em}
+.types{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.types .card{flex:1;min-width:220px;text-align:center;font-weight:700}
+.row{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(max-width:600px){.row{grid-template-columns:1fr}.prog li{font-size:0}.prog li:before{content:attr(data-n);font-size:.8rem}}
+label{display:block;font-size:.85rem;font-weight:600}label i{color:#b00020;font-style:normal}
+input,select,textarea{width:100%;padding:11px;border:1.5px solid #cdb999;border-radius:8px;font:inherit;background:#fff;margin-top:3px;min-height:44px}
+fieldset{border:1px solid var(--ln);border-radius:10px;margin:12px 0;padding:12px}legend{font-weight:700;color:var(--mar);padding:0 6px}
+.btn{padding:12px 20px;border:0;border-radius:10px;font:inherit;font-weight:700;cursor:pointer;min-height:44px}
+.pri{background:var(--mar);color:#fff}.sec{background:#eadfce;color:var(--ch)}.btn:disabled{opacity:.5;cursor:not-allowed}
+.ctl{display:flex;justify-content:space-between;gap:10px;margin-top:20px}
+.note{background:#fff0dc;border-left:4px solid var(--or);padding:10px 12px;border-radius:6px;margin:10px 0;font-size:.9rem}
+.err{background:#fde7ea;border-left:4px solid #b00020;padding:10px 12px;border-radius:6px;margin:10px 0}
+table.s{width:100%;border-collapse:collapse}table.s td{padding:6px 4px;border-bottom:1px solid var(--ln);vertical-align:top}table.s td:first-child{font-weight:700;width:38%}
+.ok{text-align:center}.rid{font-size:1.8rem;font-weight:800;color:var(--mar);letter-spacing:.08em;margin:8px 0}
+@media print{#bg,nav,header,.ctl,.noprint{display:none}body{background:#fff}.panel{box-shadow:none}}
+</style><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"></head><body>
+<div id="bg" aria-hidden="true"><div class="sun"></div>
+<svg viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax slice">
+ <g class="par" fill="#3b1626" opacity=".55"><rect x="40" y="120" width="60" height="180"/><rect x="130" y="80" width="50" height="220"/><rect x="520" y="100" width="70" height="200"/><rect x="900" y="90" width="60" height="210"/><rect x="1020" y="140" width="80" height="160"/></g>
+ <g fill="#1d0f1a"><rect x="0" y="200" width="1200" height="100"/><rect x="20" y="150" width="70" height="150"/><rect x="200" y="130" width="60" height="170"/><rect x="290" y="170" width="90" height="130"/><rect x="760" y="140" width="80" height="160"/><rect x="1110" y="120" width="70" height="180"/>
+ <path d="M410 300V190q0-50 45-50t45 50v110z"/><rect x="395" y="180" width="20" height="120"/><rect x="495" y="180" width="20" height="120"/>
+ <rect x="600" y="150" width="140" height="150"/><path d="M600 150l70-40 70 40z"/><circle cx="640" cy="120" r="10"/><circle cx="700" cy="120" r="10"/></g>
+ <g fill="#ffd27a"><rect class="win" x="30" y="170" width="6" height="8"/><rect class="win" x="55" y="190" width="6" height="8"/><rect class="win" x="215" y="150" width="6" height="8"/><rect class="win" x="240" y="180" width="6" height="8"/><rect class="win" x="310" y="190" width="6" height="8"/><rect class="win" x="775" y="160" width="6" height="8"/><rect class="win" x="805" y="200" width="6" height="8"/><rect class="win" x="620" y="190" width="6" height="8"/><rect class="win" x="700" y="200" width="6" height="8"/><rect class="win" x="1130" y="150" width="6" height="8"/><rect class="win" x="1140" y="200" width="6" height="8"/></g>
+ <g class="train"><rect x="0" y="228" width="230" height="16" rx="3" fill="#6a2a8c"/><rect x="0" y="236" width="230" height="4" fill="#fff"/><g fill="#ffe9a8"><rect x="10" y="231" width="14" height="5"/><rect x="40" y="231" width="14" height="5"/><rect x="70" y="231" width="14" height="5"/><rect x="100" y="231" width="14" height="5"/><rect x="130" y="231" width="14" height="5"/><rect x="160" y="231" width="14" height="5"/><rect x="190" y="231" width="14" height="5"/></g></g>
+</svg></div>
+
+<nav aria-label="Main"><a class="logo" id="home-logo" href="/">ASTRA FEST 2026</a>
+ <div class="links"><a class="l" id="nav-home" href="/">Home</a><a class="l" id="nav-admin" href="/admin/login">Admin</a></div></nav>
+<header><h1>REGISTER FOR ASTRA 2026</h1><p>Your stage. Your story. Your Mumbai.</p>
+<p class="tag">Mumbai Meri Jaan · Ek Shehar • Hazaar Kahaaniyan • Ek Jashn</p></header>
+
+<main class="panel" id="panel" aria-live="polite">
+ <ol class="prog" id="prog"></ol><div id="view">Loading events…</div><div id="msg"></div>
+ <div class="ctl noprint" id="ctl"><button class="btn sec" id="back">Back</button><button class="btn pri" id="next">Next</button></div>
+</main>
+
+<script>
+/* ---- Config: edit these two to match your existing routes ---- */
+const HOME_URL='/', ADMIN_URL='/admin/login', API='/api/astra';
+/* DEMO_MODE=true: nothing is sent or saved; the confirmation is a labelled preview. Set false once the backend exists. */
+const DEMO_MODE=true;
+document.getElementById('nav-home').href=HOME_URL;document.getElementById('home-logo').href=HOME_URL;document.getElementById('nav-admin').href=ADMIN_URL;
+
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const YEARS=['FY','SY','TY'];
+const STEPS=['Category','Event','Type','Details','Review'];
+const S={step:1,cat:null,ev:null,fmt:null,common:{},members:[],subs:[],extra:{},consent:false,busy:false,done:null,key:(crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random())};
+let EV=[];
+
+const bounds=()=>{const e=S.ev;if(S.fmt==='individual')return[1,1];
+ const lo=e.formats.includes('individual')?Math.max(2,e.min_size||2):e.min_size;return[lo,e.max_size]};
+const label=()=>S.ev.formats.length===2&&S.ev.max_size===2||S.ev.max_size===2&&S.fmt==='team'?'Duo / Pair':'Team';
+const msg=(t,c='err')=>{$('#msg').innerHTML=t?`<div class="${c}" role="alert">${esc(t)}</div>`:''};
+
+/* Proposed ASTRA event list: [category, subcategory, name, min, max, formats(I/T), substitutes, open]. null limits = committee not confirmed yet. */
+const RAW=[["Performing Arts","Music","Aamcha Awaaz",1,1,"I",0,1],["Performing Arts","Music","Dhun Unplugged",4,8,"T",0,1],["Performing Arts","Music","Mumbaiya Mic Drop",1,1,"I",0,1],["Performing Arts","Music","Aamche Sur, Aamchi Jodi",4,8,"T",0,1],["Performing Arts","Music","War of DJ – 90s Mehfil",1,2,"IT",0,1],["Performing Arts","Dance","Mumbai Moves",1,1,"I",0,1],["Performing Arts","Dance","Apna Beat Battle",4,12,"T",0,1],["Performing Arts","Dance","Mumbai Local – Flash Mob",10,30,"T",0,1],["Performing Arts","Dance","Mumbai Dance Adda",1,2,"IT",0,1],["Performing Arts","Dance","Ek Mumbai, Anek Chehre",4,10,"T",0,1],["Performing Arts","Drama","Ek Mumbai, Anek Chehre",1,1,"I",0,1],["Performing Arts","Drama","Galli Theatre",5,12,"T",0,1],["Performing Arts","Drama","Bolti Deewarein",8,15,"T",0,1],["Performing Arts","Drama","Mime-Bai",3,8,"T",0,1],["Performing Arts","Drama","The Last Local",15,25,"T",0,1],["Literary Arts","","Sabha Sanvad",2,2,"IT",0,0],["Literary Arts","","Yuva Vaani",1,1,"I",0,1],["Literary Arts","","Vichar Vimarsh",6,8,"T",0,1],["Literary Arts","","Mumbai Diaries",1,1,"I",0,1],["Literary Arts","","Mumbai Shayari",1,1,"I",0,1],["Literary Arts","","Mumbai Mastermind",2,3,"T",0,1],["Fine Arts","","Canvas of Mumbai",1,1,"I",0,1],["Fine Arts","","Digital Mumbai",1,1,"I",0,1],["Fine Arts","","Rang Mumbai Ke",1,2,"IT",0,1],["Fine Arts","","Mumbai Icons",1,1,"I",0,1],["Fine Arts","","Mumbai on Screen",1,1,"I",0,1],["Tech Arts","","Mumbai Through My Lens",1,1,"I",0,1],["Tech Arts","","Creator Clash: Mumbai",1,3,"IT",0,1],["Tech Arts","","Mumbai in Motion",3,8,"T",0,1],["Tech Arts","","Mumbai AdWorks",3,6,"T",0,1],["Sports","","Rink Clash (Football)",7,7,"T",3,1],["Sports","","Gully Cricket (Box Cricket)",7,7,"T",2,1],["Sports","","Paddle Pe Charcha (Table Tennis)",1,1,"I",0,1],["Sports","","Master Stroke (Chess)",1,1,"I",0,1],["Sports","","Mumbai Carrom Cup (Carrom)",1,1,"I",0,1],["Sports","","Hoop Clash (Basketball)",null,null,"T",0,0],["Sports","","Smash It Yaar (Pickleball)",1,2,"IT",0,0],["Gaming","","Mumbai Mayhem",4,4,"T",0,1],["Gaming","","Mumbai Warfare",5,5,"T",0,1],["Gaming","","Mumbai Goal",1,1,"I",0,1],["Gaming","","Mumbai Rush",1,1,"I",0,1],["Gaming","","Mumbai Royale",4,4,"T",0,1],["Fun & Games","","Local Se Landmark",3,5,"T",0,1],["Fun & Games","","Mumbai Escape",4,6,"T",0,1],["Fun & Games","","Mumbai Meri Jaan Quiz",2,4,"T",0,1],["Fun & Games","","Bambaiyya Charades",4,6,"T",0,1],["Fun & Games","","Aamchi Antakshari",4,6,"T",0,1],["Informal Events","","Mumbai Street Style",8,10,"T",0,1],["Informal Events","","Faces of Mumbai – Mr. & Ms. ASTRA",null,null,"IT",0,0],["Informal Events","","War of CL – Haar Ya Jeet",1,1,"I",0,1],["Public Relations","","Mumbai Digital Dhamaka",5,5,"T",0,1],["Public Relations","","Awaaz Mumbai Ki – PR Rally",10,15,"T",0,1]];
+const CATS=[...new Set(RAW.map(r=>r[0]))];
+const XF={Gaming:[{key:'ingame_username',label:'In-game username',type:'text',required:true}],'Tech Arts':[{key:'portfolio_url',label:'Portfolio / submission URL',type:'url',required:false}],Drama:[{key:'synopsis',label:'Performance title & short synopsis',type:'textarea',required:true}]};
+EV=RAW.map((r,i)=>({id:i+1,category:r[0],cat_sort:CATS.indexOf(r[0]),subcategory:r[1],name:r[2],min_size:r[3],max_size:r[4],formats:(r[5].includes('I')?['individual']:[]).concat(r[5].includes('T')?['team']:[]),sub_max:r[6],registration_open:!!r[7],fee:null,description:'',extra_fields:XF[r[1]]||XF[r[0]]||[]}));
+render();
+
+function render(){
+ $('#prog').innerHTML=STEPS.map((n,i)=>`<li data-n="${i+1}" class="${i+1===S.step?'on':i+1<S.step?'done':''}">${i+1}. ${n}</li>`).join('');
+ const v=$('#view');
+ if(S.done)return done(v);
+ ({1:s1,2:s2,3:s3,4:s4,5:s5})[S.step](v);
+ $('#back').style.visibility=S.step>1?'visible':'hidden';
+ $('#next').textContent=S.step===5?(S.busy?'Submitting…':'Submit registration'):'Next';
+ $('#next').disabled=S.busy;
+}
+function s1(v){const cats=[...new Map(EV.map(e=>[e.category,e.cat_sort])).entries()].sort((a,b)=>a[1]-b[1]).map(x=>x[0]);
+ v.innerHTML='<h2>Choose a category</h2><div class="grid">'+cats.map(c=>`<button class="card" data-cat="${esc(c)}" aria-pressed="${S.cat===c}"><b>${esc(c)}</b><small>${EV.filter(e=>e.category===c).length} events</small></button>`).join('')+'</div>';
+ v.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{if(S.cat!==b.dataset.cat){S.cat=b.dataset.cat;S.ev=null;S.fmt=null}S.step=2;render()})}
+function fmtText(e){const f=e.formats;const sz=e.min_size==null?'size to be confirmed':e.min_size===e.max_size?`${e.min_size}`:`${e.min_size}–${e.max_size}`;
+ return (f.length===2?'Individual or team':f[0]==='individual'?'Individual':'Team')+' · '+sz+' participant(s)'+(e.sub_max?` + up to ${e.sub_max} substitutes`:'')}
+function s2(v){const list=EV.filter(e=>e.category===S.cat);let h=`<h2>${esc(S.cat)} — choose an event</h2>`,last=null;
+ list.forEach(e=>{if(e.subcategory&&e.subcategory!==last){h+=`<div class="sub">${esc(e.subcategory)}</div>`;last=e.subcategory}
+  const open=e.registration_open&&e.min_size!=null;
+  h+=`<button class="card" style="width:100%;margin-bottom:8px" data-ev="${e.id}" ${open?'':'disabled'} aria-pressed="${S.ev&&S.ev.id===e.id}"><b>${esc(e.name)}</b><small>${esc(e.description||'')} ${esc(fmtText(e))}${e.fee>0?' · Fee ₹'+e.fee:''}${open?'':' — registration not open yet (rules awaiting committee confirmation)'}</small></button>`});
+ v.innerHTML=h;
+ v.querySelectorAll('[data-ev]').forEach(b=>b.onclick=()=>{const e=EV.find(x=>x.id==b.dataset.ev);if(!S.ev||S.ev.id!==e.id){S.ev=e;S.fmt=null;S.members=[];S.subs=[];S.extra={}}
+  if(e.formats.length===1)setFmt(e.formats[0]);S.step=3;render()})}
+function setFmt(f){S.fmt=f;const[lo,hi]=bounds();while(S.members.length<lo)S.members.push({});S.members.length=Math.min(S.members.length,hi)}
+function s3(v){const e=S.ev,both=e.formats.length===2;
+ const b=(f,t)=>{const ok=e.formats.includes(f);return `<button class="card" data-f="${f}" ${ok?'':'disabled'} aria-pressed="${S.fmt===f}">${t}</button>`};
+ v.innerHTML=`<h2>${esc(e.name)}</h2><p>${esc(fmtText(e))}</p><div class="types">${b('individual','INDIVIDUAL REGISTRATION')}${b('team','GROUP / TEAM REGISTRATION')}</div>`+
+ (both?'':`<div class="note">${e.formats[0]==='team'?'This is a team event, so individual registration is unavailable.':'This is an individual event, so team registration is unavailable.'}</div>`);
+ v.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{setFmt(b.dataset.f);render()})}
+const fld=(path,lab,type='text',req=true,extra='')=>`<label>${lab}${req?' <i>*</i>':''}<input data-p="${path}" type="${type}" ${req?'required':''} ${extra} value="${esc(get(path))}"></label>`;
+function get(p){const[a,i,k]=p.split('.');return a==='c'?S.common[i]??'':a==='x'?S.extra[i]??'':(S[a][i]||{})[k]??''}
+function set(p,v){const[a,i,k]=p.split('.');if(a==='c')S.common[i]=v;else if(a==='x')S.extra[i]=v;else(S[a][i]=S[a][i]||{})[k]=v}
+function person(arr,i,title){const p=arr+'.'+i+'.';const yr=get(p+'year');
+ return `<fieldset><legend>${title}</legend><div class="row">${fld(p+'name','Full name')}${fld(p+'email','College email','email',arr==='members'&&i===0)}${fld(p+'phone','Mobile number','tel',arr==='members'&&i===0,'inputmode="numeric" maxlength="10" pattern="[6-9][0-9]{9}"')}${fld(p+'dept','Department')}
+ <label>Course &amp; year <i>*</i><select data-p="${p}year"><option value="">Select</option>${YEARS.map(y=>`<option ${yr===y?'selected':''}>${y}</option>`).join('')}</select></label>${fld(p+'roll','Roll number / student ID')}</div>
+ ${arr==='subs'?`<button class="btn sec" data-rm="subs.${i}" type="button">Remove substitute</button>`:''}</fieldset>`}
+function s4(v){const e=S.ev,[lo,hi]=bounds(),team=S.fmt==='team';
+ let h=`<h2>${esc(e.name)} — ${team?label()+' details':'participant details'}</h2><p class="note">Fields marked * are required.</p><div class="row">`;
+ if(team)h+=fld('c.team_name','Team name');
+ h+=fld('c.college','College name')+fld('c.contingent_code','Contingent / college code',"text",false)+'</div>';
+ S.members.forEach((m,i)=>{h+=person('members',i,team?(i===0?'Team captain / leader':`Active player ${i+1}`):'Participant')});
+ if(team){h+=`<button class="btn sec" data-add="members" ${S.members.length>=hi?'disabled':''} type="button">Add member</button> <button class="btn sec" data-rm="members.last" ${S.members.length<=lo?'disabled':''} type="button">Remove member</button><small> ${S.members.length} of ${lo===hi?lo:lo+'–'+hi}</small>`;
+  if(e.sub_max){h+='<h3>Substitutes (separate from active players)</h3>';S.subs.forEach((m,i)=>h+=person('subs',i,'Substitute '+(i+1)));h+=`<button class="btn sec" data-add="subs" ${S.subs.length>=e.sub_max?'disabled':''} type="button">Add substitute</button>`}}
+ if(e.extra_fields.length){h+='<h3>Event-specific information</h3>'+e.extra_fields.map(f=>f.type==='textarea'?`<label>${esc(f.label)}${f.required?' <i>*</i>':''}<textarea data-p="x.${f.key}.">${esc(S.extra[f.key]||'')}</textarea></label>`:fld('x.'+f.key+'.',esc(f.label),f.type==='url'?'url':'text',!!f.required)).join('')}
+ h+=`<label style="margin-top:14px"><input type="checkbox" id="consent" style="width:auto;min-height:0" ${S.consent?'checked':''}> I confirm the details are correct and consent to their use for ASTRA FEST registration. <i>*</i></label>`;
+ v.innerHTML=h;
+ v.oninput=v.onchange=ev=>{const t=ev.target;if(t.dataset.p)set(t.dataset.p,t.value);if(t.id==='consent')S.consent=t.checked};
+ v.onclick=ev=>{const t=ev.target;if(t.dataset.add){S[t.dataset.add].push({});render()}if(t.dataset.rm){const[a,i]=t.dataset.rm.split('.');S[a].splice(i==='last'?S[a].length-1:+i,1);render()}}}
+function check(){const e=S.ev,[lo,hi]=bounds(),c=S.common;const bad=[];
+ if(!c.college?.trim())bad.push('college name');if(S.fmt==='team'&&!c.team_name?.trim())bad.push('team name');
+ if(S.members.length<lo||S.members.length>hi)bad.push(`team size (${lo}–${hi})`);
+ S.members.forEach((m,i)=>{const n=i+1;if(!m.name?.trim())bad.push(`member ${n} name`);if(!m.dept?.trim()||!m.year||!m.roll?.trim())bad.push(`member ${n} department/year/roll no.`);
+  if(i===0){if(!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(m.email||''))bad.push('a valid email');if(!/^[6-9]\d{9}$/.test(m.phone||''))bad.push('a 10-digit mobile number')}});
+ S.subs.forEach((m,i)=>{if(!m.name?.trim()||!m.dept?.trim()||!m.year||!m.roll?.trim())bad.push(`substitute ${i+1} details`)});
+ e.extra_fields.forEach(f=>{if(f.required&&!(S.extra[f.key]||'').trim())bad.push(f.label)});
+ if(!S.consent)bad.push('consent');return bad}
+function s5(v){const e=S.ev;
+ v.innerHTML=`<h2>Review &amp; submit</h2><table class="s"><tr><td>Category</td><td>${esc(e.category)}${e.subcategory?' · '+esc(e.subcategory):''}</td></tr><tr><td>Event</td><td>${esc(e.name)}</td></tr><tr><td>Type</td><td>${S.fmt==='team'?label():'Individual'}</td></tr>${S.fmt==='team'?`<tr><td>Team</td><td>${esc(S.common.team_name)}</td></tr>`:''}<tr><td>College</td><td>${esc(S.common.college)}</td></tr>
+ <tr><td>${S.fmt==='team'?'Players':'Participant'}</td><td>${S.members.map((m,i)=>`${esc(m.name)} (${esc(m.dept)}, ${esc(m.year)}, ${esc(m.roll)})${i===0&&S.fmt==='team'?' — captain':''}`).join('<br>')}</td></tr>
+ ${S.subs.length?`<tr><td>Substitutes</td><td>${S.subs.map(m=>esc(m.name)).join('<br>')}</td></tr>`:''}<tr><td>Contact</td><td>${esc(S.members[0].email)} · ${esc(S.members[0].phone)}</td></tr>
+ ${e.extra_fields.map(f=>`<tr><td>${esc(f.label)}</td><td>${esc(S.extra[f.key])}</td></tr>`).join('')}${e.fee>0?`<tr><td>Fee</td><td>₹${e.fee} (payment is collected by the committee; registration stays pending until paid)</td></tr>`:''}</table>`}
+function done(v){const r=S.done;$('#ctl').style.display='none';
+ v.innerHTML=`<div class="ok">${r.demo?'<div class="note">Preview only — this registration was NOT saved. The ID below is not real.</div>':''}<h2>${r.status==='waitlisted'?'You are on the waitlist':'Registration received'}</h2><p>Your registration ID</p><div class="rid">${esc(r.reg_code)}</div>
+ <table class="s"><tr><td>Event</td><td>${esc(r.event)}</td></tr><tr><td>Category</td><td>${esc(S.ev.category)}</td></tr><tr><td>${S.fmt==='team'?'Team':'Participant'}</td><td>${esc(S.fmt==='team'?S.common.team_name:S.members[0].name)}</td></tr><tr><td>Status</td><td>${esc(r.status)}</td></tr><tr><td>Payment</td><td>${esc(r.payment_status.replace('_',' '))}</td></tr></table>
+ <p class="noprint"><button class="btn pri" onclick="print()">Print confirmation</button> <a class="btn sec" style="display:inline-block;text-decoration:none" href="${esc(HOME_URL)}">Back to Home</a></p></div>`}
+
+$('#back').onclick=()=>{msg('');S.step=Math.max(1,S.step-1);render()};
+$('#next').onclick=async()=>{msg('');
+ if(S.step===1&&!S.cat)return msg('Please choose a category.');
+ if(S.step===2&&!S.ev)return msg('Please choose an event.');
+ if(S.step===3&&!S.fmt)return msg('Please choose a participation type.');
+ if(S.step===4){const b=check();if(b.length)return msg('Please complete: '+b.slice(0,6).join(', '))}
+ if(S.step<5){S.step++;return render()}
+ S.busy=true;render();
+ if(DEMO_MODE){S.busy=false;S.done={reg_code:'DEMO-'+Math.random().toString(36).slice(2,8).toUpperCase(),status:'pending',payment_status:'not_required',event:S.ev.name,demo:true};return render()}
+ try{const r=await fetch(API+'/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({event_id:S.ev.id,format:S.fmt,common:S.common,members:S.members,subs:S.subs,extra:S.extra,consent:S.consent,key:S.key})});
+  const d=await r.json();S.busy=false;
+  if(!r.ok){msg(d.error||'Submission failed.');return render()}
+  S.done=d;render()}catch(e){S.busy=false;msg('Network error. Your details are still here — please try again.');render()}};
+</script></body></html>

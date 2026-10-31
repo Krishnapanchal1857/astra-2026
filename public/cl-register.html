@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contigent leader registration — ASTRA FEST 2026</title><link rel="stylesheet" href="/css/app.css"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"></head><body>
+<nav aria-label="Main"><a class="logo" href="/" aria-label="ASTRA FEST 2026 home"><img src="/Image/astra-logo.png" alt="" style="height:58px;width:auto;display:block"></a><div class="links"><a class="l" href="/">Home</a><a class="l" href="/event.html">Events</a><a class="l" href="/register.html">Register</a><a class="l" href="/cl-login.html">Contigent leader</a></div></nav>
+<header class="top"><h1>Contigent leader REGISTRATION</h1><p>Register your college. An administrator approves each Contigent leader.</p></header>
+<main class="panel narrow" id="main">
+
+<div id="msg"></div>
+<form id="f" novalidate>
+<label>College name <i>*</i><input name="college_name" required maxlength="150" autocomplete="organization"></label>
+<div class="row"><label> full name <i>*</i><input name="full_name" required maxlength="100" autocomplete="name"></label>
+<label>Email <i>*</i><input name="email" type="email" required autocomplete="email"></label>
+<label>Mobile number <i>*</i><input name="mobile" type="tel" required inputmode="numeric" maxlength="13" autocomplete="tel"></label>
+<label>Department / course <i>*</i><input name="department" required maxlength="100"></label>
+<label>Year <i>*</i><select name="course_year" required><option value="">Select</option><option>FY</option><option>SY</option><option>TY</option></select></label>
+<label>Password <i>*</i><input name="password" type="password" required minlength="10" autocomplete="new-password"></label></div>
+<p class="note">Password: at least 10 characters with a letter and a number. Only one Contigent leader is allowed per college.</p>
+<label style="display:flex;gap:8px;align-items:flex-start"><input type="checkbox" name="consent" style="width:auto;min-height:0;margin-top:4px"> I confirm I am the designated Contigent leader and consent to my details being used for ASTRA FEST registration. <i>*</i></label>
+<p><button class="btn pri" id="go" type="submit">Register as Contigent leader</button> <a class="btn sec" href="/cl-login.html">I already have an account</a></p></form>
+</main>
+<script src="/js/api.js"></script>
+<script>
+
+$("#f").onsubmit = async (e) => {
+  e.preventDefault(); const f = e.target, m = $("#msg"), b = $("#go");
+  const d = Object.fromEntries(new FormData(f)); d.consent = f.consent.checked;
+  b.disabled = true; showMsg(m, "");
+  try { const r = await api("/api/cl/register", { method: "POST", body: d });
+    f.hidden = true; showMsg(m, r.message, "good");
+  } catch (err) { showMsg(m, err.message); b.disabled = false; }
+};
+</script></body></html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>College dashboard — ASTRA FEST 2026</title><link rel="stylesheet" href="/css/app.css"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"></head><body>
+<nav aria-label="Main"><a class="logo" href="/" aria-label="ASTRA FEST 2026 home"><img src="/Image/astra-logo.png" alt="" style="height:58px;width:auto;display:block"></a><div class="links"><a class="l" href="/">Home</a><a class="l" href="/event.html">Events</a><a class="l" href="/register.html">Register</a><a class="l" href="/cl-login.html">Contigent leader</a></div></nav>
+<header class="top"><h1>COLLEGE DASHBOARD</h1><p>Your college's students and registrations</p></header>
+<main class="panel" id="main">
+
+<div id="msg"></div><div id="app">Loading...</div>
+</main>
+<script src="/js/api.js"></script>
+<script>
+
+(async () => {
+  let d;
+  try { d = await api("/api/cl/dashboard"); } catch (e) { if (e.status === 401) return location.replace("/cl-login.html"); return showMsg($("#msg"), e.message); }
+  const link = location.origin + "/register.html?code=" + d.college.code;
+  const rows = d.registrations.map((r) => `<tr><td>${esc(r.reg_code)}</td><td>${esc(r.event_name)}<br><small>${esc(r.category)}</small></td>
+    <td>${esc(r.format)}${r.team_name ? "<br><small>" + esc(r.team_name) + "</small>" : ""}</td>
+    <td>${r.participants.map((p) => `${esc(p.full_name)} <small>(${esc(p.roll_number)}, ${esc(p.department)} ${esc(p.course_year)}${p.role === "substitute" ? ", sub" : ""})</small>`).join("<br>")}</td>
+    <td><span class="badge ${esc(r.status)}">${esc(r.status)}</span></td><td><span class="badge ${r.payment_status === "paid" ? "approved" : r.payment_status === "pending" ? "pending" : ""}">${esc(r.payment_status.replace("_", " "))}</span>${r.fee_paise ? "<br><small>₹" + r.fee_paise / 100 + "</small>" : ""}</td><td>${esc(fmtDate(r.created_at))}</td></tr>`).join("");
+  $("#app").innerHTML = `<h2>${esc(d.college.name)}</h2><p>Welcome, ${esc(d.leader.name)}.</p>
+  <div class="stats"><div class="stat"><b>${d.stats.registrations}</b>Registrations</div><div class="stat"><b>${d.stats.students}</b>Students</div></div>
+  <h3>Share with your students</h3><p>College code: <span class="code">${esc(d.college.code)}</span></p>
+  <label>Registration link<input id="lnk" readonly value="${esc(link)}"></label>
+  <p><button class="btn pri" id="cp">Copy link</button> <a class="btn sec" href="/api/cl/export">Download CSV</a> <button class="btn sec" id="out">Sign out</button></p>
+  <div id="pay"></div><details class="p"><summary>Change password</summary><form id="pw" style="max-width:360px"><label>Current password<input name="current_password" type="password" autocomplete="current-password" required></label><label>New password<input name="new_password" type="password" autocomplete="new-password" minlength="10" required></label><p><button class="btn sec" type="submit">Update password</button></p><div id="pwmsg"></div></form></details><h3>Registrations</h3>${rows ? `<div class="scroll"><table class="t"><thead><tr><th>Code</th><th>Event</th><th>Type</th><th>Students</th><th>Status</th><th>Payment</th><th>Date</th></tr></thead><tbody>${rows}</tbody></table></div>` : '<div class="note">No registrations yet. Share the link above with your students.</div>'}`;
+  loadPayments();
+  $("#pw").onsubmit = async (e) => { e.preventDefault(); const m = $("#pwmsg");
+    try { await api("/api/cl/password", { method: "POST", body: Object.fromEntries(new FormData(e.target)) }); e.target.reset(); showMsg(m, "Password updated.", "good"); } catch (err) { showMsg(m, err.message); } };
+  $("#cp").onclick = async () => { try { await navigator.clipboard.writeText(link); $("#cp").textContent = "Copied!"; } catch { $("#lnk").select(); } };
+  $("#out").onclick = async () => { await api("/api/cl/logout", { method: "POST", body: {} }); location.href = "/cl-login.html"; };
+})();
+
+const rupees = (p) => "₹" + (p / 100).toLocaleString("en-IN");
+async function loadPayments() {
+  const box = $("#pay"); let d;
+  try { d = await api("/api/cl/payments"); } catch (e) { return showMsg(box, e.message); }
+  const hist = d.history.length ? `<details class="p"><summary>Payment history (${d.history.length})</summary><div class="scroll"><table class="t"><thead><tr><th>Date</th><th>Amount</th><th>Registrations</th><th>Status</th><th>Payment ID</th></tr></thead><tbody>${d.history.map((h) => `<tr><td>${esc(fmtDate(h.created_at))}</td><td>${rupees(h.amount_paise)}</td><td>${h.registrations}</td><td><span class="badge ${h.status === "paid" ? "approved" : "pending"}">${esc(h.status)}</span></td><td>${esc(h.razorpay_payment_id || "-")}</td></tr>`).join("")}</tbody></table></div></details>` : "";
+  if (!d.payable.length) { box.innerHTML = `<h3>Payments</h3><div class="note">No payment due. Students do not pay; you pay once for your whole college here when fees apply.</div>${hist}`; return; }
+  box.innerHTML = `<h3>Payments</h3><div class="note">You pay for all your college's registrations in one payment. Students are never charged.</div>
+  <div class="scroll"><table class="t"><thead><tr><th></th><th>Code</th><th>Event</th><th>Team / format</th><th>Fee</th></tr></thead><tbody>${d.payable.map((i) => `<tr><td><input type="checkbox" class="pk" value="${esc(i.id)}" data-fee="${i.fee_paise}" checked aria-label="Pay for ${esc(i.reg_code)}" style="width:auto;min-height:0"></td><td>${esc(i.reg_code)}</td><td>${esc(i.event_name)}</td><td>${esc(i.team_name || i.format)}</td><td>${rupees(i.fee_paise)}</td></tr>`).join("")}</tbody></table></div>
+  <p><b>Total: <span id="tot"></span></b> <button class="btn ok-b" id="paybtn">Pay now</button></p><div id="paymsg"></div>${hist}`;
+  const recalc = () => { const ks = [...box.querySelectorAll(".pk:checked")]; $("#tot").textContent = rupees(ks.reduce((s, k) => s + +k.dataset.fee, 0)); $("#paybtn").disabled = !ks.length; };
+  box.onchange = recalc; recalc();
+  $("#paybtn").onclick = () => payNow(box, d);
+}
+function loadCheckout() {
+  return new Promise((ok, no) => { if (window.Razorpay) return ok(); const s = document.createElement("script");
+    s.src = "https://checkout.razorpay.com/v1/checkout.js"; s.onload = ok; s.onerror = () => no(new Error("Could not load the payment window. Check your connection.")); document.head.appendChild(s); });
+}
+async function payNow(box, d) {
+  const pm = $("#paymsg"), btn = $("#paybtn"); showMsg(pm, ""); btn.disabled = true;
+  const ids = [...box.querySelectorAll(".pk:checked")].map((k) => k.value);
+  try {
+    const o = await api("/api/cl/payments/order", { method: "POST", body: { registration_ids: ids } });   // amount is decided by the server
+    await loadCheckout();
+    new Razorpay({ key: o.key_id, order_id: o.order_id, amount: o.amount, currency: o.currency, name: "ASTRA FEST 2026", description: `${o.count} registration(s) - ${o.college}`,
+      prefill: { name: o.name, email: o.email }, theme: { color: "#7a1f2b" },
+      handler: async (resp) => { try { await api("/api/cl/payments/verify", { method: "POST", body: resp }); showMsg(pm, "Payment received. Thank you!", "good"); setTimeout(() => location.reload(), 1500); }
+        catch (e) { showMsg(pm, e.message + " If money was deducted, it will be confirmed automatically within a few minutes."); } },
+      modal: { ondismiss: () => { btn.disabled = false; } } }).open();
+  } catch (e) { showMsg(pm, e.message); btn.disabled = false; }
+}
+</script></body></html>

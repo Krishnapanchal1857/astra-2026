@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin — ASTRA FEST 2026</title><link rel="stylesheet" href="/css/app.css"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"></head><body>
+<nav aria-label="Main"><a class="logo" href="/" aria-label="ASTRA FEST 2026 home"><img src="/Image/astra-logo.png" alt="" style="height:58px;width:auto;display:block"></a><div class="links"><a class="l" href="/">Home</a><a class="l" href="/event.html">Events</a><button class="l" id="out" hidden style="background:none;border:0;cursor:pointer;font:inherit">Sign out</button></div></nav>
+<header class="top"><h1>ADMIN</h1><p>College Leaders, registrations and events</p></header>
+<main class="panel" id="main">
+<div id="msg"></div>
+<form id="login" hidden style="max-width:420px"><label>Email<input name="email" type="email" required autocomplete="username"></label>
+<label>Password<input name="password" type="password" required autocomplete="current-password"></label>
+<p><button class="btn pri" type="submit">Sign in</button></p></form>
+<div id="app" hidden>
+ <div class="tabs" role="tablist"><button data-t="cl" aria-pressed="true">College Leaders</button><button data-t="reg" aria-pressed="false">Registrations</button><button data-t="ev" aria-pressed="false">Events</button></div>
+ <div id="view"></div>
+</div></main>
+<script src="/js/api.js"></script>
+<script>
+const msg = $("#msg"); let tab = "cl", editing = null;
+async function boot() {
+  try { await api("/api/admin/me"); $("#login").hidden = true; $("#app").hidden = false; $("#out").hidden = false; show(); }
+  catch { $("#login").hidden = false; $("#app").hidden = true; $("#out").hidden = true; }
+}
+$("#login").onsubmit = async (e) => { e.preventDefault(); showMsg(msg, "");
+  try { await api("/api/admin/login", { method: "POST", body: Object.fromEntries(new FormData(e.target)) }); boot(); } catch (err) { showMsg(msg, err.message); } };
+$("#out").onclick = async () => { await api("/api/admin/logout", { method: "POST", body: {} }); boot(); };
+document.querySelectorAll(".tabs button").forEach((b) => b.onclick = () => { tab = b.dataset.t; editing = null;
+  document.querySelectorAll(".tabs button").forEach((x) => x.setAttribute("aria-pressed", x === b)); show(); });
+async function show() { showMsg(msg, ""); $("#view").textContent = "Loading..."; try { await ({ cl: viewCL, reg: viewReg, ev: viewEv })[tab](); } catch (e) { if (e.status === 401) return boot(); showMsg(msg, e.message); } }
+
+async function viewCL() {
+  const { leaders } = await api("/api/admin/cl");
+  const act = (l) => l.status === "pending" ? `<button class="btn ok-b" data-a="approve" data-id="${esc(l.id)}">Approve</button> <button class="btn bad-b" data-a="reject" data-id="${esc(l.id)}">Reject</button>`
+    : l.status === "approved" ? `<button class="btn sec" data-a="revoke" data-id="${esc(l.id)}">Revoke</button> <button class="btn sec" data-a="reset-password" data-id="${esc(l.id)}">Reset password</button>`
+    : l.status === "revoked" ? `<button class="btn ok-b" data-a="reinstate" data-id="${esc(l.id)}">Reinstate</button>` : "";
+  $("#view").innerHTML = `<h2>College Leaders</h2>` + (leaders.length ? `<div class="scroll"><table class="t"><thead><tr><th>College</th><th>Leader</th><th>Contact</th><th>Status</th><th>Students</th><th></th></tr></thead><tbody>` +
+    leaders.map((l) => `<tr><td>${esc(l.college_name)}<br><small>code ${esc(l.join_code)}</small></td><td>${esc(l.full_name)}<br><small>${esc(l.department)} ${esc(l.course_year)}</small></td>
+    <td>${esc(l.email)}<br>${esc(l.mobile)}</td><td><span class="badge ${esc(l.status)}">${esc(l.status)}</span></td><td>${l.registrations}</td><td>${act(l)}</td></tr>`).join("") + "</tbody></table></div>" : '<div class="note">No College Leaders yet.</div>');
+  $("#view").onclick = async (e) => { const b = e.target.closest("[data-a]"); if (!b) return;
+    const help = { revoke: "Revoke this College Leader? They will be signed out of access, and the college code will stop working for new student registrations. Existing registrations are kept.",
+      "reset-password": "Generate a new temporary password for this College Leader? Their old password will stop working." };
+    if (!confirm(help[b.dataset.a] || `${b.dataset.a} this College Leader?`)) return;
+    try { const r = await api(`/api/admin/cl/${b.dataset.id}/${b.dataset.a}`, { method: "POST", body: {} });
+      if (r.temporary_password) { await show(); msg.innerHTML = `<div class="good" role="alert">Temporary password: <b style="font-family:monospace;font-size:1.2em">${esc(r.temporary_password)}</b><br>Shown only once. Send it to the College Leader privately and ask them to change it after signing in.</div>`; }
+      else show(); } catch (err) { showMsg(msg, err.message); } };
+}
+async function viewReg() {
+  const { registrations } = await api("/api/admin/registrations");
+  $("#view").innerHTML = `<h2>Registrations (${registrations.length})</h2>` + (registrations.length ? `<div class="scroll"><table class="t"><thead><tr><th>Code</th><th>Event</th><th>College</th><th>People</th><th>Contact</th><th>Payment</th><th>Status</th></tr></thead><tbody>` +
+    registrations.map((r) => `<tr><td>${esc(r.reg_code)}<br><small>${esc(fmtDate(r.created_at))}</small></td><td>${esc(r.event_name)}<br><small>${esc(r.format)} ${esc(r.team_name || "")}</small></td><td>${esc(r.college_name)}</td><td>${r.people}</td>
+    <td>${esc(r.contact_email)}<br>${esc(r.contact_phone)}</td><td>${esc(r.payment_status.replace("_", " "))}</td><td><select data-id="${esc(r.id)}">${["pending", "confirmed", "waitlisted", "cancelled"].map((s) => `<option ${s === r.status ? "selected" : ""}>${s}</option>`).join("")}</select></td></tr>`).join("") + "</tbody></table></div>" : '<div class="note">No registrations yet.</div>');
+  $("#view").onchange = async (e) => { if (!e.target.dataset.id) return;
+    try { await api(`/api/admin/registrations/${e.target.dataset.id}/status`, { method: "POST", body: { status: e.target.value } }); showMsg(msg, "Status updated.", "good"); } catch (err) { showMsg(msg, err.message); show(); } };
+}
+async function viewEv() {
+  const { events } = await api("/api/admin/events");
+  if (editing !== null) return evForm(events.find((x) => x.id === editing) || {});
+  $("#view").innerHTML = `<h2>Events (${events.length})</h2><p><button class="btn pri" data-new>Add event</button></p><div class="scroll"><table class="t"><thead><tr><th>Event</th><th>Rules</th><th>Registrations</th><th>Status</th><th></th></tr></thead><tbody>` +
+    events.map((e) => `<tr><td>${esc(e.name)}<br><small>${esc(e.category)} · ${esc(e.subcategory)}</small></td><td>${e.allow_individual ? "Individual " : ""}${e.allow_team ? "Team " : ""}${e.min_team_size ?? "?"}-${e.max_team_size ?? "?"}</td><td>${e.reg_count}</td>
+    <td>${e.is_active ? esc(e.registration_status) : "inactive"}</td><td><button class="btn sec" data-edit="${e.id}">Edit</button> <button class="btn bad-b" data-del="${e.id}">Delete</button></td></tr>`).join("") + "</tbody></table></div>";
+  $("#view").onclick = async (ev) => { const t = ev.target;
+    if (t.dataset.new !== undefined) { editing = 0; return viewEv(); }
+    if (t.dataset.edit) { editing = +t.dataset.edit; return viewEv(); }
+    if (t.dataset.del && confirm("Delete this event? (Blocked if it has registrations.)")) { try { await api("/api/admin/events/" + t.dataset.del, { method: "DELETE" }); show(); } catch (err) { showMsg(msg, err.message); } } };
+}
+function evForm(e) {
+  const c = (n, v) => (v ? "checked" : "");
+  $("#view").innerHTML = `<h2>${e.id ? "Edit" : "New"} event</h2><form id="ef"><div class="row">
+  <label>Name<input name="name" required value="${esc(e.name)}"></label><label>Category<input name="category" required value="${esc(e.category)}"></label>
+  <label>Subcategory<input name="subcategory" value="${esc(e.subcategory)}"></label><label>Fee (₹)<input name="fee" type="number" min="0" value="${(e.fee_paise || 0) / 100}"></label>
+  <label>Min size<input name="min_team_size" type="number" min="1" value="${e.min_team_size ?? ""}"></label><label>Max size<input name="max_team_size" type="number" min="1" value="${e.max_team_size ?? ""}"></label>
+  <label>Max substitutes<input name="max_substitutes" type="number" min="0" value="${e.max_substitutes ?? 0}"></label><label>Capacity (blank = unlimited)<input name="capacity" type="number" min="1" value="${e.capacity ?? ""}"></label>
+  <label>Registration<select name="registration_status"><option ${e.registration_status === "open" || !e.id ? "selected" : ""}>open</option><option ${e.registration_status === "closed" ? "selected" : ""}>closed</option></select></label></div>
+  <label>Description<textarea name="description">${esc(e.description)}</textarea></label>
+  <label><input type="checkbox" name="fee_per_person" style="width:auto;min-height:0" ${c("", e.fee_per_person)}> Fee is per participant (otherwise per registration / team)</label>
+  <label><input type="checkbox" name="allow_individual" style="width:auto;min-height:0" ${c("", e.id ? e.allow_individual : true)}> Allow individual</label>
+  <label><input type="checkbox" name="allow_team" style="width:auto;min-height:0" ${c("", e.allow_team)}> Allow team</label>
+  <label><input type="checkbox" name="is_active" style="width:auto;min-height:0" ${c("", e.id ? e.is_active : true)}> Active (visible)</label>
+  <p><button class="btn pri" type="submit">Save</button> <button class="btn sec" type="button" id="cancel">Cancel</button></p></form>`;
+  $("#cancel").onclick = () => { editing = null; show(); };
+  $("#ef").onsubmit = async (ev) => { ev.preventDefault(); const f = ev.target, d = Object.fromEntries(new FormData(f));
+    for (const k of ["allow_individual", "allow_team", "is_active", "fee_per_person"]) d[k] = f[k].checked;
+    d.extra_fields = e.extra_fields || [];
+    try { await api(e.id ? "/api/admin/events/" + e.id : "/api/admin/events", { method: e.id ? "PUT" : "POST", body: d }); editing = null; show(); } catch (err) { showMsg(msg, err.message); } };
+}
+boot();
+</script></body></html>
