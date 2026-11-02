@@ -1,0 +1,1899 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>ASTRA Fest | MUMBAI MERI JAAN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Alegreya+Sans:wght@500;700&display=swap"
+    rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background: #1d0f14
+    }
+
+    /* ================= HERO ================= */
+    /* ===== ASTRA HERO — PASS 1 (desktop). All selectors prefixed .ax- ===== */
+    body {
+      font-family: 'Alegreya Sans', system-ui, sans-serif
+    }
+
+    .ax {
+      --cream: #fbe9c6;
+      --ink: #1a0b10;
+      --sun: #ffb23e;
+      --rose: #e58f8a;
+      --disp: 'Bungee', 'Impact', sans-serif;
+      color: var(--cream)
+    }
+
+    .ax * {
+      box-sizing: border-box
+    }
+
+    .ax :focus-visible {
+      outline: 3px solid var(--cream);
+      outline-offset: 3px
+    }
+
+    .ax-hero {
+      position: relative;
+      height: 100svh;
+      min-height: 640px;
+      overflow: hidden;
+      isolation: isolate;
+      background: linear-gradient(180deg, #24101a 0%, #6c2a3c 26%, #c9553b 54%, #f29a52 78%, #ffb86b 100%)
+    }
+
+    .ax-hero>* {
+      position: absolute
+    }
+
+    .ax-l {
+      inset: 0;
+      pointer-events: none;
+      translate: calc(var(--mx, 0)*var(--d, 0)*-1px) calc(var(--my, 0)*var(--d, 0)*-.5px);
+      transition: translate .8s ease-out
+    }
+
+    .ax-sun {
+      left: 60%;
+      bottom: 30%;
+      width: min(40vw, 520px);
+      aspect-ratio: 1;
+      inset: auto auto 30% 60%;
+      border-radius: 50%;
+      background: radial-gradient(circle, #fff0c0 0, #ffc968 42%, rgba(255, 170, 90, 0) 70%)
+    }
+
+    .ax-cloud {
+      height: 90px;
+      width: 36vw;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(255, 200, 170, .35), transparent 70%);
+      animation: ax-drift 90s linear infinite;
+      inset: auto
+    }
+
+    @keyframes ax-drift {
+      from {
+        translate: -40vw 0
+      }
+
+      to {
+        translate: 140vw 0
+      }
+    }
+
+    .ax svg {
+      display: block;
+      width: 100%;
+      height: 100%
+    }
+
+    .ax-sky-city {
+      inset: auto 0 22% 0;
+      height: 36%
+    }
+
+    .ax-bld {
+      inset: auto 0 12% 0;
+      height: 32%
+    }
+
+    .ax-sea {
+      inset: auto 0 12% 0;
+      height: 5%;
+      background: linear-gradient(180deg, rgba(255, 184, 107, .0), rgba(255, 184, 107, .5));
+    }
+
+    .ax-neck {
+      inset: auto 0 15% 0;
+      height: 80px
+    }
+
+    .ax-neck path {
+      fill: none;
+      stroke: #ffd98a;
+      stroke-width: 5;
+      stroke-linecap: round;
+      stroke-dasharray: .1 15;
+      filter: drop-shadow(0 0 6px #ffb23e);
+      animation: ax-tw 3.5s ease-in-out infinite alternate
+    }
+
+    @keyframes ax-tw {
+      from {
+        opacity: .5
+      }
+
+      to {
+        opacity: 1
+      }
+    }
+
+    .ax-gate {
+      inset: auto auto 15% 6%;
+      width: min(26vw, 360px);
+      height: auto;
+      aspect-ratio: 3/2.4
+    }
+
+    /* metro viaduct */
+    .ax-via {
+      inset: auto 0 24% 0;
+      height: 70px
+    }
+
+    .ax-via::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 100%;
+      background:
+        linear-gradient(#2a1219, #2a1219) 0 100%/100% 10px no-repeat,
+        repeating-linear-gradient(90deg, #2a1219 0 14px, transparent 14px 190px) 0 100%/100% 100%
+    }
+
+    .ax-via::before {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: calc(100% - 0px);
+      background: repeating-linear-gradient(90deg, #2a1219 0 14px, transparent 14px 190px);
+      clip-path: inset(10px 0 -300px)
+    }
+
+    .ax-metro {
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      width: 1000px;
+      height: 52px;
+      animation: ax-metro 26s linear infinite;
+      filter: drop-shadow(0 0 10px rgba(255, 200, 110, .35))
+    }
+
+    @keyframes ax-metro {
+      from {
+        transform: translateX(100vw)
+      }
+
+      to {
+        transform: translateX(-1100px)
+      }
+    }
+
+    /* ground + local */
+    .ax-ground {
+      inset: auto 0 0 0;
+      height: 13%;
+      background: linear-gradient(180deg, #3a1a22, #120709)
+    }
+
+    .ax-rail {
+      inset: auto 0 3%;
+      height: 10px;
+      background: linear-gradient(#0c0507, #0c0507) 0 0/100% 3px no-repeat, repeating-linear-gradient(90deg, #4b2a2f 0 6px, transparent 6px 26px) 0 5px/100% 5px no-repeat
+    }
+
+    .ax-lamp {
+      inset: auto;
+      bottom: 8%;
+      width: 4px;
+      height: 90px;
+      background: #1a0b10
+    }
+
+    .ax-lamp::after {
+      content: "";
+      position: absolute;
+      top: -6px;
+      left: -8px;
+      width: 20px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ffd98a;
+      box-shadow: 0 0 22px 8px rgba(255, 200, 110, .7);
+      animation: ax-tw 2.6s ease-in-out infinite alternate
+    }
+
+    .ax-shade {
+      inset: 0;
+      z-index: 3;
+      background: radial-gradient(ellipse 60% 45% at 50% 42%, rgba(26, 11, 16, .5), transparent 70%), linear-gradient(180deg, rgba(26, 11, 16, .45), transparent 28%)
+    }
+
+    .ax-grain {
+      inset: 0;
+      z-index: 4;
+      pointer-events: none;
+      opacity: .14;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")
+    }
+
+    .ax-dust i {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      background: #ffd98a;
+      animation: ax-up linear infinite
+    }
+
+    @keyframes ax-up {
+      to {
+        transform: translateY(-110vh)
+      }
+    }
+
+    .ax-paused * {
+      animation-play-state: paused !important
+    }
+
+    /* hero copy */
+    .ax-copy {
+      inset: 0;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 12vh 6vw 22vh;
+      gap: 1.1rem;
+      transition: opacity .2s
+    }
+
+    .ax-college {
+      font-weight: 700;
+      font-size: clamp(1rem, 1.5vw, 1.3rem);
+      letter-spacing: .14em;
+      text-shadow: 0 2px 10px #000
+    }
+
+    .ax-title {
+      margin: 0;
+      font: 400 clamp(4.2rem, 15vw, 13rem)/.9 var(--disp);
+      color: var(--cream);
+      text-shadow: .04em .05em 0 #7a1e2e, 0 0 .55em rgba(255, 178, 62, .5);
+      animation: ax-rise 1.3s cubic-bezier(.2, .8, .2, 1) both
+    }
+
+    @keyframes ax-rise {
+      from {
+        opacity: 0;
+        transform: translateY(40px) skewY(4deg);
+        filter: blur(10px)
+      }
+    }
+
+    .ax-tag {
+      margin: 0;
+      max-width: 34ch;
+      font-size: clamp(1.15rem, 2vw, 1.6rem);
+      font-weight: 500;
+      text-shadow: 0 2px 12px #000
+    }
+
+    .ax-date {
+      font-family: var(--disp);
+      font-size: clamp(.95rem, 1.4vw, 1.2rem);
+      color: var(--sun);
+      text-shadow: 0 2px 0 #000
+    }
+
+    .ax-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: .6rem
+    }
+
+    .ax-btn {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      padding: .7rem 1.7rem;
+      font: 700 1.1rem var(--body, inherit);
+      border-radius: 3px;
+      text-decoration: none;
+      transition: transform .25s, box-shadow .25s, background .3s, color .3s
+    }
+
+    .ax-btn.p {
+      background: var(--sun);
+      color: var(--ink);
+      border: 2px solid var(--sun)
+    }
+
+    .ax-btn.s {
+      color: var(--cream);
+      border: 2px solid rgba(251, 233, 198, .7);
+      background: rgba(26, 11, 16, .35);
+      backdrop-filter: blur(4px)
+    }
+
+    .ax-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, .45)
+    }
+
+    .ax-btn.p:hover {
+      background: var(--cream);
+      border-color: var(--cream)
+    }
+
+    .ax-btn.s:hover {
+      background: var(--cream);
+      color: var(--ink)
+    }
+
+    .ax-scroll {
+      inset: auto 0 3.5% 0;
+      z-index: 5;
+      text-align: center;
+      font-weight: 700;
+      letter-spacing: .2em;
+      font-size: .8rem;
+      text-shadow: 0 2px 8px #000;
+      pointer-events: none
+    }
+
+    .ax-scroll::after {
+      content: "";
+      display: block;
+      width: 2px;
+      height: 38px;
+      margin: .5rem auto 0;
+      background: var(--cream);
+      transform-origin: top;
+      animation: ax-line 2s ease-in-out infinite
+    }
+
+    @keyframes ax-line {
+      0% {
+        transform: scaleY(0)
+      }
+
+      60% {
+        transform: scaleY(1)
+      }
+
+      100% {
+        transform: scaleY(1);
+        opacity: 0
+      }
+    }
+
+    /* top nav: chamfered glass strip */
+    .ax-nav {
+      position: fixed;
+      top: 14px;
+      left: 50%;
+      translate: -50% 0;
+      z-index: 50;
+      width: min(640px, calc(100% - 340px));
+      clip-path: polygon(0 0, 100% 0, 100% 58%, 97% 100%, 3% 100%, 0 58%);
+      padding: 2px;
+      background: linear-gradient(180deg, #e9d3a8, #7d5a4a)
+    }
+
+    .ax-nav ul {
+      margin: 0;
+      padding: 0 2rem;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 56px;
+      clip-path: polygon(0 0, 100% 0, 100% 58%, 97% 100%, 3% 100%, 0 58%);
+      background: rgba(26, 11, 16, .78);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px)
+    }
+
+    .ax-nav a {
+      position: relative;
+      display: block;
+      padding: .9rem .4rem;
+      color: var(--cream);
+      text-decoration: none;
+      font: 700 .86rem var(--body, inherit);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      white-space: nowrap
+    }
+
+    .ax-nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: .45rem;
+      height: 2px;
+      background: var(--sun);
+      box-shadow: 0 0 10px var(--sun);
+      transform: scaleX(0);
+      transition: transform .35s cubic-bezier(.2, .7, .2, 1)
+    }
+
+    .ax-nav a:hover::after,
+    .ax-nav a[aria-current]::after {
+      transform: scaleX(1)
+    }
+
+    .ax-nav a:hover {
+      color: var(--sun)
+    }
+
+    .ax-logo {
+      position: fixed;
+      top: 14px;
+      left: 26px;
+      z-index: 51;
+      font: 400 1.9rem var(--disp);
+      color: var(--cream);
+      text-decoration: none;
+      text-shadow: .07em .07em 0 #7a1e2e;
+      min-height: 44px
+    }
+
+    /* ================= EVENT CATEGORIES ================= */
+    /* =====================================================================
+   ASTRA — EVENT CATEGORIES (self-contained).
+   To drop into your existing site: copy the <style> block, the
+   <section id="events-categories"> block and the <script> block.
+   Every selector is prefixed .ae- so nothing else on the page is touched.
+   ===================================================================== */
+    .ae {
+      --cream: #fbe9c6;
+      --ink: #1a0b10;
+      --sun: #ffb23e;
+      --pink: #e58f8a;
+      --accent: #ffb23e;
+      --display: 'Bungee', 'Impact', sans-serif;
+      --body: 'Alegreya Sans', system-ui, sans-serif;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      padding: 14vh 5vw 18vh;
+      color: var(--cream);
+      font-family: var(--body);
+      background: linear-gradient(180deg, #24101a 0%, #6c2a3c 24%, #c9553b 52%, #f29a52 76%, #2b1514 100%);
+      background-size: 100% 160%;
+      animation: ae-sky 24s ease-in-out infinite alternate
+    }
+
+    .ae * {
+      box-sizing: border-box
+    }
+
+    @keyframes ae-sky {
+      to {
+        background-position: 0 100%
+      }
+    }
+
+    .ae :focus-visible {
+      outline: 3px solid var(--cream);
+      outline-offset: 3px
+    }
+
+    /* ---------- Mumbai atmosphere ---------- */
+    .ae-bg {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      overflow: hidden
+    }
+
+    .ae-bg>* {
+      position: absolute;
+      will-change: translate
+    }
+
+    .ae-sun {
+      left: 62%;
+      bottom: 18%;
+      width: min(38vw, 460px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: radial-gradient(circle, #fff0c0 0, #ffc968 45%, rgba(255, 170, 90, 0) 70%);
+      filter: blur(2px)
+    }
+
+    .ae-city {
+      left: -2%;
+      width: 104%;
+      bottom: 0
+    }
+
+    .ae-city.far {
+      height: 34%;
+      opacity: .5
+    }
+
+    .ae-city.near {
+      height: 24%
+    }
+
+    .ae-neck {
+      left: 0;
+      width: 100%;
+      bottom: 8%;
+      height: 90px;
+      overflow: visible
+    }
+
+    .ae-neck path {
+      fill: none;
+      stroke: #ffd98a;
+      stroke-width: 5;
+      stroke-linecap: round;
+      stroke-dasharray: .1 15;
+      filter: drop-shadow(0 0 6px #ffb23e);
+      animation: ae-twinkle 4s ease-in-out infinite alternate
+    }
+
+    @keyframes ae-twinkle {
+      from {
+        opacity: .55
+      }
+
+      to {
+        opacity: 1
+      }
+    }
+
+    .ae-train {
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 16px;
+      background: repeating-linear-gradient(90deg, #120709 0 54px, #120709 54px 60px), #120709;
+      opacity: .9
+    }
+
+    .ae-train::after {
+      content: "";
+      position: absolute;
+      inset: 4px 0;
+      background: repeating-linear-gradient(90deg, rgba(255, 200, 110, .85) 0 18px, transparent 18px 60px);
+      animation: ae-rail 18s linear infinite
+    }
+
+    @keyframes ae-rail {
+      to {
+        background-position: -600px 0
+      }
+    }
+
+    .ae-grain {
+      inset: 0;
+      opacity: .16;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")
+    }
+
+    .ae-dust i {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: #ffd98a;
+      opacity: .5;
+      animation: ae-float linear infinite
+    }
+
+    @keyframes ae-float {
+      from {
+        transform: translateY(0)
+      }
+
+      to {
+        transform: translateY(-110vh)
+      }
+    }
+
+    /* ---------- Heading ---------- */
+    .ae-title {
+      position: relative;
+      margin: 0 auto 9vh;
+      max-width: 1400px;
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(2.8rem, 10.5vw, 9rem);
+      line-height: .95;
+      text-align: center;
+      color: var(--cream);
+      text-shadow: .04em .05em 0 #7a1e2e, 0 0 .6em rgba(255, 178, 62, .45)
+    }
+
+    .ae-title .w {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: top;
+      padding: 0 .1em .12em
+    }
+
+    .ae-title .w>span {
+      display: inline-block;
+      transform: translateY(115%) skewY(6deg);
+      transition: transform 1s cubic-bezier(.2, .8, .2, 1)
+    }
+
+    .ae-title .w:nth-child(2)>span {
+      transition-delay: .18s
+    }
+
+    .ae.in .ae-title .w>span {
+      transform: none
+    }
+
+    /* ---------- Grid ---------- */
+    .ae-grid {
+      position: relative;
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: clamp(1rem, 2vw, 1.8rem);
+      perspective: 1400px
+    }
+
+    @media (max-width:1100px) {
+      .ae-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+    }
+
+    @media (max-width:600px) {
+      .ae-grid {
+        grid-template-columns: 1fr
+      }
+
+      .ae {
+        padding: 11vh 5vw 14vh
+      }
+    }
+
+    /* ---------- Card ---------- */
+    .ae-card {
+      --rx: 0deg;
+      --ry: 0deg;
+      --s: 1;
+      --px: 0;
+      --py: 0;
+      --d: calc(var(--i)*90ms + 250ms);
+      position: relative;
+      min-height: clamp(340px, 34vw, 440px);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+      border-radius: 6px;
+      border: 2px solid rgba(251, 233, 198, .28);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, .4);
+      transform: rotateX(var(--rx)) rotateY(var(--ry)) scale(var(--s));
+      opacity: 0;
+      translate: 0 60px;
+      transition: transform .4s ease-out, opacity .9s var(--d), translate .9s var(--d) cubic-bezier(.2, .7, .2, 1), box-shadow .5s, border-color .5s, background-position .8s
+    }
+
+    .ae.in .ae-card {
+      opacity: 1;
+      translate: 0 0
+    }
+
+    .ae-card:hover,
+    .ae-card:focus-within,
+    .ae-card.is-active {
+      --s: 1.035;
+      border-color: var(--accent);
+      box-shadow: 0 26px 60px rgba(0, 0, 0, .55), 0 0 38px color-mix(in srgb, var(--accent) 55%, transparent);
+      background-position: 100% 100%
+    }
+
+    .ae-art,
+    .ae-fx {
+      position: absolute;
+      inset: 0;
+      pointer-events: none
+    }
+
+    .ae-art i {
+      position: absolute;
+      inset: -6%;
+      transition: translate .3s ease-out
+    }
+
+    .ae-art .a1 {
+      translate: calc(var(--px)*-10px) calc(var(--py)*-10px)
+    }
+
+    .ae-art .a2 {
+      translate: calc(var(--px)*18px) calc(var(--py)*18px)
+    }
+
+    .ae-fx b {
+      position: absolute;
+      width: 7px;
+      height: 7px;
+      background: var(--accent);
+      animation: ae-pop 1.2s steps(6) forwards
+    }
+
+    @keyframes ae-pop {
+      to {
+        transform: translate(var(--dx), -70px);
+        opacity: 0
+      }
+    }
+
+    .ae-body {
+      position: relative;
+      margin: 0;
+      padding: 1.2rem 1.2rem 1.3rem;
+      background: linear-gradient(180deg, rgba(26, 11, 16, .35), rgba(26, 11, 16, .82));
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border-top: 1px solid rgba(251, 233, 198, .22)
+    }
+
+    .ae-body h3 {
+      margin: 0 0 1rem;
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(1.25rem, 2vw, 1.6rem);
+      line-height: 1.1;
+      color: var(--cream);
+      text-shadow: 0 2px 0 rgba(0, 0, 0, .5);
+      transition: transform .4s, letter-spacing .4s, color .3s
+    }
+
+    .ae-card:hover h3,
+    .ae-card:focus-within h3,
+    .ae-card.is-active h3 {
+      transform: translateY(-4px);
+      letter-spacing: .03em;
+      color: var(--accent)
+    }
+
+    .ae-btns {
+      display: flex;
+      gap: .6rem;
+      flex-wrap: wrap
+    }
+
+    .ae-btn {
+      flex: 1 1 auto;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      padding: .55rem 1rem;
+      font: 700 1rem/1 var(--body);
+      letter-spacing: .02em;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: transform .25s, background .25s, color .25s, box-shadow .25s, border-color .25s
+    }
+
+    .ae-btn svg {
+      width: 16px;
+      height: 16px;
+      transition: transform .25s
+    }
+
+    .ae-explore {
+      background: var(--accent);
+      color: var(--ink);
+      border: 2px solid var(--accent)
+    }
+
+    .ae-explore:hover,
+    .ae-explore:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, .4)
+    }
+
+    .ae-explore:hover svg,
+    .ae-explore:focus-visible svg {
+      transform: translateX(5px)
+    }
+
+    .ae-btn:active {
+      transform: translateY(0) scale(.97)
+    }
+
+    /* ---------- Per-card identities (decorative only) ---------- */
+    /* PERFORMING ARTS: stage light + curtains */
+    .c-perf {
+      --accent: #ffd36a;
+      background: radial-gradient(ellipse at 50% 0, #ffe39a 0, #5a1522 55%, #220a10 100%) 0 0/100% 160%
+    }
+
+    .c-perf .a1 {
+      background: repeating-linear-gradient(90deg, rgba(0, 0, 0, .28) 0 6px, transparent 6px 22px), linear-gradient(90deg, #9b1b2c 0 20%, transparent 20% 80%, #9b1b2c 80%)
+    }
+
+    .c-perf .a2 {
+      background: radial-gradient(ellipse 34% 62% at 50% 0, rgba(255, 240, 190, .75), transparent)
+    }
+
+    /* LITERARY ARTS: manuscript lines + letters */
+    .c-lit {
+      --accent: #f3d9a0;
+      background: linear-gradient(160deg, #4a3224, #2a1a14) 0 0/160% 160%
+    }
+
+    .c-lit .a1 {
+      background: repeating-linear-gradient(180deg, transparent 0 26px, rgba(243, 217, 160, .18) 26px 27px)
+    }
+
+    .c-lit .a2::before {
+      content: "Aa";
+      position: absolute;
+      right: 12%;
+      top: 12%;
+      font: italic 700 9rem/1 'Georgia', serif;
+      color: rgba(243, 217, 160, .16)
+    }
+
+    .c-lit .a2::after {
+      content: "&";
+      position: absolute;
+      left: 10%;
+      top: 34%;
+      font: italic 700 4.5rem/1 'Georgia', serif;
+      color: rgba(243, 217, 160, .13)
+    }
+
+    /* FINE ARTS: paint shapes */
+    .c-fine {
+      --accent: #ff7a59;
+      background: linear-gradient(150deg, #f4e1c1, #d9a48a) 0 0/160% 160%
+    }
+
+    .c-fine .a1 {
+      background: radial-gradient(circle at 25% 30%, #d6453d 0 18%, transparent 19%), radial-gradient(circle at 72% 22%, #2f6f8f 0 14%, transparent 15%), radial-gradient(circle at 60% 60%, #f0b43f 0 20%, transparent 21%)
+    }
+
+    .c-fine .a2 {
+      background: conic-gradient(from 200deg at 30% 70%, rgba(26, 11, 16, .35), transparent 25%, rgba(214, 69, 61, .4) 40%, transparent 60%)
+    }
+
+    /* TECH ARTS: circuit grid */
+    .c-tech {
+      --accent: #4ee1ff;
+      background: linear-gradient(160deg, #0a1a2b, #12253d) 0 0/160% 160%
+    }
+
+    .c-tech .a1 {
+      background: linear-gradient(rgba(78, 225, 255, .18) 1px, transparent 1px) 0 0/32px 32px, linear-gradient(90deg, rgba(78, 225, 255, .18) 1px, transparent 1px) 0 0/32px 32px
+    }
+
+    .c-tech .a2 {
+      background: linear-gradient(#4ee1ff, #4ee1ff) 20% 30%/90px 2px no-repeat, linear-gradient(#4ee1ff, #4ee1ff) 20% 30%/2px 60px no-repeat, linear-gradient(#4ee1ff, #4ee1ff) 70% 52%/70px 2px no-repeat, radial-gradient(circle, #4ee1ff 0 4px, transparent 5px) 20% 52%/100% 100% no-repeat, radial-gradient(circle, #4ee1ff 0 4px, transparent 5px) 74% 52%/100% 100% no-repeat;
+      opacity: .7
+    }
+
+    /* SPORTS: stadium lights + diagonals */
+    .c-sport {
+      --accent: #ffe15a;
+      background: linear-gradient(170deg, #15361f, #0b1d12) 0 0/160% 160%
+    }
+
+    .c-sport .a1 {
+      background: repeating-linear-gradient(115deg, rgba(255, 255, 255, .1) 0 14px, transparent 14px 44px)
+    }
+
+    .c-sport .a2 {
+      background: radial-gradient(circle at 15% 8%, rgba(255, 250, 200, .85) 0 3%, transparent 12%), radial-gradient(circle at 85% 8%, rgba(255, 250, 200, .85) 0 3%, transparent 12%), linear-gradient(115deg, transparent 55%, rgba(255, 225, 90, .35) 56% 60%, transparent 61%)
+    }
+
+    /* GAMING: retro pixels + neon */
+    .c-game {
+      --accent: #ff4fd8;
+      background: linear-gradient(160deg, #1a0b3a, #2a0f4d) 0 0/160% 160%
+    }
+
+    .c-game .a1 {
+      background: conic-gradient(rgba(255, 79, 216, .14) 25%, transparent 0 50%, rgba(78, 225, 255, .14) 0 75%, transparent 0) 0 0/28px 28px
+    }
+
+    .c-game .a2 {
+      background: linear-gradient(#4ee1ff, #4ee1ff) 18% 24%/28px 28px no-repeat, linear-gradient(#ff4fd8, #ff4fd8) 70% 40%/28px 28px no-repeat, linear-gradient(#ffe15a, #ffe15a) 40% 62%/14px 14px no-repeat;
+      filter: drop-shadow(0 0 8px currentColor);
+      color: #ff4fd8
+    }
+
+    /* FUN & GAMES: playful shapes */
+    .c-fun {
+      --accent: #ffcf4a;
+      background: linear-gradient(150deg, #f58f4a, #d9484f) 0 0/160% 160%
+    }
+
+    .c-fun .a1 {
+      background: radial-gradient(circle at 22% 28%, #ffe9a8 0 12%, transparent 13%), radial-gradient(circle at 78% 62%, #2f9d9a 0 15%, transparent 16%), linear-gradient(45deg, transparent 46%, #fbe9c6 47% 53%, transparent 54%) 60% 18%/60px 60px no-repeat
+    }
+
+    .c-fun .a2 {
+      background: conic-gradient(from 0deg at 30% 78%, #1a0b10 0 25%, transparent 0) 0 0/100% 100% no-repeat;
+      opacity: .35;
+      clip-path: polygon(0 100%, 30% 55%, 60% 100%)
+    }
+
+    .c-fun .a2::after {
+      content: "";
+      position: absolute;
+      right: 14%;
+      top: 44%;
+      width: 64px;
+      height: 64px;
+      border: 8px solid #fbe9c6;
+      border-radius: 50%;
+      animation: ae-bounce 2.6s ease-in-out infinite
+    }
+
+    @keyframes ae-bounce {
+      50% {
+        transform: translateY(-14px)
+      }
+    }
+
+    /* INFORMAL EVENTS: street + bunting */
+    .c-info {
+      --accent: #ffb23e;
+      background: linear-gradient(180deg, #f7b25a, #c9553b 70%, #5a1f2c) 0 0/160% 160%
+    }
+
+    .c-info .a1 {
+      background: linear-gradient(#1a0b10, #1a0b10) 0 100%/100% 28% no-repeat, linear-gradient(#1a0b10, #1a0b10) 10% 100%/16% 52% no-repeat, linear-gradient(#1a0b10, #1a0b10) 34% 100%/12% 40% no-repeat, linear-gradient(#1a0b10, #1a0b10) 62% 100%/18% 58% no-repeat, linear-gradient(#1a0b10, #1a0b10) 86% 100%/12% 44% no-repeat;
+      opacity: .7
+    }
+
+    .c-info .a2 {
+      background: repeating-linear-gradient(90deg, #e58f8a 0 22px, #fbe9c6 22px 44px, #ffb23e 44px 66px) 0 18%/100% 22px no-repeat;
+      clip-path: polygon(0 0, 100% 0, 100% 40%, 95% 100%, 90% 40%, 85% 100%, 80% 40%, 75% 100%, 70% 40%, 65% 100%, 60% 40%, 55% 100%, 50% 40%, 45% 100%, 40% 40%, 35% 100%, 30% 40%, 25% 100%, 20% 40%, 15% 100%, 10% 40%, 5% 100%, 0 40%)
+    }
+
+
+    /* ---------- Extra hover layer ---------- */
+    .ae-btns {
+      display: block
+    }
+
+    .ae-explore {
+      width: 100%;
+      background: linear-gradient(90deg, var(--cream) 50%, var(--accent) 50%) 100% 0/200% 100%;
+      transition: background-position .45s cubic-bezier(.2, .7, .2, 1), transform .25s, box-shadow .25s, translate .2s
+    }
+
+    .ae-explore:hover,
+    .ae-explore:focus-visible {
+      background-position: 0 0
+    }
+
+    .ae-art i {
+      transition: translate .3s ease-out, scale .9s cubic-bezier(.2, .7, .2, 1), rotate .9s
+    }
+
+    .ae-card:hover .a1,
+    .ae-card:focus-within .a1,
+    .ae-card.is-active .a1 {
+      scale: 1.1;
+      rotate: -1.5deg
+    }
+
+    .ae-card:hover .a2,
+    .ae-card:focus-within .a2,
+    .ae-card.is-active .a2 {
+      scale: 1.16;
+      rotate: 2deg
+    }
+
+    /* diagonal light sweep */
+    .ae-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, .35) 50%, transparent 65%) 160% 0/250% 100% no-repeat;
+      transition: background-position 1s cubic-bezier(.2, .7, .2, 1)
+    }
+
+    .ae-card:hover::before,
+    .ae-card.is-active::before {
+      background-position: -60% 0
+    }
+
+    /* cursor spotlight */
+    .ae-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      mix-blend-mode: soft-light;
+      opacity: 0;
+      transition: opacity .35s;
+      background: radial-gradient(circle 170px at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, .7), transparent 70%)
+    }
+
+    .ae-card:hover::after {
+      opacity: 1
+    }
+
+    /* accent line draws across the panel */
+    .ae-body::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: -2px;
+      height: 3px;
+      width: 0;
+      background: var(--accent);
+      transition: width .6s cubic-bezier(.2, .7, .2, 1);
+      box-shadow: 0 0 12px var(--accent)
+    }
+
+    .ae-card:hover .ae-body::before,
+    .ae-card:focus-within .ae-body::before,
+    .ae-card.is-active .ae-body::before {
+      width: 100%
+    }
+
+    /* focus the hovered card, ease the others back */
+    .ae-grid:has(.ae-card:hover) .ae-card:not(:hover) {
+      --s: .965;
+      filter: saturate(.55) brightness(.78)
+    }
+
+    .ae-card {
+      transition: transform .4s ease-out, opacity .9s var(--d), translate .9s var(--d) cubic-bezier(.2, .7, .2, 1), box-shadow .5s, border-color .5s, background-position .8s, filter .5s
+    }
+
+    .ae-card:hover .ae-fx {
+      opacity: 1
+    }
+
+    /* heading: each word reacts */
+    .ae.in .ae-title .w>span {
+      transition: transform 1s cubic-bezier(.2, .8, .2, 1), color .3s, text-shadow .3s
+    }
+
+    .ae.in .ae-title .w:hover>span {
+      transform: translateY(-4%) skewX(-7deg);
+      color: var(--sun);
+      text-shadow: .05em .06em 0 #7a1e2e, 0 0 .5em rgba(255, 178, 62, .9)
+    }
+
+    /* skyline responds to the pointer */
+    .ae-sun {
+      transform: translate(var(--sx, 0px), var(--sy, 0px));
+      transition: transform .8s ease-out
+    }
+
+    .ae-city.far {
+      transform: translateX(calc(var(--mxs, 0)*-14px));
+      transition: transform .8s ease-out
+    }
+
+    .ae-city.near {
+      transform: translateX(calc(var(--mxs, 0)*-32px));
+      transition: transform .8s ease-out
+    }
+
+    /* ---------- Reduced / low-power ---------- */
+    @media (max-width:700px),
+    (pointer:coarse) {
+
+      .ae-dust,
+      .ae-city.far {
+        display: none
+      }
+
+      .ae-card {
+        --s: 1
+      }
+
+      .ae-card.is-active {
+        --s: 1.02
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+
+      .ae,
+      .ae *,
+      .ae *::before,
+      .ae *::after {
+        animation: none !important;
+        transition-duration: .01ms !important;
+        transition-delay: 0s !important
+      }
+
+      .ae-card {
+        opacity: 1;
+        translate: none
+      }
+
+      .ae-title .w>span {
+        transform: none
+      }
+    }
+
+
+    /* ===== SINGLE-PAGE ADDITIONS ===== */
+    html {
+      scroll-behavior: smooth
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      html {
+        scroll-behavior: auto
+      }
+    }
+
+    .ax-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      z-index: 60;
+      transform-origin: 0 50%;
+      transform: scaleX(var(--p, 0));
+      background: linear-gradient(90deg, #ffb23e, #e58f8a);
+      box-shadow: 0 0 10px rgba(255, 178, 62, .7);
+      pointer-events: none
+    }
+
+    .ax-nav {
+      transition: top .3s
+    }
+
+    .ax-nav ul {
+      transition: background .3s
+    }
+
+    .ax-nav.sc {
+      top: 8px
+    }
+
+    .ax-nav.sc ul {
+      background: rgba(26, 11, 16, .92)
+    }
+
+    .ax-nav a.cta {
+      background: var(--sun);
+      color: var(--ink);
+      padding: .6rem 1.1rem;
+      border-radius: 3px;
+      transition: background .25s, transform .25s, box-shadow .25s
+    }
+
+    .ax-nav a.cta::after {
+      display: none
+    }
+
+    .ax-nav a.cta:hover {
+      background: var(--cream);
+      color: var(--ink);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, .4)
+    }
+
+    .ax-nav a.cta[aria-current] {
+      box-shadow: 0 0 0 2px var(--cream) inset
+    }
+
+    @media (max-width:760px) {
+      .ax-logo {
+        display: none
+      }
+
+      .ax-nav {
+        width: calc(100% - 20px);
+        top: 10px
+      }
+
+      .ax-nav.sc {
+        top: 6px
+      }
+
+      .ax-nav ul {
+        padding: 0 .7rem
+      }
+
+      .ax-nav a {
+        font-size: .72rem;
+        letter-spacing: .05em;
+        padding: .9rem .2rem
+      }
+
+      .ax-nav a.cta {
+        padding: .55rem .7rem
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+
+      .ax *,
+      .ax *::before,
+      .ax *::after {
+        animation: none !important;
+        transition-duration: .01ms !important
+      }
+
+      .ax-metro {
+        transform: translateX(30vw)
+      }
+    }
+
+    /* ===== ABOUT / ADMIN / REGISTER sections (.as-) ===== */
+    .as {
+      --cream: #fbe9c6;
+      --ink: #1a0b10;
+      --sun: #ffb23e;
+      --display: 'Bungee', 'Impact', sans-serif;
+      --body: 'Alegreya Sans', system-ui, sans-serif;
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      min-height: 100svh;
+      padding: 17vh 5vw 14vh;
+      color: var(--cream);
+      font-family: var(--body)
+    }
+
+    .as * {
+      box-sizing: border-box
+    }
+
+    .as :focus-visible {
+      outline: 3px solid var(--cream);
+      outline-offset: 3px
+    }
+
+    #about {
+      background: linear-gradient(180deg, #2b1514 0%, #3d1b27 60%, #24101a 100%)
+    }
+
+    #admin {
+      background: linear-gradient(180deg, #24101a 0%, #1d0f14 100%)
+    }
+
+    #register {
+      background: linear-gradient(180deg, #1d0f14 0%, #4a1f2c 55%, #8a3a3a 100%)
+    }
+
+    .as::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 8%;
+      right: 8%;
+      height: 4px;
+      background: repeating-linear-gradient(90deg, #ffd98a 0 3px, transparent 3px 16px);
+      filter: drop-shadow(0 0 6px #ffb23e);
+      opacity: .7;
+      animation: as-tw 4s ease-in-out infinite alternate
+    }
+
+    @keyframes as-tw {
+      from {
+        opacity: .4
+      }
+
+      to {
+        opacity: .9
+      }
+    }
+
+    .as-bg {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      overflow: hidden
+    }
+
+    .as-sun {
+      position: absolute;
+      width: min(42vw, 480px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 240, 192, .55) 0, rgba(255, 201, 104, .2) 45%, transparent 70%);
+      animation: as-float 14s ease-in-out infinite alternate
+    }
+
+    @keyframes as-float {
+      to {
+        transform: translate(-4vw, 3vh)
+      }
+    }
+
+    .as-grain {
+      position: absolute;
+      inset: 0;
+      opacity: .14;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")
+    }
+
+    .as-title {
+      position: relative;
+      margin: 0 auto 7vh;
+      max-width: 1400px;
+      font: 400 clamp(2.8rem, 10vw, 8rem)/.95 var(--display);
+      text-align: center;
+      color: var(--cream);
+      text-shadow: .04em .05em 0 #7a1e2e, 0 0 .6em rgba(255, 178, 62, .45)
+    }
+
+    .as-title .w {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: top;
+      padding: 0 .1em .12em
+    }
+
+    .as-title .w>span {
+      display: inline-block;
+      transform: translateY(115%) skewY(6deg);
+      transition: transform 1s cubic-bezier(.2, .8, .2, 1), color .3s, text-shadow .3s
+    }
+
+    .as.in .as-title .w>span {
+      transform: none
+    }
+
+    .as.in .as-title .w:hover>span {
+      transform: translateY(-4%) skewX(-7deg);
+      color: var(--sun);
+      text-shadow: .05em .06em 0 #7a1e2e, 0 0 .5em rgba(255, 178, 62, .9)
+    }
+
+    .as-slot {
+      position: relative;
+      max-width: 1100px;
+      min-height: 280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      border: 2px dashed rgba(251, 233, 198, .35);
+      border-radius: 6px;
+      background: rgba(26, 11, 16, .45);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      font-size: 1.2rem;
+      letter-spacing: .02em;
+      opacity: 0;
+      translate: 0 50px;
+      transition: opacity .9s .25s, translate .9s .25s cubic-bezier(.2, .7, .2, 1), border-color .4s, box-shadow .4s
+    }
+
+    .as.in .as-slot {
+      opacity: 1;
+      translate: 0 0
+    }
+
+    .as-slot:hover {
+      border-color: var(--sun);
+      box-shadow: 0 0 34px rgba(255, 178, 62, .35)
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+
+      .as *,
+      .as::before {
+        animation: none !important;
+        transition-duration: .01ms !important;
+        transition-delay: 0s !important
+      }
+
+      .as-title .w>span {
+        transform: none
+      }
+
+      .as-slot {
+        opacity: 1;
+        translate: none
+      }
+    }
+  </style>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"></head>
+
+<body>
+  <div id="home">
+    <div class="ax">
+      <a class="ax-logo" href="#home" aria-label="ASTRA home">ASTRA</a>
+      <div class="ax-progress" id="axBar" aria-hidden="true"></div>
+      <nav class="ax-nav" aria-label="Main">
+        <ul id="axLinks"></ul>
+      </nav>
+
+      <header class="ax-hero" id="top">
+        <div class="ax-l" style="--d:6">
+          <div class="ax-sun" style="position:absolute"></div>
+        </div>
+        <div class="ax-l" style="--d:3" aria-hidden="true">
+          <div class="ax-cloud" style="top:12%;position:absolute"></div>
+          <div class="ax-cloud"
+            style="top:24%;animation-duration:130s;animation-delay:-60s;position:absolute;width:28vw"></div>
+        </div>
+        <div class="ax-l ax-sky-city" style="--d:10" id="axFar" aria-hidden="true"></div>
+        <div class="ax-l ax-bld" style="--d:22" id="axNear" aria-hidden="true"></div>
+        <div class="ax-sea" aria-hidden="true"></div>
+        <svg class="ax-neck" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M-20 70Q600-30 1220 70" />
+        </svg>
+        <!-- Gateway of India-inspired silhouette -->
+        <svg class="ax-gate" viewBox="0 0 300 240" aria-hidden="true">
+          <g fill="#1a0b10">
+            <path d="M20 240V110h260v130h-70V150a60 60 0 0 0-120 0v90z" />
+            <rect x="10" y="96" width="280" height="20" />
+            <path d="M150 40l-8 14h16zM150 54a34 34 0 0 0-34 34v10h68V88a34 34 0 0 0-34-34z" />
+            <rect x="14" y="60" width="26" height="40" />
+            <rect x="260" y="60" width="26" height="40" />
+            <path d="M27 40l-14 20h28zM273 40l-14 20h28z" />
+            <rect x="100" y="98" width="100" height="14" />
+          </g>
+          <g fill="#ffd98a" opacity=".85">
+            <rect x="140" y="70" width="6" height="12" />
+            <rect x="154" y="70" width="6" height="12" />
+          </g>
+        </svg>
+        <div class="ax-via" aria-hidden="true">
+          <svg class="ax-metro" viewBox="0 0 1000 52" id="axMetro"></svg>
+        </div>
+        <div class="ax-ground" aria-hidden="true"></div>
+        <div class="ax-rail" aria-hidden="true"></div>
+        <div class="ax-lamp" style="left:34%" aria-hidden="true"></div>
+        <div class="ax-lamp" style="left:78%" aria-hidden="true"></div>
+        <div class="ax-dust" id="axDust" aria-hidden="true"></div>
+        <div class="ax-shade" aria-hidden="true"></div>
+        <div class="ax-grain" aria-hidden="true"></div>
+
+        <div class="ax-copy" id="axCopy">
+          <div class="ax-college">Sathaye College, Mumbai</div>
+          <h1 class="ax-title">ASTRA</h1>
+          <p class="ax-tag" id="axTag"></p>
+          <div class="ax-date" id="axDate"></div>
+          <div class="ax-cta"><a class="ax-btn p" href="#events-categories">Explore events</a>
+            <!-- <a class="ax-btn s"
+              href="#about">Discover ASTRA</a> -->
+            </div>
+        </div>
+        <div class="ax-scroll" aria-hidden="true">SCROLL</div>
+      </header>
+
+    </div>
+
+    <section class="ae" id="events-categories" aria-labelledby="ae-heading">
+      <!-- Mumbai atmosphere (decorative) -->
+      <div class="ae-bg" aria-hidden="true">
+        <div class="ae-sun" data-p="0.08"></div>
+        <!-- Skyline with Gateway of India arch silhouette -->
+        <svg class="ae-city far" data-p="0.18" viewBox="0 0 1200 300" preserveAspectRatio="none">
+          <path fill="#7a2e3a"
+            d="M0 300V190h60v-40h40v40h60v-70h30v70h90v-30h50v30h120v-60h40l20-30 20 30h40v60h110v-40h50v40h90v-80h30v80h120v-30h60v30h70v-50h40v50h80V300z" />
+        </svg>
+        <svg class="ae-city near" data-p="0.3" viewBox="0 0 1200 220" preserveAspectRatio="none">
+          <path fill="#1a0b10" fill-rule="evenodd"
+            d="M0 220V150h120v-30h40v30h80v-20h50v20h110v220zM470 220V120h30v-24h20l20-30 20 30h20v-24h-0v24h40v24h30v100h-40v-60a60 60 0 0 0-120 0v60zM740 220V140h70v-40h30v40h110v-30h40v30h210v80z" />
+        </svg>
+        <!-- Queen's Necklace: dotted arc of lights -->
+        <svg class="ae-neck" data-p="0.2" viewBox="0 0 1200 90" preserveAspectRatio="none">
+          <path d="M-20 70Q600-30 1220 70" />
+        </svg>
+        <div class="ae-train"></div>
+        <div class="ae-dust" id="aeDust"></div>
+        <div class="ae-grain"></div>
+      </div>
+
+      <h2 class="ae-title" id="ae-heading" data-p="-0.05" aria-label="Event Categories">
+        <span class="w" aria-hidden="true"><span>ASTRA</span></span> <span class="w"
+          aria-hidden="true"><span>EVENTS</span></span>
+      </h2>
+
+      <div class="ae-grid">
+
+        <article class="ae-card c-perf" style="--i:0" data-category="performing-arts">
+          <div class="ae-art" aria-hidden="true"><i class="a1"></i><i class="a2"></i></div><img
+            src="Image/performingarts.jpeg" alt="RoboReach">
+          <div class="ae-fx" aria-hidden="true"></div>
+          <div class="ae-body">
+            <h3>PERFORMING ARTS</h3>
+            <div class="ae-btns">
+              <button onclick="window.location.href='performingarts.html'" type="button" class="ae-btn ae-explore"
+                data-action="explore" data-category="performing-arts" aria-label="Explore Us: Performing Arts">Explore
+                Us <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <path d="M4 12h15M13 6l6 6-6 6" />
+                </svg></button>
+            </div>
+          </div>
+        </article>
+
+        <article class="ae-card c-lit" style="--i:1" data-category="literary-arts">
+          <div class="ae-art" aria-hidden="true"><i class="a1"></i><i class="a2"></i></div><img
+            src="Image/literary.jpeg" alt="RoboReach">
+          <div class="ae-fx" aria-hidden="true"></div>
+          <div class="ae-body">
+            <h3>LITERARY ARTS</h3>
+            <div class="ae-btns">
+              <button onclick="window.location.href='literary_arts.html'" type="button" class="ae-btn ae-explore"
+                data-action="explore" data-category="literary-arts" aria-label="Explore Us: Literary Arts">Explore Us
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <path d="M4 12h15M13 6l6 6-6 6" />
+                </svg></button>
+            </div>
+          </div>
+        </article>
+
+        <article class="ae-card c-fine" style="--i:2" data-category="fine-arts">
+          <div class="ae-art" aria-hidden="true"><i class="a1"></i><i class="a2"></i></div><img
+            src="Image/finearts.jpeg" alt="RoboReach">
+          <div class="ae-fx" aria-hidden="true"></div>
+          <div class="ae-body">
+            <h3>FINE ARTS</h3>
+            <div class="ae-btns">
+              <button onclick="window.location.href='fine_arts.html'" type="button" class="ae-btn ae-explore"
+                data-action="explore" data-category="fine-arts" aria-label="Explore Us: Fine Arts">Explore Us <svg
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <path d="M4 12h15M13 6l6 6-6 6" />
+                </svg></button>
+            </div>
+          </div>
+        </article>
+
+        <article class="ae-card c-tech" style="--i:3" data-category="tech-arts">
+          <div class="ae-art" aria-hidden="true"><i class="a1"></i><i class="a2"></i></div><img src="Image/Tech.jpeg"
+            alt="RoboReach">
+          <div class="ae-fx" aria-hidden="true"></div>
+          <div class="ae-body">
+            <h3>TECH ARTS</h3>
+            <div class="ae-btns">
+              <button onclick="window.location.href='tech-arts.html'" type="button" class="ae-btn ae-explore"
+                data-action="explore" data-category="tech-arts" aria-label="Explore Us: Tech Arts">Explore Us <svg
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <path d="M4 12h15M13 6l6 6-6 6" />
+                </svg></button>
+            </div>
+          </div>
+        </article>
+
+        <article class="ae-card c-sport" style="--i:4" data-category="sports">
+          <div class="ae-art" aria-hidden="true"><i class="a1"></i><i class="a2"></i></div><img src="Image/sports.jpeg"
+            alt="RoboReach">
+          <div class="ae-fx" aria-hidden="true"></div>
+          <div class="ae-body">
+            <h3>SPORTS</h3>
+            <div class="ae-btns">
+              <button onclick="window.location.href='sport.html'" type="button" class="ae-btn ae-explore"
+                data-action="explore" data-category="sports" aria-label="Explore Us: Sports">Explore Us <svg
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <path d="M4 12h15M13 6l6 6-6 6" />
+                </svg></button>
+            </div>
+          </div>
+        </article>
+
+        <article class="ae-card c-game" style="--i:5" data-category="gaming">
+          <div class="ae-art" aria-hidden="true"><i class="a1"></i><i class="a2"></i></div><img src="Image/gaming.jpeg"
+            alt="RoboReach">
+          <div class="ae-fx" aria-hidden="true"></div>
+          <div class="ae-body">
+            <h3>GAMING</h3>
+            <div class="ae-btns">
+              <button onclick="window.location.href='gaming.html'" type="button" class="ae-btn ae-explore"
+                data-action="explore" data-category="gaming" aria-label="Explore Us: Gaming">Explore Us <svg
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <path d="M4 12h15M13 6l6 6-6 6" />
+                </svg></button>
+            </div>
+          </div>
+        </article>
+
+        <article class="ae-card c-fun" style="--i:6" data-category="fun-and-games">
+          <div class="ae-art" aria-hidden="true"><i class="a1"></i><i class="a2"></i></div><img src="Image/fun.avif"
+            alt="RoboReach">
+          <div class="ae-fx" aria-hidden="true"></div>
+          <div class="ae-body">
+            <h3>FUN &amp; GAMES</h3>
+            <div class="ae-btns">
+              <button onclick="window.location.href='fun_n_games.html'" type="button" class="ae-btn ae-explore"
+                data-action="explore" data-category="fun-and-games" aria-label="Explore Us: Fun and Games">Explore Us
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <path d="M4 12h15M13 6l6 6-6 6" />
+                </svg></button>
+            </div>
+          </div>
+        </article>
+
+        <article class="ae-card c-info" style="--i:7" data-category="informal-events">
+          <div class="ae-art" aria-hidden="true"><i class="a1"></i><i class="a2"></i></div><img src="Image/formal.jpg"
+            alt="RoboReach">
+          <div class="ae-fx" aria-hidden="true"></div>
+          <div class="ae-body">
+            <h3>INFORMAL EVENTS</h3>
+            <div class="ae-btns">
+              <button onclick="window.location.href='informal_event.html'" type="button" class="ae-btn ae-explore"
+                data-action="explore" data-category="informal-events" aria-label="Explore Us: Informal Events">Explore
+                Us <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <path d="M4 12h15M13 6l6 6-6 6" />
+                </svg></button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+  </div>
+
+  <!-- <section class="as" id="about" aria-labelledby="about-h">
+  <div class="as-bg" aria-hidden="true"><div class="as-sun" style="left:-6%;top:8%"></div><div class="as-grain"></div></div>
+  <h2 class="as-title" id="about-h"><span class="w"><span>ABOUT</span></span></h2>
+  ▼ About: put your existing content inside this container (replace the placeholder textImage/) ▼
+  <div class="as-slot" id="about-content"><p>About content goes here.</p></div>
+</section> -->
+
+  <!-- <section class="as" id="admin" aria-labelledby="admin-h">
+  <div class="as-bg" aria-hidden="true"><div class="as-sun" style="right:-8%;top:12%"></div><div class="as-grain"></div></div>
+  <h2 class="as-title" id="admin-h"><span class="w"><span>ADMIN</span></span></h2> -->
+  <!-- ▼ Admin: put your existing content inside this container (replace the placeholder text) ▼ -->
+  <!-- <div class="as-slot" id="admin-content"><p>Admin content goes here.</p></div>
+</section> -->
+
+  <!-- <section class="as" id="register" aria-labelledby="register-h">
+  <div class="as-bg" aria-hidden="true"><div class="as-sun" style="left:30%;top:-10%"></div><div class="as-grain"></div></div>
+  <h2 class="as-title" id="register-h"><span class="w"><span>REGISTER</span></span></h2> -->
+  <!-- ▼ Register: put your existing content inside this container (replace the placeholder text) ▼ -->
+  <!-- <div class="as-slot" id="register-content"><p>Register content goes here.</p></div>
+</section> -->
+
+  <script>
+    (() => {
+      'use strict';
+      /* ===== CONFIG — edit only this block ===== */
+      const ASTRA = {
+        tagline: 'Ek Shehar.Hazaar Kahaaniyan.Ek Jashn', // placeholder: replace with your own
+        date: '',            // e.g. '12–14 February 2027'; empty shows the fallback below
+        dateFallback: 'Dates announced soon',
+        links: [['Home', '/'], ['About', '/about.html'], ['Admin', '/admin.html'], ['Register', '/register.html']],
+      };
+      const $ = id => document.getElementById(id), NS = 'http://www.w3.org/2000/svg';
+      $('axTag').textContent = ASTRA.tagline; $('axDate').textContent = ASTRA.date || ASTRA.dateFallback;
+      $('axLinks').innerHTML = ASTRA.links.map(([t, h], i) => `<li><a href="${h}"${i ? '' : ' aria-current="page"'}${i === ASTRA.links.length - 1 ? ' class="cta"' : ''}>${t}</a></li>`).join('');
+
+      /* ----- procedural skylines (deterministic) ----- */
+      let s = 7; const R = () => (s = (s * 16807) % 2147483647) / 2147483647;
+      function city(el, fill, n, minH, maxH, lit) {
+        let w = 0, h = '', x = 0; const W = 1200, H = 300;
+        while (x < W) {
+          const bw = 30 + R() * 60, bh = minH + R() * (maxH - minH); h += `<rect x="${x}" y="${H - bh}" width="${bw}" height="${bh}" fill="${fill}"/>`;
+          if (lit) for (let wy = H - bh + 10; wy < H - 8; wy += 16)for (let wx = x + 6; wx < x + bw - 8; wx += 12)if (R() < .18) h += `<rect class="w" x="${wx}" y="${wy}" width="4" height="6" fill="#ffd98a" opacity="${.5 + R() * .5}"/>`;
+          x += bw + R() * 8
+        }
+        el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">${h}</svg>`
+      }
+      city($('axFar'), '#7a2e3a', 0, 60, 170, false); city($('axNear'), '#1a0b10', 0, 50, 200, true);
+
+      /* ----- trains (procedural SVG; swap for 3D later) ----- */
+      function car(x, w, body, band, win, front) {
+        let g = `<rect x="${x}" y="6" width="${w}" height="40" rx="5" fill="${body}"/><rect x="${x}" y="30" width="${w}" height="8" fill="${band}"/>`;
+        for (let i = 0; i < 4; i++)g += `<rect x="${x + 12 + i * (w - 24) / 4}" y="13" width="${(w - 24) / 4 - 8}" height="12" rx="2" fill="${win}"/>`;
+        return g + `<rect x="${x}" y="46" width="${w}" height="4" fill="#1a0b10"/>`
+      }
+      function wheels(x0, x1, y) { let g = ''; for (let x = x0; x < x1; x += 38)g += `<circle cx="${x}" cy="${y}" r="5" fill="#0c0507"/>`; return g }
+      let m = ''; for (let i = 0; i < 6; i++)m += car(i * 166, 162, '#f1eee8', '#f26a21', '#2b4a6b');
+      $('axMetro').innerHTML = m + `<rect x="990" y="12" width="6" height="30" fill="#fff3c0"/>` + wheels(20, 990, 50);
+
+      /* ----- dust ----- */
+      const d = $('axDust'); for (let i = 0; i < 14; i++) { const p = document.createElement('i'); p.style.cssText = `left:${R() * 100}%;bottom:-10px;opacity:${.2 + R() * .4};animation-duration:${18 + R() * 20}s;animation-delay:${-R() * 30}s`; d.appendChild(p) }
+
+      /* ----- pointer parallax, scroll fade, offscreen pause ----- */
+      const hero = document.querySelector('.ax-hero'), copy = $('axCopy'), mql = matchMedia('(prefers-reduced-motion:reduce)');
+      if (!mql.matches && !matchMedia('(pointer:coarse)').matches) { let q = 0; hero.addEventListener('pointermove', e => { if (q) return; q = requestAnimationFrame(() => { q = 0; hero.style.setProperty('--mx', (e.clientX / innerWidth - .5).toFixed(2)); hero.style.setProperty('--my', (e.clientY / innerHeight - .5).toFixed(2)) }) }, { passive: true }) }
+      let t = 0; addEventListener('scroll', () => { if (t) return; t = requestAnimationFrame(() => { t = 0; const p = Math.min(scrollY / innerHeight, 1); copy.style.opacity = 1 - p * 1.2; copy.style.translate = `0 ${p * -60}px` }) }, { passive: true });
+      new IntersectionObserver(e => hero.classList.toggle('ax-paused', !e[0].isIntersecting)).observe(hero);
+      document.addEventListener('visibilitychange', () => hero.classList.toggle('ax-paused', document.hidden));
+    })();
+  </script>
+  <script>
+    (() => {
+      'use strict';
+
+      /* =====================================================================
+         CONNECT YOUR DESTINATIONS HERE (placeholders — nothing is invented).
+         Fill each string with the real events-page URL.
+         While a value is '', clicking fires an "astra:explore"
+         CustomEvent on document, so you can also open a modal or router
+         instead:  document.addEventListener('astra:explore', e => { e.detail.category });
+         ===================================================================== */
+      const DESTINATIONS = {
+        'performing-arts': { explore: '/performingarts.html' }, // TODO
+        'literary-arts': { explore: '/literary_arts.html' }, // TODO
+        'fine-arts': { explore: '/fine_arts.html' }, // TODO
+        'tech-arts': { explore: '/tech-arts.html' }, // TODO
+        'sports': { explore: '/sport.html' }, // TODO
+        'gaming': { explore: '/gaming.html' }, // TODO
+        'fun-and-games': { explore: '/fun_n_games.html' }, // TODO
+        'informal-events': { explore: '/informal_event.html' }  // TODO
+      };
+
+      const root = document.getElementById('events-categories');
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const coarse = matchMedia('(pointer: coarse)').matches || innerWidth < 700;
+      const cards = [...root.querySelectorAll('.ae-card')];
+
+      /* ---------- Buttons ---------- */
+      root.querySelectorAll('.ae-btn').forEach(btn => btn.addEventListener('click', e => {
+        e.stopPropagation(); // never conflicts with the card's tap-to-activate
+        const { action, category } = btn.dataset;
+        const url = DESTINATIONS[category] && DESTINATIONS[category][action];
+        if (url) { window.location.href = url; return; }
+        document.dispatchEvent(new CustomEvent('astra:' + action, { detail: { category } }));
+        console.info('[ASTRA] "' + action + '" for "' + category + '" has no destination yet. Edit DESTINATIONS.');
+      }));
+
+      /* ---------- Scroll reveal ---------- */
+      new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting) { root.classList.add('in'); o.disconnect(); } }), { threshold: .12 }).observe(root);
+
+      /* ---------- Floating dust (few, light) ---------- */
+      const dust = document.getElementById('aeDust');
+      if (!reduce) for (let i = 0; i < (coarse ? 6 : 14); i++) {
+        const p = document.createElement('i');
+        p.style.cssText = `left:${Math.random() * 100}%;bottom:-10px;animation-duration:${18 + Math.random() * 20}s;animation-delay:${-Math.random() * 30}s;opacity:${.25 + Math.random() * .4}`;
+        dust.appendChild(p);
+      }
+
+      /* ---------- Card tilt, depth, pixel burst ---------- */
+      cards.forEach(card => {
+        const fx = card.querySelector('.ae-fx');
+        let raf = 0, timer = 0;
+        const spawn = () => {
+          if (fx.childElementCount > 12) return;
+          const b = document.createElement('b');
+          b.style.left = Math.random() * 100 + '%';
+          b.style.top = 40 + Math.random() * 50 + '%';
+          b.style.setProperty('--dx', (Math.random() - .5) * 40 + 'px');
+          fx.appendChild(b); setTimeout(() => b.remove(), 1200);
+        };
+        const start = () => { if (!reduce && !coarse && !timer) timer = setInterval(spawn, 240); };
+        const stop = () => { clearInterval(timer); timer = 0; };
+
+        if (!reduce && !coarse) {
+          card.addEventListener('pointermove', e => {
+            if (raf) return;
+            raf = requestAnimationFrame(() => {
+              raf = 0;
+              const r = card.getBoundingClientRect();
+              const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+              card.style.setProperty('--ry', (x * 9).toFixed(2) + 'deg');
+              card.style.setProperty('--rx', (-y * 7).toFixed(2) + 'deg');
+              card.style.setProperty('--px', (x * 2).toFixed(2));
+              card.style.setProperty('--mx', ((x + .5) * 100).toFixed(1) + '%');
+              card.style.setProperty('--my', ((y + .5) * 100).toFixed(1) + '%');
+              card.style.setProperty('--py', (y * 2).toFixed(2));
+            });
+          });
+          card.addEventListener('pointerenter', start);
+          card.addEventListener('pointerleave', () => {
+            stop();
+            ['--rx', '--ry'].forEach(v => card.style.setProperty(v, '0deg'));
+            ['--px', '--py'].forEach(v => card.style.setProperty(v, '0'));
+          });
+        }
+        card.addEventListener('focusin', start);
+        card.addEventListener('focusout', stop);
+
+        // Touch: tap a card to bring it forward (buttons stop propagation)
+        card.addEventListener('click', () => {
+          if (!coarse) return;
+          const was = card.classList.contains('is-active');
+          cards.forEach(c => c.classList.remove('is-active'));
+          if (!was) card.classList.add('is-active');
+        });
+      });
+
+      /* ---------- Scroll parallax (rAF, only while visible) ---------- */
+      const layers = [...root.querySelectorAll('[data-p]')].map(el => ({ el, s: parseFloat(el.dataset.p) }));
+      let visible = true, ticking = false;
+      new IntersectionObserver(es => { visible = es[0].isIntersecting; }, { threshold: 0 }).observe(root);
+      const paint = () => {
+        ticking = false;
+        if (!visible) return;
+        const r = root.getBoundingClientRect();
+        const off = r.top + r.height / 2 - innerHeight / 2;
+        layers.forEach(({ el, s }) => { el.style.translate = `0 ${(off * -s * (coarse ? .5 : 1)).toFixed(1)}px`; });
+      };
+      if (!reduce) {
+        addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(paint); } }, { passive: true });
+        addEventListener('resize', paint, { passive: true });
+        paint();
+      }
+
+      /* ---------- Pointer-driven skyline + magnetic Explore Us buttons ---------- */
+      if (!reduce && !coarse) {
+        let sRaf = 0;
+        root.addEventListener('pointermove', e => {
+          if (sRaf) return;
+          sRaf = requestAnimationFrame(() => {
+            sRaf = 0;
+            const r = root.getBoundingClientRect();
+            const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+            root.style.setProperty('--mxs', x.toFixed(2));
+            root.style.setProperty('--sx', (x * 60).toFixed(1) + 'px');
+            root.style.setProperty('--sy', (y * 30).toFixed(1) + 'px');
+          });
+        }, { passive: true });
+        root.querySelectorAll('.ae-explore').forEach(b => {
+          b.addEventListener('pointermove', e => {
+            const r = b.getBoundingClientRect();
+            b.style.translate = ((e.clientX - r.left - r.width / 2) * .06).toFixed(1) + 'px ' + ((e.clientY - r.top - r.height / 2) * .18).toFixed(1) + 'px';
+          });
+          b.addEventListener('pointerleave', () => { b.style.translate = '0 0'; });
+        });
+      }
+
+      // Pause CSS loops when the tab is hidden
+      document.addEventListener('visibilitychange', () => { root.style.animationPlayState = document.hidden ? 'paused' : 'running'; });
+    })();
+  </script>
+  <script>
+    (() => {
+      'use strict';
+      const ids = ['home', 'about', 'admin', 'register'].filter(i => document.getElementById(i)), secs = ids.map(i => document.getElementById(i));
+      const links = [...document.querySelectorAll('#axLinks a')], nav = document.querySelector('.ax-nav'), bar = document.getElementById('axBar');
+      let cur = '', t = 0;
+      const set = id => { if (id === cur) return; cur = id; links.forEach(a => a.getAttribute('href') === '#' + id ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current')) };
+      const update = () => {
+        t = 0; const y = scrollY, max = document.documentElement.scrollHeight - innerHeight;
+        bar.style.setProperty('--p', max > 0 ? Math.min(y / max, 1).toFixed(4) : 0); nav.classList.toggle('sc', y > 40);
+        let id = ids[0]; secs.forEach((s, i) => { if (s.getBoundingClientRect().top <= innerHeight * .4) id = ids[i] });
+        if (max - y < 4) id = ids[ids.length - 1]; set(id)
+      };
+      addEventListener('scroll', () => { if (!t) t = requestAnimationFrame(update) }, { passive: true }); addEventListener('resize', update); update();
+      links.forEach(a => a.addEventListener('click', () => set(a.getAttribute('href').slice(1))));
+      const io = new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); o.unobserve(e.target) } }), { threshold: .15 });
+      document.querySelectorAll('.as').forEach(s => io.observe(s));
+    })();
+  </script>
+<section id="all-events" aria-label="All events"></section>
+<script src="/js/event-list.js" defer></script>
+</body>
+
+</html>

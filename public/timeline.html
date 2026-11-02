@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ASTRA FEST 2026 — Orbital Timeline</title>
+<meta name="description" content="ASTRA FEST 2026, Sathaye College, Mumbai. Interactive 3D timeline for 14–14 December 2026.">
+<meta name="theme-color" content="#09070D">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400;700&family=Bungee&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.140.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.140.0/examples/jsm/"}}</script>
+<style>
+:root{--bg:#09070D;--cream:#FFF1D6;--or:#FF7138;--gold:#FFC66D;--vi:#8B6EFF;--st:rgba(255,241,214,.15);--nav:62px;--d:'Bungee',Impact,sans-serif;--b:'Alegreya Sans',system-ui,sans-serif;--m:'Share Tech Mono',ui-monospace,monospace}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav) + 14px)}
+body{margin:0;background:radial-gradient(900px 600px at 80% 0,#3b101d,transparent 62%),radial-gradient(700px 500px at 0 90%,rgba(139,110,255,.14),transparent 60%),var(--bg);color:var(--cream);font:15px/1.55 var(--b);overflow-x:hidden;-webkit-text-size-adjust:100%}
+h1,h2,h3,p,dl,dd{margin:0}button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--or);outline-offset:3px;border-radius:6px}
+.glass{background:linear-gradient(140deg,rgba(32,21,38,.85),rgba(13,9,15,.8));border:1px solid var(--st);border-radius:14px;box-shadow:0 14px 44px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,241,214,.08)}
+@media(min-width:900px){.glass{backdrop-filter:blur(14px)}}
+.mono,.tag,.meta,.kick,nav a,.pill,.chip,.btn,summary,label,small{font-family:var(--m);letter-spacing:.14em;text-transform:uppercase}
+/* NAV */
+header{position:fixed;inset:0 0 auto;z-index:50;height:var(--nav);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(14px,4vw,40px);background:rgba(9,7,13,.85);border-bottom:1px solid var(--st)}
+@media(min-width:900px){header{backdrop-filter:blur(14px)}}
+.logo{font:.95rem var(--d);letter-spacing:.1em}.logo b{color:var(--or);font-weight:400}
+nav ul{display:flex;gap:4px;list-style:none;margin:0;padding:0}
+nav a{display:block;font-size:.72rem;padding:10px 14px;border-radius:99px;color:rgba(255,241,214,.75)}
+nav a:hover{background:rgba(255,241,214,.07)}nav a.on{color:var(--or);box-shadow:inset 0 -2px 0 var(--or)}
+#burger{display:none;width:44px;height:44px;border:1px solid var(--st);border-radius:11px;font-size:1.3rem}
+@media(max-width:899px){#burger{display:block}
+ nav{position:fixed;top:var(--nav);left:0;right:0;background:rgba(9,7,13,.97);border-bottom:1px solid var(--st);padding:8px 14px 14px;transform:translateY(-8px);opacity:0;visibility:hidden;transition:.25s}
+ nav.open{transform:none;opacity:1;visibility:visible}nav ul{flex-direction:column}nav a{padding:15px 12px;font-size:.8rem}}
+/* HERO */
+.hero{display:grid;gap:10px;align-items:center;min-height:100svh;padding:calc(var(--nav) + 26px) clamp(14px,5vw,64px) 32px;max-width:1400px;margin:auto}
+@media(min-width:1000px){.hero{grid-template-columns:minmax(340px,.9fr) 1.1fr;gap:24px}}
+.hc{text-align:center}@media(min-width:1000px){.hc{text-align:left}}
+.badge{display:inline-block;font:.64rem var(--m);letter-spacing:.2em;color:var(--gold);border:1px solid rgba(255,198,109,.35);background:rgba(255,198,109,.07);padding:7px 13px;border-radius:99px;margin-bottom:14px}
+h1{font:clamp(2.3rem,9vw,4.6rem)/.95 var(--d);text-transform:uppercase;margin-bottom:14px;text-shadow:0 8px 40px rgba(0,0,0,.6)}
+h1 span{display:block}h1 em{font-style:normal;color:transparent;-webkit-text-stroke:2px var(--or);filter:drop-shadow(0 0 20px rgba(255,113,56,.5))}
+.sub{font:clamp(.72rem,2vw,.86rem) var(--m);letter-spacing:.22em}.dates{font:.74rem var(--m);letter-spacing:.14em;color:var(--or);margin:8px 0 22px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:22px}@media(min-width:1000px){.cta{justify-content:flex-start}}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;font-size:.76rem;padding:13px 24px;border-radius:10px;border:1px solid var(--st);transition:.25s}
+.btn.pri{background:linear-gradient(135deg,#FF7138,#FFA36B);color:#1a0d06;font-weight:700;border-color:transparent;box-shadow:0 12px 30px -10px rgba(255,113,56,.85)}
+.btn:hover{transform:translateY(-2px);border-color:var(--or)}
+.stats{display:flex;gap:26px;justify-content:center;padding-top:14px;border-top:1px solid var(--st)}@media(min-width:1000px){.stats{justify-content:flex-start}}
+.stats b{display:block;font:1.4rem var(--d);line-height:1}.stats small{font-size:.58rem;color:rgba(255,241,214,.5)}
+.globe{position:relative;height:clamp(300px,76vw,540px)}@media(min-width:1000px){.globe{height:min(72vh,640px)}}
+#gl{position:absolute;inset:0;width:100%;height:100%;touch-action:pan-y;cursor:grab}
+.no-webgl #gl{display:none}
+.no-webgl .globe:before{content:"";position:absolute;left:50%;top:50%;width:min(80%,420px);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle at 32% 30%,#2f6d8e,#15415f 40%,#07131d);box-shadow:0 0 80px rgba(255,113,56,.25)}
+.hint{position:absolute;left:0;right:0;bottom:0;text-align:center;font:.6rem var(--m);letter-spacing:.2em;color:rgba(255,241,214,.45);pointer-events:none}
+.pills{grid-column:1/-1;display:flex;gap:9px;justify-content:center;flex-wrap:wrap}
+.pill{font-size:.68rem;min-height:48px;padding:8px 14px;border-radius:99px;border:1px solid var(--st);background:rgba(14,11,20,.8);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.2}
+.pill span{font-size:.56rem;color:var(--gold)}.pill[aria-pressed=true]{background:var(--or);color:#1a0d06;border-color:var(--or)}.pill[aria-pressed=true] span{color:#4a1d08}
+/* SECTIONS */
+section.s{padding:clamp(56px,9vw,110px) clamp(14px,5vw,64px)}.w{max-width:1240px;margin:auto}
+.kick{display:block;font-size:.66rem;color:var(--or);margin-bottom:12px}
+h2{font:clamp(1.5rem,5vw,2.6rem)/1.08 var(--d);text-transform:uppercase;margin-bottom:12px}h2 em{font-style:normal;color:var(--gold)}
+.lead{color:rgba(255,241,214,.68);max-width:62ch;margin-bottom:30px}
+.days{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:14px;margin-bottom:22px}
+.day{padding:22px;text-align:left;display:flex;flex-direction:column;gap:4px;min-height:150px;transition:.3s}
+.day small{font-size:.62rem;color:var(--or)}.day b{font:1.6rem var(--d)}.day span{font:.64rem var(--m);letter-spacing:.14em;color:rgba(255,241,214,.55)}.day em{margin-top:auto;font:normal 1rem var(--d);color:var(--gold)}
+.day:hover{transform:translateY(-4px);border-color:rgba(255,113,56,.55)}.day[aria-pressed=true]{border-color:var(--or);box-shadow:0 0 0 1px rgba(255,113,56,.45),0 22px 50px -22px var(--or)}
+.row{display:flex;flex-wrap:wrap;gap:10px}
+.ctl{font:.68rem var(--m);letter-spacing:.14em;min-height:46px;padding:11px 14px;border-radius:9px;border:1px solid var(--st);background:rgba(255,241,214,.05)}
+.ctl:hover:not(:disabled){border-color:var(--or);color:var(--or)}.ctl:disabled{opacity:.35}
+.dh{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin-bottom:6px}.dh h3{font:clamp(1.3rem,4vw,1.9rem) var(--d)}.dh span{font:.72rem var(--m);letter-spacing:.14em;color:var(--gold)}.dh i{font:normal .66rem var(--m);letter-spacing:.14em;color:rgba(255,241,214,.55);border:1px solid var(--st);padding:5px 12px;border-radius:99px}
+.chips{display:flex;gap:9px;margin:14px 0 26px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none;-webkit-overflow-scrolling:touch}.chips::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;min-height:44px;font-size:.66rem;padding:9px 15px;border-radius:99px;border:1px solid var(--st);background:rgba(255,241,214,.04);display:flex;align-items:center;gap:7px;white-space:nowrap}
+.chip i{width:8px;height:8px;border-radius:2px;background:var(--a,var(--or))}.chip[aria-pressed=true]{background:var(--or);border-color:var(--or);color:#1a0d06;font-weight:700}.chip[aria-pressed=true] i{background:#1a0d06}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(290px,100%),1fr));gap:14px}
+.card{padding:14px;display:flex;flex-direction:column;gap:9px;border-left:3px solid var(--a);transition:transform .25s,box-shadow .25s}
+.card:hover{transform:translateY(-3px);box-shadow:0 22px 50px rgba(0,0,0,.5),0 0 30px -14px var(--a)}
+.tag{font-size:.6rem;color:var(--a)}.card h3{font:1.02rem/1.2 var(--d)}.card p{font-size:.92rem;color:rgba(255,241,214,.66)}
+.meta{font-size:.58rem;line-height:1.8;color:rgba(255,241,214,.5);padding-top:9px;border-top:1px solid rgba(255,241,214,.09)}
+details{margin-top:auto}summary{font-size:.6rem;cursor:pointer;padding:10px 0;min-height:44px;color:rgba(255,241,214,.8);list-style:none}summary::-webkit-details-marker{display:none}summary:after{content:" +"}details[open] summary:after{content:" −"}
+dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font:.62rem var(--m);letter-spacing:.1em}dt{color:rgba(255,241,214,.45)}dd{text-align:right}
+details small{display:block;margin-top:8px;font-size:.55rem;color:var(--or)}
+.none{grid-column:1/-1;padding:40px 20px;text-align:center;border:1px dashed var(--st);border-radius:14px;font:.72rem var(--m);letter-spacing:.14em;color:rgba(255,241,214,.5)}
+.cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:14px}
+.cat{padding:20px;text-align:left;display:flex;flex-direction:column;gap:8px;min-height:130px;transition:.3s}.cat i{width:14px;height:14px;background:var(--a);box-shadow:0 0 14px var(--a)}.cat b{font:.95rem var(--d);margin-top:auto}.cat span{font:.6rem var(--m);letter-spacing:.14em;color:rgba(255,241,214,.5)}
+.cat:hover,.cat[aria-pressed=true]{transform:translateY(-3px);border-color:var(--a)}
+.bar{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:12px;padding:14px;margin-bottom:20px}
+@media(max-width:899px){.bar{grid-template-columns:1fr 1fr}.bar .q{grid-column:1/-1}}@media(max-width:480px){.bar{grid-template-columns:1fr}}
+label{display:block;font-size:.55rem;color:rgba(255,241,214,.5);margin-bottom:6px}
+input,select{width:100%;min-height:46px;font:14px var(--m);letter-spacing:.06em;background:rgba(255,241,214,.06);border:1px solid var(--st);color:var(--cream);border-radius:8px;padding:10px 12px}
+select option{background:#140d14}input:focus,select:focus{border-color:var(--or);outline:none;box-shadow:0 0 0 3px rgba(255,113,56,.14)}
+.rb{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:14px;font:.64rem var(--m);letter-spacing:.14em;color:rgba(255,241,214,.55)}.rb b{color:var(--or);font-weight:400}.rb .ctl{margin-left:auto}
+.end{text-align:center;padding:clamp(70px,12vw,140px) 20px;background:radial-gradient(600px 400px at 50% 50%,rgba(255,113,56,.14),transparent 65%)}
+.end h2{max-width:14ch;margin:0 auto 22px;font-size:clamp(1.6rem,6vw,3.2rem)}.end h2 em{color:var(--or)}.end p{font:.7rem var(--m);letter-spacing:.2em;color:rgba(255,241,214,.55);margin-bottom:28px}
+footer{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;padding:28px clamp(14px,5vw,64px);border-top:1px solid var(--st);font:.6rem var(--m);letter-spacing:.14em;color:rgba(255,241,214,.45)}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition-duration:.001ms!important;animation-duration:.001ms!important}}
+</style><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-140.png"></head>
+<body>
+<header>
+ <a class="logo" href="#home" aria-label="ASTRA FEST 2026 home">ASTRA <b>FEST</b> 2026</a>
+ <button id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu">☰</button>
+ <nav id="menu" aria-label="Primary"><ul><li><a href="#home">Home</a></li><li><a href="#timeline">Timeline</a></li><li><a href="#categories">Categories</a></li><li><a href="#events">Events</a></li></ul></nav>
+</header>
+<main>
+<section class="hero" id="home">
+ <div class="hc">
+  <span class="badge">MISSION CONTROL // TIMELINE</span>
+  <h1><span>ASTRA</span><span>FEST <em>2026</em></span></h1>
+  <p class="sub">THE JOURNEY THROUGH THREE DAYS</p>
+  <p class="dates">14 — 16 DECEMBER 2026 · SATHAYE COLLEGE, MUMBAI</p>
+  <div class="cta"><a class="btn pri" href="#timeline">Explore timeline</a><a class="btn" href="#events">All events</a></div>
+  <div class="stats"><div><b id="nEv">0</b><small>Events</small></div><div><b>8</b><small>Categories</small></div><div><b>3</b><small>Days</small></div></div>
+ </div>
+ <div class="globe"><canvas id="gl" aria-label="Interactive 3D Earth. Drag sideways to rotate."></canvas><p class="hint">DRAG TO ROTATE</p></div>
+ <div class="pills" id="pills" role="group" aria-label="Choose a day"></div>
+</section>
+
+<section class="s" id="timeline"><div class="w">
+ <span class="kick">// 01 — ORBITAL TIMELINE</span><h2>Select your <em>destination</em></h2>
+ <p class="lead">Pick a day to turn the planet to its orbit and open that day's schedule. All timings and venues are still being finalised.</p>
+ <div class="days" id="days"></div>
+ <div class="row"><button class="ctl" id="prev">← Previous day</button><button class="ctl" id="over">Overview</button><button class="ctl" id="next">Next day →</button></div>
+</div></section>
+
+<section class="s" id="day-view" style="padding-top:0"><div class="w">
+ <span class="kick">// 02 — MISSION SCHEDULE</span><h2>Day <em>schedule</em></h2>
+ <div class="dh"><h3 id="dT">DAY 01</h3><span id="dD"></span><i id="dC" aria-live="polite"></i></div>
+ <div class="chips" id="chips" role="group" aria-label="Filter by category"></div>
+ <div class="grid" id="dayEv"></div>
+</div></section>
+
+<section class="s" id="categories"><div class="w">
+ <span class="kick">// 03 — CATEGORY MATRIX</span><h2>Explore <em>categories</em></h2>
+ <p class="lead">Eight disciplines orbit the festival. Select one to filter the event directory.</p>
+ <div class="cats" id="cats"></div>
+</div></section>
+
+<section class="s" id="events"><div class="w">
+ <span class="kick">// 04 — EVENT DIRECTORY</span><h2>Event <em>explorer</em></h2>
+ <p class="lead">Search every event across all three days. Listings are placeholders until the schedule is confirmed.</p>
+ <div class="bar glass">
+  <div class="q"><label for="q">Search</label><input id="q" type="search" placeholder="Search events…" autocomplete="off"></div>
+  <div><label for="xd">Day</label><select id="xd"><option value="ALL">All days</option><option value="1">Day 01 — 14 Dec</option><option value="2">Day 02 — 15 Dec</option><option value="3">Day 03 — 14 Dec</option></select></div>
+  <div><label for="xc">Category</label><select id="xc"></select></div>
+  <div><label for="xs">Subcategory</label><select id="xs"></select></div>
+ </div>
+ <div class="rb"><span>Results: <b id="rc">0</b> / <b id="tc">0</b></span><button class="ctl" id="reset">Reset filters</button></div>
+ <div class="grid" id="exEv" aria-live="polite"></div>
+</div></section>
+
+<section class="end"><h2>Three days. One universe. <em>Infinite possibilities.</em></h2><p>ASTRA FEST 2026 · SATHAYE COLLEGE · MUMBAI</p><a class="btn pri" href="#timeline">Back to timeline</a></section>
+</main>
+<footer><span>© 2026 ASTRA FEST · SATHAYE COLLEGE, MUMBAI</span><span>DREAM / CREATE / CELEBRATE</span></footer>
+
+<script type="module">
+/* ===== EDITABLE DATA — each line: Name|Category code|Subcategory|Description ===== */
+const CATS={PA:['Performing Arts','#FF7138'],LA:['Literary Arts','#FFC66D'],FA:['Fine Arts','#8B6EFF'],TA:['Tech Arts','#4FD6C2'],SP:['Sports','#7ED957'],GM:['Gaming','#FF6FA5'],FG:['Fun & Games','#FFD146'],IN:['Informal Events','#FFF1D6']};
+const DAYS=[
+{n:1,date:'14 DECEMBER 2026',short:'14 DEC',raw:`Inaugural Ceremony|PA|Ceremony|The official opening of ASTRA Fest 2026.
+Pulse|PA|Group Dance|Crews go head to head in a group dance face-off.
+Resonance|PA|Band Performance|Live bands with original and cover sets.
+Spotlight|PA|Street Theatre|Short street plays across the campus.
+Verse Vortex|LA|Poetry Slam|Spoken word judged on writing and delivery.
+Orbit Debate|LA|Parliamentary Debate|Teams argue motions over several rounds.
+Inkwell|LA|Creative Writing|Timed prose and poetry prompts.
+Chroma Live|FA|Live Painting|Artists paint live as the crowd watches.
+Pixel Canvas|FA|Digital Art|A digital illustration challenge.
+Rangoli Nova|FA|Traditional Art|Rangoli and floor art made on the spot.
+Hack the Cosmos|TA|Hackathon|A timed build sprint for working prototypes.
+Circuit Breakers|TA|Robotics|Bot builds and arena challenges.
+Code Sprint|TA|Competitive Programming|Timed algorithmic programming rounds.
+Kickoff Cup|SP|Football|Inter-department knockout rounds begin.
+Smash Circuit|SP|Badminton|Singles and doubles brackets.
+Retro Arena|GM|Console Gaming|Classic console titles in free-play and knockouts.
+Glitch Royale|GM|Esports|Team-based esports brackets.
+Constellation Hunt|FG|Scavenger Hunt|Teams decode clues scattered across campus.
+Cosmic Carnival|IN|Roaming Acts|Roving performers and pop-up stalls.`},
+{n:2,date:'15 DECEMBER 2026',short:'15 DEC',raw:`Nova Beats|PA|DJ Set|Open-format sets from student and guest DJs.
+Echo Chamber|PA|Solo Singing|Solo vocalists across genres.
+Mime Theory|PA|Mime|Wordless storytelling judged on expression.
+Footnotes|LA|Book Discussion|An open discussion circle on a reading list.
+Word War|LA|Just A Minute|One minute, one topic, no hesitation.
+Quiz Quasar|LA|Quiz|Multi-round general and pop-culture quiz.
+Sculpt Station|FA|Clay & Sculpture|Hands-on sculpting around a fixed theme.
+Shutter Speed|FA|Photography Walk|A guided campus photo walk with a themed entry.
+Graffiti Gravity|FA|Street Art|Large-format mural work created live.
+Bot Brawl|TA|Line Following|Autonomous bots race a marked track.
+Drone Dash|TA|Drone Racing|A timed drone obstacle course.
+AI Alchemy|TA|Prompt Jam|A creative AI-assisted build challenge.
+Court Kings|SP|Basketball|Half-court and full-court matches.
+Net Force|SP|Volleyball|Mixed-team volleyball knockouts.
+Speedrun Syndicate|GM|Speedrun Challenge|Timed runs with live commentary.
+Pixel Pitch|GM|Mobile Esports|Mobile titles in knockout brackets.
+Puzzle Planet|FG|Puzzle Relay|A team relay of logic, speed and luck.
+Midnight Bazaar|IN|Pop-up Market|Student stalls, food pop-ups and campus shopping.`},
+{n:3,date:'14 DECEMBER 2026',short:'14 DEC',raw:`Grand Finale Showcase|PA|Showcase|The festival's best acts return for a final showcase.
+Starfall|PA|Fashion Walk|A themed walk with student-designed looks.
+Encore|PA|Acoustic Session|An unplugged closing set.
+Open Mic Odyssey|LA|Open Mic|An open stage for poetry, stories and spoken word.
+Story Station|LA|Storytelling|Live storytelling judged on narrative.
+Zine Zone|LA|Zine Making|Make and print a mini zine in one session.
+Gallery Zero|FA|Exhibition|A curated exhibition of festival work.
+Mural Mission|FA|Collaborative Mural|One large mural completed by many hands.
+Robo Sumo|TA|Robotics|Bots push each other out in the arena finals.
+Capture the Flag|TA|Cybersecurity CTF|A timed security challenge.
+Track Finals|SP|Athletics|Track and field finals.
+Chess Nova|SP|Chess|Rapid-format chess brackets.
+Boss Rush|GM|Tournament Finals|All gaming finals back to back.
+Arcade Alley|GM|Free Play|Open arcade setups for everyone.
+Treasure Trail|FG|Treasure Hunt|A campus-wide hunt with a final vault.
+Astra Awards|IN|Closing Ceremony|Prizes and the official close of ASTRA Fest 2026.`}];
+/* ===== UI ===== */
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches,coarse=matchMedia('(pointer:coarse)').matches;
+const KEYS=Object.keys(CATS),EV=[];
+DAYS.forEach(d=>d.raw.split('\n').forEach(l=>{const [n,c,s,x]=l.split('|');EV.push({n,c,s,x,day:d.n,date:d.date})}));
+const st={day:1,cat:'ALL',q:'',xd:'ALL',xc:'ALL',xs:'ALL'};let onDay=()=>{};
+const card=e=>`<article class="card glass" style="--a:${CATS[e.c][1]}"><span class="tag">${CATS[e.c][0]} · ${e.s}</span><h3>${e.n}</h3><p>${e.x}</p><p class="meta">Day 0${e.day} · ${e.date}<br>Time TBA · Venue TBA</p><details><summary>View details</summary><dl><dt>Category</dt><dd>${CATS[e.c][0]}</dd><dt>Subcategory</dt><dd>${e.s}</dd><dt>Status</dt><dd>Schedule pending</dd></dl><small>Timings and venue will be announced.</small></details></article>`;
+const none='<div class="none">No events match these filters.</div>';
+$('#nEv').textContent=EV.length;$('#tc').textContent=EV.length;
+$('#pills').innerHTML=DAYS.map(d=>`<button class="pill" data-d="${d.n}" aria-pressed="false">Day 0${d.n}<span>${d.short}</span></button>`).join('');
+$('#days').innerHTML=DAYS.map(d=>`<button class="day glass" data-d="${d.n}" aria-pressed="false"><small>Day 0${d.n}</small><b>${d.short}</b><span>${d.date}</span><em>${d.raw.split('\n').length} events</em></button>`).join('');
+$('#chips').innerHTML=['ALL',...KEYS].map(c=>`<button class="chip" data-c="${c}" style="--a:${c=='ALL'?'#FF7138':CATS[c][1]}" aria-pressed="${c=='ALL'}"><i></i>${c=='ALL'?'All categories':CATS[c][0]}</button>`).join('');
+$('#cats').innerHTML=KEYS.map(c=>`<button class="cat glass" data-k="${c}" style="--a:${CATS[c][1]}" aria-pressed="false"><i></i><b>${CATS[c][0]}</b><span>${EV.filter(e=>e.c==c).length} events</span></button>`).join('');
+$('#xc').innerHTML='<option value="ALL">All categories</option>'+KEYS.map(c=>`<option value="${c}">${CATS[c][0]}</option>`).join('');
+function renderDay(){const d=DAYS[st.day-1],l=EV.filter(e=>e.day==st.day&&(st.cat=='ALL'||e.c==st.cat));
+ $('#dT').textContent='DAY 0'+st.day;$('#dD').textContent=d.date;$('#dC').textContent=l.length+' EVENT'+(l.length==1?'':'S');
+ $('#dayEv').innerHTML=l.map(card).join('')||none;
+ $('#prev').disabled=st.day==1;$('#next').disabled=st.day==3}
+function selectDay(n,go){if(n){st.day=Math.max(1,Math.min(3,n));st.cat='ALL'}
+ $$('[data-d]').forEach(b=>b.setAttribute('aria-pressed',!!n&&+b.dataset.d==st.day));
+ $$('.chip').forEach(c=>c.setAttribute('aria-pressed',c.dataset.c=='ALL'));
+ renderDay();onDay(n?st.day:0);if(go)setTimeout(()=>$('#day-view').scrollIntoView({behavior:reduce?'auto':'smooth'}),200)}
+function subs(){const p=EV.filter(e=>st.xc=='ALL'||e.c==st.xc),s=[...new Set(p.map(e=>e.s))].sort();
+ $('#xs').innerHTML='<option value="ALL">All subcategories</option>'+s.map(x=>`<option>${x}</option>`).join('');
+ if(!s.includes(st.xs))st.xs='ALL';$('#xs').value=st.xs}
+function renderEx(){const q=st.q.trim().toLowerCase(),l=EV.filter(e=>(st.xd=='ALL'||e.day==st.xd)&&(st.xc=='ALL'||e.c==st.xc)&&(st.xs=='ALL'||e.s==st.xs)&&(!q||(e.n+e.s+CATS[e.c][0]+e.x).toLowerCase().includes(q)));
+ $('#rc').textContent=l.length;$('#exEv').innerHTML=l.map(card).join('')||none}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-d]');if(b)selectDay(+b.dataset.d,true);
+ const c=e.target.closest('.chip');if(c){st.cat=c.dataset.c;$$('.chip').forEach(x=>x.setAttribute('aria-pressed',x==c));renderDay()}
+ const k=e.target.closest('[data-k]');if(k){const on=k.getAttribute('aria-pressed')=='true';st.xc=on?'ALL':k.dataset.k;$$('.cat').forEach(x=>x.setAttribute('aria-pressed',!on&&x==k));$('#xc').value=st.xc;subs();renderEx();$('#events').scrollIntoView({behavior:reduce?'auto':'smooth'})}});
+$('#prev').onclick=()=>selectDay(st.day-1);$('#next').onclick=()=>selectDay(st.day+1);$('#over').onclick=()=>selectDay(0);
+let t;$('#q').oninput=e=>{clearTimeout(t);t=setTimeout(()=>{st.q=e.target.value;renderEx()},140)};
+$('#xd').onchange=e=>{st.xd=e.target.value;renderEx()};
+$('#xc').onchange=e=>{st.xc=e.target.value;$$('.cat').forEach(x=>x.setAttribute('aria-pressed',x.dataset.k==st.xc));subs();renderEx()};
+$('#xs').onchange=e=>{st.xs=e.target.value;renderEx()};
+$('#reset').onclick=()=>{Object.assign(st,{q:'',xd:'ALL',xc:'ALL',xs:'ALL'});$('#q').value='';$('#xd').value='ALL';$('#xc').value='ALL';$$('.cat').forEach(x=>x.setAttribute('aria-pressed','false'));subs();renderEx()};
+const menu=$('#menu'),bg=$('#burger');
+bg.onclick=()=>{const o=menu.classList.toggle('open');bg.setAttribute('aria-expanded',o);bg.setAttribute('aria-label',o?'Close menu':'Open menu')};
+menu.onclick=e=>{if(e.target.closest('a')&&menu.classList.contains('open'))bg.click()};
+addEventListener('keydown',e=>{if(e.key=='Escape'&&menu.classList.contains('open'))bg.click()});
+const navIO=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting)$$('nav a').forEach(a=>a.classList.toggle('on',a.hash=='#'+x.target.id))}),{rootMargin:'-45% 0px -50% 0px'});
+['home','timeline','categories','events'].forEach(id=>navIO.observe($('#'+id)));
+subs();renderEx();selectDay(1);
+/* ===== 3D GLOBE — failure here never breaks the page ===== */
+try{
+const THREE=await import('three'),{OrbitControls}=await import('three/addons/controls/OrbitControls.js');
+const cv=$('#gl'),R=new THREE.WebGLRenderer({canvas:cv,antialias:!coarse,alpha:true});
+R.setPixelRatio(Math.min(devicePixelRatio||1,coarse?1.5:2));
+const S=new THREE.Scene(),C=new THREE.PerspectiveCamera(42,1,.1,100);C.position.set(0,.2,4.6);
+S.add(new THREE.AmbientLight(0x2a2036,1.6));const sun=new THREE.DirectionalLight(0xfff0dc,2.6);sun.position.set(5,2,4);S.add(sun);
+const H=(x,y,z)=>{const n=Math.sin(x*127.1+y*311.7+z*74.7)*43758.5453;return n-Math.floor(n)};
+const vn=(x,y,z)=>{const X=Math.floor(x),Y=Math.floor(y),Z=Math.floor(z),s=t=>t*t*(3-2*t),u=s(x-X),v=s(y-Y),w=s(z-Z),l=(a,b,t)=>a+(b-a)*t;
+ return l(l(l(H(X,Y,Z),H(X+1,Y,Z),u),l(H(X,Y+1,Z),H(X+1,Y+1,Z),u),v),l(l(H(X,Y,Z+1),H(X+1,Y,Z+1),u),l(H(X,Y+1,Z+1),H(X+1,Y+1,Z+1),u),v),w)};
+const fbm=(x,y,z)=>{let s=0,a=.5,f=1;for(let i=0;i<4;i++){s+=a*vn(x*f,y*f,z*f);f*=2;a*=.5}return s/.9375};
+const W=512,Hh=256,mk=()=>{const c=document.createElement('canvas');c.width=W;c.height=Hh;return c},cs=[mk(),mk()],cx=cs.map(c=>c.getContext('2d')),im=cx.map(c=>c.createImageData(W,Hh));
+for(let y=0;y<Hh;y++){const la=Math.PI/2-y/Hh*Math.PI,cl=Math.cos(la),sl=Math.sin(la);
+ for(let x=0;x<W;x++){const lo=x/W*6.2832-3.1414,px=cl*Math.sin(lo)*2.1,py=sl*2.1,pz=cl*Math.cos(lo)*2.1,h=fbm(px,py,pz),o=(y*W+x)*4;let r,g,b;
+  if(Math.abs(la)>1.3+(h-.5)*.25){r=235;g=242;b=250}
+  else if(h>.56){const e=Math.min((h-.56)*5,1.6);r=40+e*130;g=105+e*60;b=50+e*35}
+  else{const s=Math.min(1,(.56-h)*4);r=6+(1-s)*30;g=30+(1-s)*90;b=90+(1-s)*110}
+  const cc=Math.max(0,(fbm(px*1.7+4,py*1.7,pz*1.7+2)-.5)*4);
+  [[r,g,b,255],[255,255,255,Math.min(cc,1)*190]].forEach((v,k)=>{for(let q=0;q<4;q++)im[k].data[o+q]=v[q]})}}
+cx.forEach((c,k)=>c.putImageData(im[k],0,0));
+const dayT=new THREE.CanvasTexture(cs[0]);dayT.colorSpace=THREE.SRGBColorSpace;const cloudT=new THREE.CanvasTexture(cs[1]);
+const earth=new THREE.Mesh(new THREE.SphereGeometry(1,64,48),new THREE.MeshStandardMaterial({map:dayT,roughness:.9}));S.add(earth);
+const clouds=new THREE.Mesh(new THREE.SphereGeometry(1.012,48,32),new THREE.MeshStandardMaterial({map:cloudT,transparent:true,opacity:.6,depthWrite:false}));S.add(clouds);
+S.add(new THREE.Mesh(new THREE.SphereGeometry(1.19,48,32),new THREE.ShaderMaterial({transparent:true,side:THREE.BackSide,blending:THREE.AdditiveBlending,depthWrite:false,
+ vertexShader:'varying vec3 n;varying vec3 v;void main(){n=normalize(normalMatrix*normal);vec4 m=modelViewMatrix*vec4(position,1.);v=m.xyz;gl_Position=projectionMatrix*m;}',
+ fragmentShader:'varying vec3 n;varying vec3 v;void main(){float i=clamp(pow(.85-dot(n,normalize(-v)),2.4),0.,1.);gl_FragColor=vec4(1.,.48,.27,1.)*i;}'})));
+const sp=[];for(let i=0;i<(coarse?900:2200);i++){const v=new THREE.Vector3().randomDirection().multiplyScalar(14+Math.random()*40);sp.push(v.x,v.y,v.z)}
+const sg=new THREE.BufferGeometry();sg.setAttribute('position',new THREE.Float32BufferAttribute(sp,3));S.add(new THREE.Points(sg,new THREE.PointsMaterial({size:.12,color:0xFFF1D6,transparent:true,opacity:.85,depthWrite:false})));
+const rings=[[1.34,[.42,.1,.22],0xFF7138,.0042],[1.52,[-.34,.62,-.14],0xFFC66D,-.0032],[1.7,[.14,-.5,.42],0x8B6EFF,.0026]].map(([r,rot,col,s],i)=>{
+ const g=new THREE.Group();g.rotation.set(...rot);const p=[];for(let k=0;k<=140;k++){const a=k/140*Math.PI*2;p.push(new THREE.Vector3(Math.cos(a)*r,Math.sin(a)*r,0))}
+ const line=new THREE.Line(new THREE.BufferGeometry().setFromPoints(p),new THREE.LineBasicMaterial({color:col,transparent:true,opacity:.35,depthWrite:false}));
+ const m=new THREE.Mesh(new THREE.BoxGeometry(.05,.05,.05),new THREE.MeshBasicMaterial({color:col}));g.add(line,m);S.add(g);return{r,s,a:i*2.09,m,line}});
+const ctl=new OrbitControls(C,cv);ctl.enableDamping=true;ctl.enablePan=ctl.enableZoom=false;ctl.rotateSpeed=.5;ctl.minPolarAngle=Math.PI*.3;ctl.maxPolarAngle=Math.PI*.7;
+cv.style.touchAction='pan-y';if(coarse)ctl.minPolarAngle=ctl.maxPolarAngle=Math.PI/2;
+let spin=0,target=null;const speed=reduce?0:.0011,rs=reduce?0:1;ctl.addEventListener('start',()=>target=null);
+onDay=n=>{rings.forEach((r,i)=>r.line.material.opacity=!n?.35:i==n-1?.95:.15);
+ if(n)target=(n-1)*Math.PI*2/3;else target=null};
+onDay(st.day);
+const clock=new THREE.Clock();
+function tick(){const k=Math.min(clock.getDelta(),.05)*60;
+ if(target!=null){const d=Math.atan2(Math.sin(target-spin),Math.cos(target-spin));spin+=d*.06*k;if(Math.abs(d)<.002)target=null}else spin+=speed*k;
+ earth.rotation.y=spin;clouds.rotation.y=spin*1.15;
+ rings.forEach(r=>{r.a+=r.s*k*rs;r.m.position.set(Math.cos(r.a)*r.r,Math.sin(r.a)*r.r,0)});
+ ctl.update();R.render(S,C)}
+const box=cv.parentElement;
+new ResizeObserver(()=>{const w=Math.max(1,box.clientWidth),h=Math.max(1,box.clientHeight);R.setSize(w,h,false);C.aspect=w/h;C.updateProjectionMatrix()}).observe(box);
+let seen=true;const run=()=>R.setAnimationLoop(seen&&!document.hidden?tick:null);
+new IntersectionObserver(e=>{seen=e[0].isIntersecting;run()}).observe($('#home'));
+document.addEventListener('visibilitychange',run);run();
+}catch(err){console.warn('3D globe unavailable',err);document.body.classList.add('no-webgl')}
+</script>
+</body></html>

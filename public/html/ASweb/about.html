@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About ASTRA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Alegreya:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"></head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+
+<!-- ============ A — HERO ============ -->
+<header class="hero" id="hero">
+  <div class="layer l-sun" data-speed="0.1" aria-hidden="true"></div>
+  <svg class="layer l-far" data-speed="0.2" viewBox="0 0 1200 300" preserveAspectRatio="none" aria-hidden="true">
+    <path fill="#e8903a" opacity=".55" d="M0 300V210h90v-40h30v-30h40v30h30v40h120v-70l30-40 30 40v70h140v-50h60v-60l40-30 40 30v60h60v50h160v-90h40l20-50 20 50h40v90h180v-30h100V300z"/>
+  </svg>
+  <svg class="layer l-mid" data-speed="0.35" viewBox="0 0 1200 300" preserveAspectRatio="none" aria-hidden="true">
+    <path fill="#8a2a14" opacity=".8" d="M0 300V220h140l40-60 40 60h120v-30h60l60-90 60 90h60v30h260l50-70 50 70h160v80z"/>
+  </svg>
+  <div class="hero-copy">
+    <h1 class="pixel-title" id="heroTitle">About<br>ASTRA</h1>
+    <p class="hero-sub">Sathaye College</p>
+  </div>
+  <svg class="layer l-near" data-speed="0.6" viewBox="0 0 1200 220" preserveAspectRatio="none" aria-hidden="true">
+    <path fill="#1a0b06" d="M0 220V150h110l30-50 30 50h90v-20h40v20h200l30-80 30 80h80V120h60v30h260l40-60 40 60h210v70z"/>
+  </svg>
+  <a class="scroll-cue" href="#heritage" aria-label="Scroll to content"><span></span></a>
+</header>
+
+<main>
+<!-- ============ B — HERITAGE ============ -->
+<section class="sec heritage" id="heritage">
+  <div class="deco d1" data-speed="-0.15" aria-hidden="true"></div>
+  <div class="deco d2" data-speed="0.2" aria-hidden="true"></div>
+  <div class="split">
+    <div class="text">
+      <h2 class="big reveal-words">Sathaye College</h2>
+      <!-- REPLACE with the college text from your reference poster. Placeholder only. -->
+      <p class="lead reveal-lines placeholder">[Paste the college heritage text from the Sathaye College poster here. No facts have been added by the page.]</p>
+    </div>
+    <!-- Empty visual frame: add <img src="..." alt="..."> inside .frame when ready -->
+    <div class="frame tilt" tabindex="0" aria-label="Image frame, empty">
+      <div class="frame-in"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ C — STORY ============ -->
+<section class="sec story" id="story">
+  <div class="story-in">
+    <h2 class="huge reveal-words">The story of ASTRA</h2>
+    <!-- REPLACE each paragraph with the About ASTRA poster text. Keep one idea per .reveal-lines block. -->
+    <p class="story-p reveal-lines placeholder">[Paste paragraph one of the About ASTRA poster text here.]</p>
+    <p class="story-p reveal-lines placeholder">[Paste paragraph two of the About ASTRA poster text here.]</p>
+    <p class="story-p reveal-lines placeholder">[Paste paragraph three of the About ASTRA poster text here.]</p>
+  </div>
+</section>
+
+<!-- ============ D — GALLERY ============ -->
+<section class="sec gallery" id="gallery">
+  <h2 class="big reveal-words">Gallery</h2>
+  <div class="grid">
+    <!-- Each card: put <img src="your-image.jpg" alt="description"> inside .card-in. Keep .card-in empty until then. -->
+    <article class="card tilt" tabindex="0" aria-label="Gallery image 1, empty"><div class="card-in"><!-- <img src="" alt=""> --></div></article>
+    <article class="card tilt" tabindex="0" aria-label="Gallery image 2, empty"><div class="card-in"><!-- <img src="" alt=""> --></div></article>
+    <article class="card tilt" tabindex="0" aria-label="Gallery image 3, empty"><div class="card-in"><!-- <img src="" alt=""> --></div></article>
+    <article class="card tilt" tabindex="0" aria-label="Gallery image 4, empty"><div class="card-in"><!-- <img src="" alt=""> --></div></article>
+    <article class="card tilt" tabindex="0" aria-label="Gallery image 5, empty"><div class="card-in"><!-- <img src="" alt=""> --></div></article>
+    <article class="card tilt" tabindex="0" aria-label="Gallery image 6, empty"><div class="card-in"><!-- <img src="" alt=""> --></div></article>
+  </div>
+</section>
+
+<!-- ============ E — 3D SHOWCASE ============ -->
+<section class="sec showcase" id="showcase">
+  <h2 class="big reveal-words">In perspective</h2>
+  <div class="stage" id="stage">
+    <div class="scene" id="scene">
+      <!-- Place <img> inside each .s-in when ready -->
+      <div class="scard" tabindex="0" style="--i:-2" aria-label="Showcase card 1, empty"><div class="s-in"></div></div>
+      <div class="scard" tabindex="0" style="--i:-1" aria-label="Showcase card 2, empty"><div class="s-in"></div></div>
+      <div class="scard" tabindex="0" style="--i:0"  aria-label="Showcase card 3, empty"><div class="s-in"></div></div>
+      <div class="scard" tabindex="0" style="--i:1"  aria-label="Showcase card 4, empty"><div class="s-in"></div></div>
+      <div class="scard" tabindex="0" style="--i:2"  aria-label="Showcase card 5, empty"><div class="s-in"></div></div>
+    </div>
+    <div class="sparks" id="sparks" aria-hidden="true"></div>
+  </div>
+</section>
+
+<!-- ============ F — FESTIVAL SPIRIT ============ -->
+<section class="sec spirit" id="spirit">
+  <svg class="layer s-back" data-speed="0.15" viewBox="0 0 1200 300" preserveAspectRatio="none" aria-hidden="true">
+    <path fill="#e8903a" opacity=".4" d="M0 300V190h120l40-60 40 60h100v-80l40-50 40 50v80h200l40-90 40 90h240l40-50 40 50h120v110z"/>
+  </svg>
+  <svg class="layer s-front" data-speed="0.4" viewBox="0 0 1200 300" preserveAspectRatio="none" aria-hidden="true">
+    <path fill="#1a0b06" d="M0 300V230h200l30-70 30 70h140v-40h40v40h300l50-80 50 80h400v70z"/>
+  </svg>
+  <div class="spirit-in">
+    <h2 class="huge reveal-words">Arts. Culture. Talent. Creativity.</h2>
+    <p class="lead reveal-lines placeholder">[Paste the festival spirit text from the ASTRA poster here. No event categories, dates or statistics have been added.]</p>
+  </div>
+</section>
+
+<!-- ============ G — CLOSING ============ -->
+<section class="sec closing" id="closing">
+  <div class="layer sunset" data-speed="0.25" aria-hidden="true"></div>
+  <p class="closing-word" id="closingWord" aria-label="ASTRA">ASTRA</p>
+  <div class="fade-out" aria-hidden="true"></div>
+</section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

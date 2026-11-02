@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#221918">
+  <title>ASTRA | Tech Arts</title>
+  <style>
+        :root {
+            --sunset-peach: #F5BC89;
+            --sunset-orange: #E49E73;
+            --golden-peach: #FBCB8F;
+            --warm-peach: #E9AE82;
+            --terracotta: #BC8974;
+            --copper: #AF6D53;
+            --rust: #693B31;
+            --ivory: #FCF9F0;
+            --cream: #FAF0DB;
+            --charcoal: #2F2527;
+            --deep-brown: #221918;
+            --near-black: #110F11;
+            --sand-gold: #E9B886;
+            --pale-gold: #EFCE93
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+    background:
+        linear-gradient(
+            rgba(34, 25, 24, 0.60),
+            rgba(17, 15, 17, 0.84)
+        ),
+        url("FINE_IMAGE.jpeg") center / cover fixed no-repeat;
+    
+    background-position: center;
+    background-attachment: fixed;
+}
+
+        /* Ambient background */
+        .background-glow {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            pointer-events: none;
+            overflow: hidden;
+            background: radial-gradient(circle at 15% 30%, rgba(245, 188, 137, .09), transparent 25%), radial-gradient(circle at 85% 70%, rgba(228, 158, 115, .08), transparent 27%)
+        }
+
+        .background-glow:before,
+        .background-glow:after {
+            content: "";
+            position: absolute;
+            width: 42vw;
+            height: 42vw;
+            min-width: 280px;
+            min-height: 280px;
+            border: 1px solid rgba(239, 206, 147, .1);
+            border-radius: 50%;
+            animation: orbit 28s linear infinite;
+            left: -14vw;
+            top: 25vh;
+            box-shadow: 0 0 70px rgba(228, 158, 115, .06), inset 0 0 60px rgba(228, 158, 115, .04)
+        }
+
+        .background-glow:after {
+            width: 34vw;
+            height: 34vw;
+            left: auto;
+            right: -12vw;
+            top: 55vh;
+            animation-duration: 36s;
+            animation-direction: reverse
+        }
+
+        #particles {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: .7
+        }
+
+        @keyframes orbit {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(25px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        @keyframes shimmer {
+
+            0%,
+            100% {
+                opacity: .55
+            }
+
+            50% {
+                opacity: 1
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-7px)
+            }
+        }
+
+        /* Top navigation */
+        .site-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 15px clamp(18px, 5vw, 72px);
+            background: rgba(25, 17, 17, .76);
+            border-bottom: 1px solid rgba(239, 206, 147, .22);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            box-shadow: 0 10px 35px rgba(0, 0, 0, .16)
+        }
+
+        .brand-mark {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            text-decoration: none;
+            color: var(--cream);
+            font-family: Arial, sans-serif;
+            font-weight: 900;
+            letter-spacing: 3px;
+            font-size: 18px;
+            flex-shrink: 0
+        }
+
+        .brand-mark .brand-symbol {
+            display: grid;
+            place-items: center;
+            width: 39px;
+            height: 39px;
+            border: 1px solid var(--pale-gold);
+            color: var(--pale-gold);
+            font-size: 19px;
+            border-radius: 50%;
+            box-shadow: 0 0 22px #e9b88620;
+            transition: transform .45s, box-shadow .45s
+        }
+
+        .brand-mark:hover .brand-symbol {
+            transform: rotate(90deg) scale(1.08);
+            box-shadow: 0 0 25px #e9b88666
+        }
+
+        .brand-copy {
+            display: flex;
+            flex-direction: column;
+            gap: 3px
+        }
+
+        .brand-copy small {
+            font-size: 9px;
+            letter-spacing: 4px;
+            color: var(--sunset-peach)
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: clamp(14px, 2.4vw, 32px)
+        }
+
+        .nav-links a {
+            position: relative;
+            text-decoration: none;
+            color: #f7e9d5;
+            font: 700 11px Arial, sans-serif;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            padding: 10px 0;
+            transition: color .25s
+        }
+
+        .nav-links a:not(.nav-cta):after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 3px;
+            width: 100%;
+            height: 1px;
+            background: var(--pale-gold);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform .3s
+        }
+
+        .nav-links a:hover {
+            color: var(--pale-gold)
+        }
+
+        .nav-links a:hover:after {
+            transform: scaleX(1);
+            transform-origin: left
+        }
+
+        .nav-links .nav-cta {
+            padding: 12px 19px;
+            border: 1px solid var(--pale-gold);
+            border-radius: 30px;
+            color: var(--deep-brown);
+            background: linear-gradient(135deg, var(--ivory), var(--golden-peach), var(--sunset-orange));
+            box-shadow: 0 5px 20px #0003;
+            transition: transform .25s, box-shadow .25s
+        }
+
+        .nav-links .nav-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px #e9b88640;
+            color: var(--deep-brown)
+        }
+
+        main {
+            width: min(1200px, calc(100% - 70px));
+            margin: 0 auto;
+            padding: 58px 0 90px
+        }
+
+        .intro {
+            text-align: center;
+            margin: 0 auto 52px;
+            max-width: 760px;
+            animation: rise .8s both
+        }
+
+        .eyebrow {
+            display: inline-block;
+            color: var(--pale-gold);
+            font: 700 10px Arial, sans-serif;
+            letter-spacing: 5px;
+            margin-bottom: 19px
+        }
+
+        .intro h1 {
+            font-size: clamp(38px, 6vw, 76px);
+            line-height: .98;
+            color: var(--cream);
+            letter-spacing: -2px;
+            text-shadow: 0 5px 35px #e49e7320
+        }
+
+        .intro h1 em {
+            font-style: normal;
+            color: var(--sunset-peach)
+        }
+
+        .intro .ornament {
+            margin: 20px auto 17px;
+            color: var(--sunset-peach);
+            letter-spacing: 8px;
+            animation: shimmer 4s ease-in-out infinite
+        }
+
+        .intro p {
+            color: #e8d5c0b8;
+            line-height: 1.8;
+            font-size: 15px;
+            max-width: 570px;
+            margin: auto
+        }
+
+        .section-label {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 0 0 22px;
+            color: var(--pale-gold);
+            font: 700 10px Arial, sans-serif;
+            letter-spacing: 3px
+        }
+
+        .section-label:before,
+        .section-label:after {
+            content: "";
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #e9b88670);
+            flex: 1
+        }
+
+        .section-label:after {
+            transform: scaleX(-1)
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 28px;
+            align-items: stretch
+        }
+
+        .card-container {
+            min-width: 0;
+            perspective: 1200px;
+            transition: opacity .7s ease, transform .7s cubic-bezier(.2, .75, .25, 1)
+        }
+
+        .js-reveal .card-container {
+            opacity: 0;
+            transform: translateY(42px) scale(.975)
+        }
+
+        .js-reveal .card-container.is-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1)
+        }
+
+        .card-container:nth-child(2) {
+            animation-delay: .08s
+        }
+
+        .card-container:nth-child(3) {
+            animation-delay: .16s
+        }
+
+        .card-container:nth-child(4) {
+            animation-delay: .24s
+        }
+
+        .card-container:nth-child(5) {
+            animation-delay: .32s
+        }
+
+        .popup-card {
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+            min-height: 525px;
+            height: 100%;
+            padding: 64px 25px 88px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--deep-brown);
+            background: radial-gradient(ellipse at 20% 20%, #fff0be8c, transparent 42%), radial-gradient(ellipse at 85% 75%, #bc897433, transparent 45%), linear-gradient(145deg, var(--golden-peach), var(--sand-gold), var(--sunset-peach));
+            clip-path: polygon(5% 2%, 24% 1%, 40% 2%, 53% 0, 75% 2%, 95% 5%, 100% 13%, 98% 30%, 100% 48%, 98% 66%, 100% 86%, 93% 98%, 74% 99%, 53% 98%, 32% 100%, 6% 97%, 0 87%, 3% 69%, 0 50%, 2% 31%, 0 13%);
+            filter: drop-shadow(0 16px 18px #0005);
+            transform-style: preserve-3d;
+            transition: transform .4s ease, filter .4s ease;
+        }
+
+        .popup-card:before {
+            content: "";
+            position: absolute;
+            inset: 17px;
+            z-index: -1;
+            border: 1px solid #693b31b3;
+            outline: 1px dashed #693b3166;
+            outline-offset: -7px;
+            background: repeating-linear-gradient(45deg, transparent 0, transparent 8px, #693b3108 9px, transparent 10px);
+            pointer-events: none
+        }
+
+        .popup-card:after {
+            content: "✦  ❧  ✦  ❧  ✦";
+            position: absolute;
+            top: 24px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: var(--rust);
+            font-size: 12px;
+            letter-spacing: 5px;
+            pointer-events: none
+        }
+
+        .card-container:hover .popup-card {
+            transform: translateY(-9px) rotateX(2deg) rotateY(-1deg) scale(1.012);
+            filter: drop-shadow(0 25px 25px #0007)
+        }
+
+        .top-flourish {
+            position: absolute;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%) rotate(180deg);
+            font-size: 38px;
+            line-height: 1;
+            color: var(--rust)
+        }
+
+        .popup-content {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            transition: transform .45s ease
+        }
+
+        .eyebrow-card {
+            display: block;
+            color: var(--rust);
+            font: 800 9px Arial, sans-serif;
+            letter-spacing: 3px;
+            margin-bottom: 14px
+        }
+
+        .ornament {
+            font-size: 22px;
+            color: var(--copper);
+            margin-bottom: 12px
+        }
+
+        .popup-content h2 {
+            font-size: clamp(23px, 2vw, 29px);
+            line-height: 1.12;
+            color: var(--rust);
+            margin-bottom: 16px;
+            text-shadow: 1px 1px 0 #fcf9f08c
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 0 auto 19px;
+            width: 88%;
+            color: var(--rust);
+            font-size: 12px
+        }
+
+        .divider span {
+            height: 1px;
+            flex: 1;
+            background: linear-gradient(90deg, transparent, var(--copper), var(--rust))
+        }
+
+        .popup-content p {
+            color: var(--charcoal);
+            font-size: 14px;
+            line-height: 1.75;
+            margin-bottom: 12px
+        }
+
+        .bottom-flourish {
+            position: absolute;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--rust);
+            font-size: 21px;
+            line-height: 1
+        }
+
+        .instructions-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 39px 28px 47px;
+            background: rgba(34, 25, 24, .97);
+            color: var(--cream);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(15px) scale(.985);
+            transition: opacity .35s ease, transform .4s ease, visibility .35s;
+            pointer-events: none;
+            clip-path: inherit
+        }
+
+        .card-container:hover .instructions-overlay,
+        .popup-card.is-open .instructions-overlay {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+            pointer-events: auto
+        }
+
+        .instructions-overlay h3 {
+            width: 100%;
+            margin: 0 0 10px;
+            text-align: center;
+            color: var(--pale-gold);
+            font-size: 22px;
+            letter-spacing: 2px
+        }
+
+        .instruction-divider {
+            width: 100%;
+            text-align: center;
+            color: var(--sunset-peach);
+            font-size: 15px;
+            margin-bottom: 17px
+        }
+
+        .instructions-overlay ul {
+            width: 100%;
+            padding-left: 18px;
+            text-align: left
+        }
+
+        .instructions-overlay li {
+            margin-bottom: 10px;
+            padding-left: 2px;
+            color: var(--cream);
+            font-size: 12px;
+            line-height: 1.6
+        }
+
+        .instructions-overlay li::marker {
+            color: var(--sunset-peach)
+        }
+
+        .join-btn {
+            position: absolute;
+            z-index: 7;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            min-width: 145px;
+            padding: 12px 19px;
+            white-space: nowrap;
+            text-decoration: none;
+            color: var(--deep-brown);
+            font-size: 13px;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--cream), var(--golden-peach), var(--sunset-orange));
+            border: 2px solid var(--rust);
+            border-radius: 35px;
+            box-shadow: inset 0 0 0 2px #fcf9f073, 0 4px 8px #2f252733;
+            transition: box-shadow .3s, background .3s, transform .3s
+        }
+
+        .join-btn:hover {
+            background: linear-gradient(135deg, var(--ivory), var(--golden-peach));
+            box-shadow: 0 7px 18px #693b3145;
+            transform: translateX(-50%) translateY(-3px)
+        }
+
+        .join-btn span {
+            transition: transform .3s
+        }
+
+        .join-btn:hover span {
+            transform: translate(3px, -3px)
+        }
+
+        .footer-note {
+            text-align: center;
+            color: #e8d5c080;
+            font: 10px Arial, sans-serif;
+            letter-spacing: 2px;
+            margin-top: 45px
+        }
+
+      @media (max-width: 1000px) {
+    .nav-links { gap: 13px }
+    .nav-links a { font-size: 10px }
+    .nav-links .nav-cta { padding: 11px 14px }
+
+    main {
+        width: min(760px, calc(100% - 40px));
+        padding-top: 48px
+    }
+
+    .cards-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px
+    }
+
+    .popup-card {
+        min-height: 500px;
+        padding: 60px 22px 84px
+    }
+
+    .popup-content h2 { font-size: 26px }
+    .instructions-overlay { overflow-y: auto }
+}
+
+
+
+      @media (max-width: 1000px) {
+    .site-nav { padding: 12px 16px; gap: 12px }
+    .brand-mark { font-size: 15px; gap: 8px }
+    .brand-mark .brand-symbol { width: 33px; height: 33px; font-size: 16px }
+    .nav-links a:not(.nav-cta) { display: none }
+    .nav-links .nav-cta { padding: 11px 13px; font-size: 9px; letter-spacing: .7px }
+    .nav-links { gap: 0 }
+
+    main {
+        width: calc(100% - 20px);
+        padding: 40px 0 55px
+    }
+
+    .intro { margin-bottom: 32px }
+    .intro h1 { font-size: clamp(35px, 10vw, 54px) }
+    .intro p { font-size: 13px }
+
+    .cards-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        max-width: none;
+        margin: 0
+    }
+
+    .popup-card {
+        min-height: 50px;
+        padding: 48px 12px 68px
+    }
+
+    .popup-card:before { inset: 10px }
+    .popup-card:after { top: 16px; font-size: 8px; letter-spacing: 2px }
+    .top-flourish { display: none }
+    .bottom-flourish { bottom: 12px; font-size: 16px }
+
+    .eyebrow-card { font-size: 7px; letter-spacing: 1.5px; margin-bottom: 10px }
+    .popup-content .ornament { font-size: 14px; margin-bottom: 8px }
+    .popup-content h2 { font-size: clamp(15px, 4.6vw, 20px); margin-bottom: 10px }
+    .divider { width: 100%; gap: 6px; margin-bottom: 12px }
+    .popup-content p { font-size: 11px; line-height: 1.55; margin-bottom: 8px }
+
+    .join-btn {
+        bottom: 26px;
+        min-width: 0;
+        padding: 8px 12px;
+        font-size: 10px;
+        gap: 4px;
+        border-width: 1.5px
+    }
+
+    .instructions-overlay { padding: 28px 12px 66px; overflow-y: auto }
+    .instructions-overlay h3 { font-size: 15px; letter-spacing: 1px; margin-bottom: 6px }
+    .instruction-divider { font-size: 11px; margin-bottom: 10px }
+    .instructions-overlay ul { padding-left: 13px }
+    .instructions-overlay li { font-size: 10px; line-height: 1.45; margin-bottom: 7px }
+
+    .card-container:hover .popup-card { transform: none }
+    .card-container:hover .instructions-overlay {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(15px);
+        pointer-events: none
+    }
+    .popup-card.is-open .instructions-overlay {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        pointer-events: auto
+    }
+}
+
+        @media(prefers-reduced-motion:reduce) {
+
+            *,
+            *:before,
+            *:after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: .01ms !important
+            }
+        }
+    
+/* added: long instruction lists stay readable */
+.instructions-overlay{overflow-y:auto}.instructions-overlay li{margin-bottom:7px}
+</style>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"></head>
+
+<body>
+  <div class="background-glow" aria-hidden="true"></div><canvas id="particles" aria-hidden="true"></canvas>
+  <nav class="site-nav" aria-label="Main navigation"><a class="brand-mark" href="#top" aria-label="ASTRA home"><img class="astra-logo" src="/Image/astra-logo.png" alt="ASTRA 2026 logo" style="height:60px;width:auto;display:block"></a>
+    <div class="nav-links"><a href="#top">Home</a><a href="#events">Events</a><a href="#register">Contact</a><a
+        class="nav-cta" href="#events">Explore Events <span aria-hidden="true">↗</span></a></div>
+  </nav>
+  <main id="top">
+    <header class="intro"><span class="eyebrow">✦ &nbsp; SATHAYE COLLEGE PRESENTS &nbsp; ✦</span>
+      <h1>Informal <em>Events</em></h1>
+      <div class="ornament">❧ ✧ ✦ ✧ ❧</div>
+      <p>Style Aamcha, Swag Aamcha.From the streets to the spotlight ,show Mumbai who you are.
+      </p>ASTRA</p>
+    </header>
+    <div class="section-label" id="events">THE LINE-UP</div>
+    <section class="cards-grid" aria-label="Performing arts events">
+      <!-- Card 1: Shaan -e - Mumbai -->
+      <article class="card-container">
+        <div class="popup-card">
+          <div class="top-flourish">❧</div>
+          <div class="popup-content"><span class="eyebrow-card">✦ FLAGSHIP EVENT ✦</span>
+            <div class="ornament">❧ ✧ ❧</div>
+            <h2>Shaan -e - Mumbai</h2>
+            <div class="divider"><span></span>✦<span></span></div>
+            <p>A fashion showcase celebrating Mumbai’s diverse styles, cultures and professions.</p>
+          </div>
+          <div class="instructions-overlay">
+            <h3>Instructions</h3>
+            <div class="instruction-divider">✦ ❧ ✦</div>
+            <ul>
+              <li>Team Size: 8–10 per team &nbsp;·&nbsp; Fee: ₹700</li>
+              <li>Duration: 8-10 min</li>
+              <li>Format: Fashion Show (Team, Flagship Event)</li>
+              <li>Components Included: Koli Style, Dabbawala Theme, Bollywood Glamour, Corporate Mumbai, Street Style, Indo-Western, Traditional Maharashtrian, Contemporary Fashion, Upcycled Fashion</li>
+              <li>Concept: Mumbai’s fashion and culture</li>
+            </ul>
+          </div><a href="#register" class="join-btn">Register Now <span>↗</span></a>
+          <div class="bottom-flourish">✧</div>
+        </div>
+      </article>
+      <!-- Card 2: Faces of Mumbai – Mr. &amp; Ms. ASTRA -->
+      <article class="card-container">
+        <div class="popup-card">
+          <div class="top-flourish">❧</div>
+          <div class="popup-content"><span class="eyebrow-card">✦ FLAGSHIP EVENT ✦</span>
+            <div class="ornament">❧ ✧ ❧</div>
+            <h2>Faces of Mumbai – Mr. &amp; Ms. ASTRA</h2>
+            <div class="divider"><span></span>✦<span></span></div>
+            <p>A personality-based competition celebrating confidence, talent and intelligence.</p>
+          </div>
+          <div class="instructions-overlay">
+            <h3>Instructions</h3>
+            <div class="instruction-divider">✦ ❧ ✦</div>
+            <ul>
+              <li>Team Size: 1 male + 1 female / as per format &nbsp;·&nbsp; Fee: ₹500</li>
+              <li>Duration: 60–90 min</li>
+              <li>Format: Mr. and Ms. Personality Contest (Individual, Flagship Event)</li>
+              <li>Components Included: Introduction, Ramp Walk, Talent Round, Mumbai Quiz, Situation Round, Question &amp; Answer, Traditional/Contemporary Presentation</li>
+              <li>Concept: Mumbai’s diversity and spirit</li>
+            </ul>
+          </div><a href="#register" class="join-btn">Register Now <span>↗</span></a>
+          <div class="bottom-flourish">✧</div>
+        </div>
+      </article>
+      <!-- Card 3: War of CL – Haar Ya Jeet -->
+      <article class="card-container">
+        <div class="popup-card">
+          <div class="top-flourish">❧</div>
+          <div class="popup-content"><span class="eyebrow-card">✦ ASTRA ✦</span>
+            <div class="ornament">❧ ✧ ❧</div>
+            <h2>War of CL – Haar Ya Jeet</h2>
+            <div class="divider"><span></span>✦<span></span></div>
+            <p>CLs compete in fun challenges to find the ultimate college champion.</p>
+          </div>
+          <div class="instructions-overlay">
+            <h3>Instructions</h3>
+            <div class="instruction-divider">✦ ❧ ✦</div>
+            <ul>
+              <li>Team Size: 1 &nbsp;·&nbsp; Fee: ₹100</li>
+              <li>Duration: 60–120 min</li>
+              <li>Format: CL Challenge Competition (Individual)</li>
+              <li>Components Included: Quiz, Rapid Fire, Dance, Music, Acting, Puzzles, Sports Challenge, Fun Games, Audience Challenge</li>
+              <li>Concept: CLs competing Mumbai-style</li>
+            </ul>
+          </div><a href="#register" class="join-btn">Register Now <span>↗</span></a>
+          <div class="bottom-flourish">✧</div>
+        </div>
+      </article>
+    </section> -->
+    <p class="footer-note" id="register">ASTRA FEST &nbsp; • &nbsp; CELEBRATING THE SPIRIT OF MUMBAI</p>
+  </main>
+  <script>
+    // Reveal cards as they enter the viewport, with a small stagger.
+    document.documentElement.classList.add("js-reveal");
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const cards = [...document.querySelectorAll('.card-container')];
+          const index = cards.indexOf(entry.target);
+          entry.target.style.transitionDelay = `${(index % 3) * 90}ms`;
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.card-container').forEach(card => revealObserver.observe(card));
+
+    // Subtle pointer tilt on desktop; leave touch/mobile interactions simple.
+    if (matchMedia('(hover: hover) and (pointer: fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('.popup-card').forEach(card => {
+        card.addEventListener('pointermove', event => {
+          if (event.target.closest('.instructions-overlay')) return;
+          const rect = card.getBoundingClientRect();
+          const x = (event.clientX - rect.left) / rect.width - .5;
+          const y = (event.clientY - rect.top) / rect.height - .5;
+          card.style.transform = `translateY(-8px) rotateX(${(-y * 5).toFixed(2)}deg) rotateY(${(x * 6).toFixed(2)}deg) scale(1.012)`;
+        });
+        card.addEventListener('pointerleave', () => { card.style.transform = ''; });
+      });
+    }
+
+    // Mobile/touch: tap a card to reveal its instructions. Tap again to close.
+    document.querySelectorAll('.popup-card').forEach(card => { card.addEventListener('click', event => { if (event.target.closest('.join-btn')) return; if (window.matchMedia('(max-width: 620px), (hover: none)').matches) { const wasOpen = card.classList.contains('is-open'); document.querySelectorAll('.popup-card.is-open').forEach(other => other.classList.remove('is-open')); if (!wasOpen) card.classList.add('is-open') } }) });
+    // Lightweight animated gold dust background.
+    (() => { const canvas = document.getElementById('particles'), ctx = canvas.getContext('2d'); let w, h, dpr, particles = []; function resize() { dpr = Math.min(window.devicePixelRatio || 1, 2); w = innerWidth; h = innerHeight; canvas.width = w * dpr; canvas.height = h * dpr; canvas.style.width = w + 'px'; canvas.style.height = h + 'px'; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); particles = Array.from({ length: Math.min(85, Math.floor(w / 15)) }, () => ({ x: Math.random() * w, y: Math.random() * h, r: Math.random() * 1.5 + .35, vx: (Math.random() - .5) * .22, vy: Math.random() * .28 + .06, a: Math.random() * .55 + .15, phase: Math.random() * 6.28 })) } function draw(t) { ctx.clearRect(0, 0, w, h); for (const p of particles) { p.x += p.vx; p.y -= p.vy; p.phase += .012; if (p.y < -5) { p.y = h + 5; p.x = Math.random() * w } if (p.x < -5) p.x = w + 5; if (p.x > w + 5) p.x = -5; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(239,206,147,${p.a * (.65 + .35 * Math.sin(p.phase))})`; ctx.fill() } requestAnimationFrame(draw) } resize(); addEventListener('resize', resize); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) requestAnimationFrame(draw) })();
+  </script>
+<script src="/js/event-links.js" defer></script>
+</body>
+
+</html>

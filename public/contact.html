@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ASTRA Fest | Contact Us</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Alegreya+Sans:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================================
+   ASTRA FEST — CONTACT PAGE
+   Structure:
+     1. Base + top navigation
+     2. Hero
+     3. Marquee
+     4. Contact section  (background image lives here  →  .ct { --ct-bg-img })
+     5. Team cards (glassmorphism + WhatsApp / Call)
+     6. Message form (with validation errors)
+     7. CTA panel
+     8. Footer + back-to-top
+     9. Responsive
+    10. Reduced motion
+   ========================================================================= */
+
+/* ---------- 1. BASE + NAV ---------- */
+body{margin:0;background:#1d0f14;font-family:'Alegreya Sans',system-ui,sans-serif}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.ax{--cream:#fbe9c6;--ink:#1a0b10;--sun:#ffb23e;--rose:#e58f8a;--disp:'Bungee','Impact',sans-serif;color:var(--cream)}
+.ax *{box-sizing:border-box}
+.ax :focus-visible{outline:3px solid var(--cream);outline-offset:3px}
+.ax-nav{position:fixed;top:14px;left:50%;translate:-50% 0;z-index:50;width:min(740px,calc(100% - 340px));
+  clip-path:polygon(0 0,100% 0,100% 58%,97% 100%,3% 100%,0 58%);padding:2px;background:linear-gradient(180deg,#e9d3a8,#7d5a4a)}
+.ax-nav ul{margin:0;padding:0 2rem;list-style:none;display:flex;justify-content:space-between;align-items:center;height:56px;
+  clip-path:polygon(0 0,100% 0,100% 58%,97% 100%,3% 100%,0 58%);background:rgba(26,11,16,.78);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.ax-nav a{position:relative;display:block;padding:.9rem .4rem;color:var(--cream);text-decoration:none;font:700 .86rem var(--body,inherit);letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+.ax-nav a::after{content:"";position:absolute;left:0;right:0;bottom:.45rem;height:2px;background:var(--sun);box-shadow:0 0 10px var(--sun);transform:scaleX(0);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.ax-nav a:hover::after,.ax-nav a[aria-current]::after{transform:scaleX(1)}
+.ax-nav a:hover{color:var(--sun)}
+.ax-logo{position:fixed;top:14px;left:26px;z-index:51;font:400 1.9rem var(--disp);color:var(--cream);text-decoration:none;text-shadow:.07em .07em 0 #7a1e2e;min-height:44px}
+
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.ax-progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:60;transform-origin:0 50%;transform:scaleX(var(--p,0));background:linear-gradient(90deg,#ffb23e,#e58f8a);box-shadow:0 0 10px rgba(255,178,62,.7);pointer-events:none}
+.ax-nav{transition:top .3s}
+.ax-nav ul{transition:background .3s}
+.ax-nav.sc{top:8px}
+.ax-nav.sc ul{background:rgba(26,11,16,.92)}
+.ax-nav a.cta{background:var(--sun);color:var(--ink);padding:.6rem 1.1rem;border-radius:3px;transition:background .25s,transform .25s,box-shadow .25s}
+.ax-nav a.cta::after{display:none}
+.ax-nav a.cta:hover{background:var(--cream);color:var(--ink);transform:translateY(-1px);box-shadow:0 6px 16px rgba(0,0,0,.4)}
+.ax-nav a.cta[aria-current]{box-shadow:0 0 0 2px var(--cream) inset}
+@media (max-width:1000px){
+  .ax-logo{display:none}
+  .ax-nav{width:calc(100% - 20px);top:10px}
+  .ax-nav.sc{top:6px}
+  .ax-nav ul{padding:0 .7rem}
+  .ax-nav a{font-size:.72rem;letter-spacing:.05em;padding:.9rem .2rem}
+  .ax-nav a.cta{padding:.55rem .7rem}
+}
+
+/* ---------- 2. HERO ---------- */
+@keyframes pg-in{from{opacity:0}}
+body{animation:pg-in .6s ease-out}
+.ch{--cream:#fbe9c6;--ink:#1a0b10;--sun:#ffb23e;--display:'Bungee','Impact',sans-serif;--body:'Alegreya Sans',system-ui,sans-serif;
+  position:relative;min-height:100svh;overflow:hidden;isolation:isolate;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  padding:17vh 6vw 24vh;color:var(--cream);font-family:var(--body);
+  background:linear-gradient(180deg,#24101a 0%,#6c2a3c 26%,#c9553b 54%,#f29a52 78%,#ffb86b 100%)}
+.ch *{box-sizing:border-box}
+.ch-l{position:absolute;pointer-events:none}
+.ch-l svg{display:block;width:100%;height:100%}
+.ch-sun{left:58%;bottom:26%;width:min(42vw,540px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#fff0c0 0,#ffc968 42%,rgba(255,170,90,0) 70%);
+  translate:calc(var(--mx,0)*-10px) calc(var(--my,0)*-5px);transition:translate .8s ease-out;animation:ch-pulse 6s ease-in-out infinite alternate}
+@keyframes ch-pulse{to{scale:1.07}}
+.ch-far{inset:auto 0 17% 0;height:36%;translate:calc(var(--mx,0)*-14px) 0;transition:translate .8s ease-out}
+.ch-near{inset:auto 0 0 0;height:32%;translate:calc(var(--mx,0)*-30px) 0;transition:translate .8s ease-out}
+.ch-neck{inset:auto 0 16% 0;width:100%;height:90px}
+.ch-neck path{fill:none;stroke:#ffd98a;stroke-width:5;stroke-linecap:round;stroke-dasharray:.1 15;filter:drop-shadow(0 0 6px #ffb23e);animation:ch-tw 3.5s ease-in-out infinite alternate}
+@keyframes ch-tw{from{opacity:.45}to{opacity:1}}
+.ch-l .t{animation:ch-tw 3s ease-in-out infinite alternate}
+.ch-spot{inset:0;mix-blend-mode:screen;background:radial-gradient(circle 300px at var(--sx,50%) var(--sy,40%),rgba(255,214,140,.3),transparent 70%);transition:background-position .2s}
+.ch-shade{inset:0;z-index:2;background:radial-gradient(ellipse 60% 45% at 50% 44%,rgba(26,11,16,.5),transparent 70%),linear-gradient(180deg,rgba(26,11,16,.45),transparent 28%)}
+.ch-grain{inset:0;z-index:3;opacity:.14;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.ch-dust{inset:0}
+.ch-dust i{position:absolute;width:5px;height:5px;background:#ffd98a;animation:ch-up linear infinite}
+@keyframes ch-up{to{transform:translateY(-110vh)}}
+.ch-copy{position:relative;z-index:5;display:flex;flex-direction:column;align-items:center;gap:1.1rem;transition:opacity .2s}
+.ch-college{font-weight:700;font-size:clamp(1rem,1.5vw,1.3rem);letter-spacing:.14em;text-shadow:0 2px 10px #000;opacity:0;animation:ch-fade .9s .1s forwards}
+.ch-h1{margin:0;font:400 clamp(2.8rem,10.5vw,9rem)/.92 var(--display);color:var(--cream);text-shadow:.04em .05em 0 #7a1e2e,0 0 .55em rgba(255,178,62,.5)}
+.ch-h1 .wd{display:inline-block;white-space:nowrap}
+.ch-h1 .c{display:inline-block;opacity:0;transform:translateY(70px) rotate(10deg) scale(.8);filter:blur(8px);
+  animation:ch-char 1s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--i)*60ms + .35s);transition:translate .25s,color .25s,text-shadow .25s}
+.ch-h1 .c:hover{translate:0 -10px;color:var(--sun);text-shadow:.05em .06em 0 #7a1e2e,0 0 .5em rgba(255,178,62,.95)}
+@keyframes ch-char{to{opacity:1;transform:none;filter:none}}
+@keyframes ch-fade{to{opacity:1}}
+.ch-tag{margin:0;max-width:46ch;font-size:clamp(1.15rem,2vw,1.55rem);line-height:1.45;text-shadow:0 2px 12px #000;opacity:0;translate:0 24px;animation:ch-up2 1s 1.5s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes ch-up2{to{opacity:1;translate:0 0}}
+.ch-line{position:relative;height:3px;width:min(300px,62%);border-radius:3px;background:linear-gradient(90deg,transparent,var(--sun),transparent);box-shadow:0 0 14px var(--sun);transform:scaleX(0);animation:ch-draw 1.2s 1.2s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes ch-draw{to{transform:none}}
+.ch-line::after{content:"";position:absolute;top:-3px;left:0;width:9px;height:9px;border-radius:50%;background:#fff3c0;box-shadow:0 0 12px 3px var(--sun);animation:ch-run 3.2s ease-in-out infinite alternate}
+@keyframes ch-run{to{left:calc(100% - 9px)}}
+.ch-flight{width:min(620px,92vw);height:auto;margin-top:.2rem;overflow:visible;opacity:0;animation:ch-fade 1s 1.9s forwards}
+.ch-flight .trail{fill:none;stroke:rgba(251,233,198,.75);stroke-width:2;stroke-linecap:round;stroke-dasharray:3 9;animation:ch-dash 1.4s linear infinite}
+@keyframes ch-dash{to{stroke-dashoffset:-24}}
+.ch-scroll{position:absolute;inset:auto 0 3.5% 0;z-index:5;text-align:center;font-weight:700;letter-spacing:.2em;font-size:.8rem;text-shadow:0 2px 8px #000;pointer-events:none;color:var(--cream)}
+.ch-scroll::after{content:"";display:block;width:2px;height:38px;margin:.5rem auto 0;background:var(--cream);transform-origin:top;animation:ch-line 2s ease-in-out infinite}
+@keyframes ch-line{0%{transform:scaleY(0)}60%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+.ch-paused *{animation-play-state:paused!important}
+
+/* ---------- 3. MARQUEE ---------- */
+.ct-marq{position:relative;overflow:hidden;background:#120709;border-block:2px solid rgba(251,233,198,.18);padding:.9rem 0;color:#fbe9c6;font-family:'Bungee','Impact',sans-serif}
+.ct-marq-track{display:flex;width:max-content;animation:ct-marq 38s linear infinite}
+.ct-marq:hover .ct-marq-track{animation-play-state:paused}
+.ct-marq span{display:inline-flex;align-items:center;gap:1.6rem;padding-right:1.6rem;font-size:clamp(1rem,2.4vw,1.6rem);white-space:nowrap}
+.ct-marq span::after{content:"✦";color:#ffb23e}
+.ct-marq span:nth-child(even){color:transparent;-webkit-text-stroke:1.5px rgba(251,233,198,.8)}
+@keyframes ct-marq{to{transform:translateX(-50%)}}
+
+/* =========================================================================
+   4. CONTACT SECTION + BACKGROUND IMAGE
+   ========================================================================= */
+.ct{
+  --cream:#fbe9c6; --ink:#1a0b10; --sun:#ffb23e; --rose:#e58f8a; --wa:#25d366;
+  --display:'Bungee','Impact',sans-serif; --body:'Alegreya Sans',system-ui,sans-serif;
+  --glass:rgba(255,255,255,.10);
+  --glass-border:rgba(251,233,198,.28);
+  --radius:20px;
+
+  /* =====================================================================
+     ►►► 1) BACKGROUND IMAGE — CHANGE THIS ONE PATH ONLY  ◄◄◄
+     Put your supplied image next to this HTML file (or use a full URL).
+     ===================================================================== */
+  --ct-bg-img:url("contactimage/contactbg.png");
+
+  position:relative;isolation:isolate;overflow:hidden;overflow:clip;
+  padding:7vh 5vw 16vh;color:var(--cream);font-family:var(--body);
+  background:#1a0b10; /* fallback colour if the image is missing */
+}
+.ct *{box-sizing:border-box}
+.ct :focus-visible{outline:3px solid var(--cream);outline-offset:3px}
+.ct-wrap{position:relative;max-width:1200px;margin:0 auto}
+
+/* background layers */
+.ct-bg{position:absolute;inset:0;z-index:-2;pointer-events:none;overflow:hidden}
+.ct-bg-img{position:absolute;inset:0;
+  background-image:var(--ct-bg-img);
+  background-size:cover;               /* never stretch / distort */
+  background-position:center;
+  background-repeat:no-repeat;
+  transform:scale(1.04)}               /* hides any edge gaps */
+.ct-bg-tint{position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(26,11,16,.93) 0%,rgba(42,18,25,.82) 30%,rgba(46,21,25,.86) 62%,rgba(18,7,9,.95) 100%)}
+.ct-bg-glow{position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 46% at 50% 0%,rgba(255,178,62,.20),transparent 70%),
+             radial-gradient(ellipse 55% 45% at 88% 88%,rgba(229,143,138,.16),transparent 70%)}
+.ct-grain{position:absolute;inset:0;opacity:.10;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ---------- 5. TEAM BLOCK ---------- */
+.ct-team{display:grid;grid-template-columns:minmax(220px,.72fr) 2.28fr;gap:2rem clamp(1.5rem,4vw,4rem);align-items:center;
+  margin-bottom:clamp(4.5rem,12vh,7.5rem);scroll-margin-top:150px}
+.ct-tinfo{opacity:0;translate:-30px 0;transition:opacity .9s,translate .9s cubic-bezier(.2,.7,.2,1)}
+.ct-team.in .ct-tinfo{opacity:1;translate:0 0}
+.ct-num{display:block;font:400 clamp(3.4rem,7vw,6rem)/1 var(--display);color:transparent;-webkit-text-stroke:2px var(--accent);opacity:.75;animation:ct-bob 6s ease-in-out infinite alternate}
+@keyframes ct-bob{to{transform:translateY(-10px)}}
+.ct-tname{margin:.3rem 0 .9rem;font:400 clamp(1.7rem,3vw,2.6rem)/1.05 var(--display);color:var(--cream);text-shadow:.05em .06em 0 rgba(0,0,0,.5)}
+.ct-tbar{display:block;width:70px;height:4px;margin-bottom:1rem;border-radius:2px;background:var(--accent);box-shadow:0 0 14px var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .9s .35s cubic-bezier(.2,.8,.2,1)}
+.ct-team.in .ct-tbar{transform:none}
+.ct-tdesc{margin:0;max-width:34ch;font-size:1.15rem;line-height:1.45;opacity:.92}
+.ct-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(1rem,2vw,1.8rem)}
+
+/* ---- glassmorphism contact card ---- */
+.ct-card{
+  --rx:0deg; --ry:0deg; --s:1; --lift:0px; --r0:2.5deg;
+  --d:calc(var(--i)*130ms + 180ms);
+  position:relative;display:flex;flex-direction:column;min-width:0;
+  padding:14px;border-radius:var(--radius);
+  background:var(--glass);
+  border:1px solid var(--glass-border);
+  backdrop-filter:blur(14px) saturate(135%);
+  -webkit-backdrop-filter:blur(14px) saturate(135%);
+  box-shadow:0 18px 44px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.16);
+  transform:translateY(var(--lift)) rotateX(var(--rx)) rotateY(var(--ry)) scale(var(--s));
+  rotate:var(--r0); scale:.95; opacity:0; translate:0 46px;
+  -webkit-tap-highlight-color:transparent;
+  transition:transform .45s ease-out,opacity .9s var(--d),translate .9s var(--d) cubic-bezier(.2,.7,.2,1),
+             rotate .9s var(--d) cubic-bezier(.2,.7,.2,1),scale .9s var(--d) cubic-bezier(.2,.7,.2,1),
+             box-shadow .45s,border-color .45s,background .45s;
+}
+/* fallback for browsers without backdrop-filter */
+@supports not ((backdrop-filter:blur(6px)) or (-webkit-backdrop-filter:blur(6px))){
+  .ct-card{background:rgba(26,11,16,.82)}
+}
+.ct-card:nth-child(even){--r0:-2.5deg}
+.ct-team.in .ct-card{opacity:1;translate:0 0;rotate:0deg;scale:1}
+.ct-card:hover,.ct-card:focus-within,.ct-card.is-active{
+  --lift:-8px; --s:1.015;
+  border-color:color-mix(in srgb,var(--accent) 70%,transparent);
+  background:rgba(255,255,255,.14);
+  box-shadow:0 28px 58px rgba(0,0,0,.55),
+             0 0 34px color-mix(in srgb,var(--accent) 40%,transparent),
+             inset 0 1px 0 rgba(255,255,255,.22);
+}
+/* animated accent edge */
+@property --ang{syntax:'<angle>';inherits:false;initial-value:0deg}
+.ct-edge{position:absolute;inset:0;z-index:5;border-radius:inherit;padding:2px;pointer-events:none;opacity:0;transition:opacity .4s;
+  background:conic-gradient(from var(--ang),transparent 0 52%,var(--accent) 78%,#fff 90%,transparent 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);mask-composite:exclude;
+  animation:ct-spin 3s linear infinite}
+@keyframes ct-spin{to{--ang:360deg}}
+.ct-card:hover .ct-edge,.ct-card:focus-within .ct-edge,.ct-card.is-active .ct-edge{opacity:1}
+
+/* ---- profile photo ---- */
+.ct-photo{position:relative;aspect-ratio:1/1.02;border-radius:14px;overflow:hidden;
+  background:linear-gradient(160deg,color-mix(in srgb,var(--accent) 45%,#1a0b10),#1a0b10);
+  box-shadow:inset 0 0 0 1px rgba(251,233,198,.22),0 10px 24px rgba(0,0,0,.35)}
+.ct-photo img,.ct-photo svg{display:block;width:100%;height:100%;object-fit:cover;
+  transition:transform 1.1s cubic-bezier(.2,.7,.2,1),filter .5s}
+.ct-card:hover .ct-photo img,.ct-card:hover .ct-photo svg,
+.ct-card:focus-within .ct-photo img,.ct-card:focus-within .ct-photo svg,
+.ct-card.is-active .ct-photo img,.ct-card.is-active .ct-photo svg{transform:scale(1.06);filter:brightness(1.06)}
+.ct-photo::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+  box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--accent) 45%,transparent);
+  opacity:0;transition:opacity .45s}
+.ct-card:hover .ct-photo::after,.ct-card.is-active .ct-photo::after{opacity:1}
+/* small team badge on the photo */
+.ct-badge{position:absolute;left:.55rem;bottom:.55rem;z-index:2;display:inline-flex;align-items:center;gap:.35rem;
+  padding:.28rem .6rem;border-radius:99px;font:700 .68rem/1 var(--body);letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink);background:var(--accent);box-shadow:0 4px 14px rgba(0,0,0,.45)}
+
+/* ---- card body ---- */
+.ct-body{display:flex;flex-direction:column;flex:1;padding:.85rem .3rem .15rem}
+.ct-name{margin:0;font:700 1.32rem/1.2 var(--body);color:var(--cream);overflow-wrap:anywhere}
+.ct-role{margin:.25rem 0 0;font:700 .74rem var(--body);letter-spacing:.13em;text-transform:uppercase;color:var(--accent)}
+.ct-about{margin:.6rem 0 0;font-size:1.02rem;line-height:1.4;opacity:.88;overflow-wrap:anywhere}
+
+/* ---- WhatsApp + Call buttons ---- */
+.ct-acts{display:flex;gap:.55rem;margin-top:auto;padding-top:1rem}
+.ct-wa,.ct-call{
+  flex:1 1 0;min-height:44px;min-width:44px;
+  display:inline-flex;align-items:center;justify-content:center;gap:.4rem;
+  padding:.5rem .7rem;border-radius:12px;
+  font:700 .88rem/1 var(--body);letter-spacing:.02em;text-decoration:none;white-space:nowrap;
+  border:1px solid transparent;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  transition:transform .25s,box-shadow .25s,background .25s,color .25s,border-color .25s}
+.ct-wa{background:rgba(37,211,102,.16);border-color:rgba(37,211,102,.48);color:#c8ffdd}
+.ct-wa:hover,.ct-wa:focus-visible{background:var(--wa);color:#06210f;border-color:var(--wa);transform:translateY(-2px);box-shadow:0 10px 22px rgba(37,211,102,.35)}
+.ct-call{background:rgba(251,233,198,.12);border-color:rgba(251,233,198,.42);color:var(--cream)}
+.ct-call:hover,.ct-call:focus-visible{background:var(--cream);color:var(--ink);border-color:var(--cream);transform:translateY(-2px);box-shadow:0 10px 22px rgba(0,0,0,.45)}
+.ct-wa:active,.ct-call:active{transform:translateY(0) scale(.98)}
+.ct-wa svg,.ct-call svg{width:18px;height:18px;flex:none}
+/* numbers not configured yet */
+.ct-wa.is-off,.ct-call.is-off{opacity:.45;border-style:dashed;cursor:not-allowed}
+.ct-wa.is-off:hover,.ct-call.is-off:hover{transform:none;box-shadow:none;background:rgba(255,255,255,.06);color:var(--cream);border-color:rgba(251,233,198,.3)}
+
+/* =========================================================================
+   6. MESSAGE FORM
+   ========================================================================= */
+.ct-msgwrap{max-width:900px;margin:0 auto clamp(4rem,10vh,6rem);
+  opacity:0;translate:0 50px;transition:opacity .9s,translate .9s cubic-bezier(.2,.7,.2,1)}
+.ct-msgwrap.in{opacity:1;translate:0 0}
+.ct-msg{position:relative;padding:clamp(1.5rem,4vw,2.8rem);border-radius:22px;
+  background:rgba(255,255,255,.10);
+  border:1px solid rgba(251,233,198,.30);
+  backdrop-filter:blur(16px) saturate(135%);
+  -webkit-backdrop-filter:blur(16px) saturate(135%);
+  box-shadow:0 24px 60px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.18)}
+@supports not ((backdrop-filter:blur(6px)) or (-webkit-backdrop-filter:blur(6px))){
+  .ct-msg{background:rgba(26,11,16,.85)}
+}
+.ct-msg h3{margin:0 0 .5rem;font:400 clamp(1.5rem,3.6vw,2.4rem)/1.05 var(--display);text-shadow:.05em .06em 0 #7a1e2e}
+.ct-msg>p{margin:0 0 1.6rem;max-width:56ch;font-size:1.1rem;line-height:1.5;opacity:.9}
+.ct-form{display:flex;flex-direction:column;gap:1.05rem}
+.ct-row{display:grid;grid-template-columns:1fr 1fr;gap:1.05rem}
+.ct-field{display:flex;flex-direction:column;min-width:0}
+.ct-field label{font:700 .8rem var(--body);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.4rem;opacity:.9}
+.ct-field input,.ct-field select,.ct-field textarea{
+  width:100%;min-height:46px;padding:.7rem .9rem;border-radius:11px;
+  font:500 1rem var(--body);color:var(--cream);
+  background:rgba(26,11,16,.45);
+  border:1.5px solid rgba(251,233,198,.28);
+  transition:border-color .25s,box-shadow .25s,background .25s;
+  -webkit-appearance:none;appearance:none}
+.ct-field textarea{resize:vertical;min-height:120px;line-height:1.45}
+.ct-field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fbe9c6' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right .8rem center;background-size:18px;padding-right:2.4rem}
+.ct-field option{background:#24101a;color:#fbe9c6}
+.ct-field input::placeholder,.ct-field textarea::placeholder{color:rgba(251,233,198,.45)}
+.ct-field input:hover,.ct-field select:hover,.ct-field textarea:hover{border-color:rgba(251,233,198,.5)}
+.ct-field input:focus,.ct-field select:focus,.ct-field textarea:focus{
+  outline:none;border-color:var(--sun);background:rgba(26,11,16,.62);
+  box-shadow:0 0 0 3px rgba(255,178,62,.22)}
+/* error state */
+.ct-field input[aria-invalid="true"],.ct-field select[aria-invalid="true"],.ct-field textarea[aria-invalid="true"]{
+  border-color:#ff8a7a;box-shadow:0 0 0 3px rgba(255,110,90,.18)}
+.ct-err{margin:.4rem 0 0;font:700 .84rem var(--body);color:#ffb3a7;display:flex;align-items:flex-start;gap:.35rem}
+.ct-err::before{content:"!";display:inline-grid;place-items:center;flex:none;width:16px;height:16px;margin-top:.1rem;
+  border-radius:50%;background:#ff8a7a;color:#2a0b0b;font-size:.7rem;font-weight:700}
+.ct-count{margin:.35rem 0 0;font-size:.8rem;opacity:.6;text-align:right}
+.ct-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.ct-form-foot{display:flex;flex-wrap:wrap;align-items:center;gap:1rem;margin-top:.4rem}
+.ct-form-note{margin:0;flex:1 1 220px;font:700 .95rem var(--body);line-height:1.4;min-height:1.4em}
+.ct-form-note.ok{color:#8ef0b4}
+.ct-form-note.bad{color:#ffb3a7}
+
+/* =========================================================================
+   7. CTA PANEL
+   ========================================================================= */
+.ct-ctawrap{position:relative;isolation:isolate;max-width:900px;margin:0 auto;
+  opacity:0;translate:0 60px;scale:.97;transition:opacity .9s,translate .9s cubic-bezier(.2,.7,.2,1),scale .9s cubic-bezier(.2,.7,.2,1)}
+.ct-ctawrap.in{opacity:1;translate:0 0;scale:1}
+.ct-ctawrap::before{content:"";position:absolute;inset:-3px;z-index:-1;border-radius:25px;filter:blur(16px);opacity:.5;
+  background:conic-gradient(from var(--ang),#ffb23e,#e58f8a,#8fb4ff,#5fe0b0,#ffb23e);animation:ct-spin 7s linear infinite}
+.ct-cta{position:relative;padding:clamp(2.2rem,5vw,3.6rem) clamp(1.2rem,4vw,3rem);text-align:center;border-radius:22px;
+  background:linear-gradient(135deg,rgba(255,255,255,.13),rgba(255,255,255,.03));
+  border:1px solid rgba(251,233,198,.28);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  box-shadow:0 24px 60px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.16)}
+.ct-cta h3{margin:0 0 .8rem;font:400 clamp(1.8rem,5vw,3.4rem)/1 var(--display);text-shadow:.05em .06em 0 #7a1e2e,0 0 .5em rgba(255,178,62,.4)}
+.ct-cta p{margin:0 auto 1.8rem;max-width:44ch;font-size:clamp(1.1rem,1.8vw,1.35rem);line-height:1.45}
+.ct-actions{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center}
+.ct-btn{position:relative;overflow:hidden;min-height:48px;display:inline-flex;align-items:center;gap:.6rem;
+  padding:.7rem 1.5rem;border-radius:4px;font:700 1.05rem var(--body);text-decoration:none;cursor:pointer;
+  color:var(--cream);background:rgba(26,11,16,.35);border:2px solid rgba(251,233,198,.6);
+  transition:transform .25s,box-shadow .25s,background .3s,color .3s,border-color .3s}
+.ct-btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.ct-btn.p{background:var(--sun);color:var(--ink);border-color:var(--sun)}
+.ct-btn:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(0,0,0,.45);background:var(--cream);color:var(--ink);border-color:var(--cream)}
+.ct-btn[aria-disabled=true]{opacity:.6;border-style:dashed;cursor:not-allowed}
+.ct-btn[aria-disabled=true]:hover{transform:none;box-shadow:none;background:rgba(26,11,16,.35);color:var(--cream);border-color:rgba(251,233,198,.6)}
+.ct-btn[disabled]{opacity:.65;cursor:progress}
+.ct-note{margin:1.4rem 0 0;font-size:.95rem;opacity:.75}
+.ct-rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(255,255,255,.55);transform:scale(0);animation:ct-rip .7s ease-out forwards}
+@keyframes ct-rip{to{transform:scale(1);opacity:0}}
+
+/* ---------- 8. STICKY JUMP BAR / FOOTER / TOP ---------- */
+.ct-chips{position:sticky;top:84px;z-index:30;width:fit-content;max-width:100%;margin:0 auto clamp(3rem,8vh,5.5rem)}
+.ct-chips-in{position:relative;display:flex;gap:.35rem;padding:.4rem;border-radius:99px;overflow-x:auto;scrollbar-width:none;
+  background:rgba(26,11,16,.62);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border:1px solid rgba(251,233,198,.25);box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.ct-chips-in::-webkit-scrollbar{display:none}
+.ct-chips a{flex:none;display:inline-flex;align-items:center;gap:.5rem;min-height:44px;padding:0 1.1rem;border-radius:99px;
+  color:var(--cream);text-decoration:none;font:700 .9rem var(--body);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;
+  transition:background .3s,color .3s,transform .3s,box-shadow .3s}
+.ct-chips a::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent)}
+.ct-chips a:hover{transform:translateY(-2px);background:rgba(251,233,198,.12)}
+.ct-chips a[aria-current]{background:var(--accent);color:var(--ink);box-shadow:0 0 22px color-mix(in srgb,var(--accent) 60%,transparent)}
+.ct-chips a[aria-current]::before{background:var(--ink);box-shadow:none}
+
+.ct-foot{position:relative;background:#120709;color:#fbe9c6;font-family:'Alegreya Sans',system-ui,sans-serif;
+  padding:3rem 5vw calc(2rem + env(safe-area-inset-bottom,0px));text-align:center;border-top:2px solid rgba(251,233,198,.15)}
+.ct-foot .logo{display:inline-block;font:400 2rem 'Bungee','Impact',sans-serif;color:#fbe9c6;text-decoration:none;text-shadow:.07em .07em 0 #7a1e2e}
+.ct-foot ul{list-style:none;margin:1.2rem 0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem 1.6rem}
+.ct-foot a.l{display:inline-block;padding:.6rem .2rem;color:#fbe9c6;text-decoration:none;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:.85rem;opacity:.85;transition:color .25s,opacity .25s}
+.ct-foot a.l:hover{color:#ffb23e;opacity:1}
+.ct-foot p{margin:0;opacity:.7;font-size:.95rem}
+.ct-top{position:fixed;right:max(18px,env(safe-area-inset-right,0px));bottom:max(18px,env(safe-area-inset-bottom,0px));z-index:45;
+  width:50px;height:50px;display:grid;place-items:center;border-radius:50%;cursor:pointer;color:#fbe9c6;
+  background:rgba(26,11,16,.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(251,233,198,.4);opacity:0;translate:0 20px;pointer-events:none;
+  transition:opacity .35s,translate .35s,background .25s,color .25s}
+.ct-top.show{opacity:1;translate:0 0;pointer-events:auto}
+.ct-top:hover{background:#ffb23e;color:#1a0b10}
+.ct-top svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- 9. RESPONSIVE ---------- */
+@media (min-width:901px){
+  .ct-team:nth-of-type(even){grid-template-columns:2.28fr minmax(220px,.72fr)}
+  .ct-team:nth-of-type(even) .ct-tinfo{order:2;translate:30px 0;text-align:right}
+  .ct-team.in:nth-of-type(even) .ct-tinfo{translate:0 0}
+  .ct-team:nth-of-type(even) .ct-tbar{margin-left:auto;transform-origin:right}
+  .ct-team:nth-of-type(even) .ct-tdesc{margin-left:auto}
+}
+@media (max-width:1000px){
+  .ct-chips{top:76px}
+  .ct-team{scroll-margin-top:170px}
+}
+@media (max-width:900px){
+  .ct-team{grid-template-columns:1fr;gap:1.6rem}
+  .ct-tinfo{translate:0 24px;text-align:center}
+  .ct-tbar{margin-inline:auto;transform-origin:center}
+  .ct-tdesc{margin-inline:auto}
+  .ct-row{grid-template-columns:1fr}
+}
+@media (max-width:600px){
+  .ch{padding:15vh 5vw 22vh}
+  .ct{padding:6vh 4vw 13vh}
+  .ct-chips-in a{padding:0 .9rem;font-size:.82rem}
+  .ct-chips{max-width:calc(100% + 2vw)}
+  .ct-msg h3{font-size:clamp(1.4rem,6vw,2rem)}
+  .ct-foot ul{gap:.2rem 1rem}
+}
+@media (max-width:480px){
+  .ct-pair{grid-template-columns:1fr;max-width:380px;margin-inline:auto}
+  .ct-photo{aspect-ratio:1/1}
+  .ct-card{padding:12px;border-radius:18px}
+  .ct-name{font-size:1.22rem}
+  .ct-form-foot .ct-btn{width:100%;justify-content:center}
+}
+@media (max-width:360px){
+  .ct-wa,.ct-call{font-size:.8rem;padding:.5rem .45rem;gap:.3rem}
+  .ct-wa svg,.ct-call svg{width:16px;height:16px}
+}
+@media (pointer:coarse){
+  .ct-card{--s:1}
+  .ct-card.is-active{--s:1.015}
+}
+
+/* ---------- 10. REDUCED MOTION ---------- */
+@media (prefers-reduced-motion:reduce){
+  body{animation:none}
+  .ch *,.ch-l *{animation:none!important;transition-duration:.01ms!important}
+  .ch-h1 .c,.ch-college,.ch-tag,.ch-flight{opacity:1;transform:none;filter:none;translate:none}
+  .ch-line{transform:none}
+  .ct-marq-track{animation:none}
+  .ct,.ct *,.ct *::before,.ct *::after{animation:none!important;transition-duration:.01ms!important;transition-delay:0s!important}
+  .ct-card,.ct-ctawrap,.ct-msgwrap,.ct-tinfo{opacity:1;translate:none;rotate:none;scale:none}
+  .ct-tbar{transform:none}
+  .ct-ctawrap::before,.ct-edge{animation:none}
+}
+</style><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"></head>
+<body>
+<div class="ax"><div class="ax-progress" id="axBar" aria-hidden="true"></div>
+<a class="ax-logo" id="axLogo" href="#" aria-label="ASTRA home">ASTRA</a>
+<nav class="ax-nav" aria-label="Main"><ul id="axLinks"></ul></nav></div>
+
+<main>
+<!-- ============ HERO (unchanged) ============ -->
+<header class="ch" id="top">
+  <div class="ch-l ch-sun" aria-hidden="true"></div>
+  <div class="ch-l ch-far" id="chFar" aria-hidden="true"></div>
+  <div class="ch-l ch-near" id="chNear" aria-hidden="true"></div>
+  <svg class="ch-l ch-neck" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true"><path d="M-20 70Q600-30 1220 70"/></svg>
+  <div class="ch-l ch-dust" id="chDust" aria-hidden="true"></div>
+  <div class="ch-l ch-spot" aria-hidden="true"></div>
+  <div class="ch-l ch-shade" aria-hidden="true"></div><div class="ch-l ch-grain" aria-hidden="true"></div>
+  <div class="ch-copy">
+    <div class="ch-college">Sathaye College, Mumbai</div>
+    <h1 class="ch-h1" id="chTitle">LET'S CONNECT</h1>
+    <div class="ch-line" aria-hidden="true"></div>
+    <p class="ch-tag">Meet the minds behind ASTRA FEST. Have a question, an idea, or an opportunity to collaborate? We're here to help.</p>
+    <svg class="ch-flight" viewBox="0 0 600 110" aria-hidden="true"><path id="chPath" class="trail" d="M10 90C110 -10 200 130 300 55S500 -5 590 40"/><g><path d="M-14 -8L14 0L-14 8L-8 0Z" fill="#fbe9c6" stroke="#7a1e2e" stroke-width="1.5" stroke-linejoin="round"/><animateMotion dur="6s" repeatCount="indefinite" rotate="auto"><mpath href="#chPath"/></animateMotion></g></svg>
+  </div>
+  <div class="ch-scroll" aria-hidden="true">SCROLL</div>
+</header>
+
+<div class="ct-marq" aria-hidden="true"><div class="ct-marq-track" id="ctMarq"></div></div>
+
+<!-- ============ CONTACT SECTION ============ -->
+<section class="ct" id="contact" aria-labelledby="ct-h">
+
+  <!-- background: image + tint + glow + grain -->
+  <div class="ct-bg" aria-hidden="true">
+    <div class="ct-bg-img"><img src="contactimage/contactbg.png" alt=""></div>
+    <div class="ct-bg-tint"></div>
+    <div class="ct-bg-glow"></div>
+    <div class="ct-grain"></div>
+  </div>
+
+  <div class="ct-wrap">
+    <h2 class="sr" id="ct-h">Contact the organizing teams</h2>
+
+    <nav class="ct-chips" id="ctChips" aria-label="Jump to a team"><div class="ct-chips-in"></div></nav>
+
+    <div id="ctTeams"></div>
+
+    <!-- ---------- MESSAGE / QUERY FORM ---------- -->
+    <section class="ct-msgwrap" id="message" aria-labelledby="ct-msg-h">
+      <div class="ct-msg">
+        <h3 id="ct-msg-h">SEND US A MESSAGE</h3>
+        <p>Students, participants and partners — drop your query below and the right team will get back to you.</p>
+
+        <form class="ct-form" id="ctForm" novalidate>
+          <div class="ct-row">
+            <div class="ct-field">
+              <label for="fName">Full name</label>
+              <input id="fName" name="name" type="text" placeholder="Your name" autocomplete="name" aria-describedby="fNameErr">
+              <p class="ct-err" id="fNameErr" role="alert" hidden></p>
+            </div>
+            <div class="ct-field">
+              <label for="fEmail">Email address</label>
+              <input id="fEmail" name="email" type="email" inputmode="email" placeholder="you@example.com" autocomplete="email" aria-describedby="fEmailErr">
+              <p class="ct-err" id="fEmailErr" role="alert" hidden></p>
+            </div>
+          </div>
+
+          <div class="ct-field">
+            <label for="fTeam">Who should answer this?</label>
+            <select id="fTeam" name="team" aria-describedby="fTeamErr">
+              <option value="">Choose a team…</option>
+            </select>
+            <p class="ct-err" id="fTeamErr" role="alert" hidden></p>
+          </div>
+
+          <div class="ct-field">
+            <label for="fMsg">Your query</label>
+            <textarea id="fMsg" name="message" rows="5" maxlength="800" placeholder="Tell us what you need help with…" aria-describedby="fMsgErr fMsgCount"></textarea>
+            <p class="ct-count" id="fMsgCount">0 / 800</p>
+            <p class="ct-err" id="fMsgErr" role="alert" hidden></p>
+          </div>
+
+          <!-- simple bot trap, hidden from humans and screen readers -->
+          <p class="ct-hp" aria-hidden="true"><label for="fHp">Leave this field empty</label><input id="fHp" name="_gotcha" type="text" tabindex="-1" autocomplete="off"></p>
+
+          <div class="ct-form-foot">
+            <button class="ct-btn p" type="submit">Send message</button>
+            <p class="ct-form-note" id="ctFormNote" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ---------- CTA ---------- -->
+    <div class="ct-ctawrap" id="ctCta"><aside class="ct-cta" aria-labelledby="ct-cta-h">
+      <h3 id="ct-cta-h">HAVE SOMETHING IN MIND?</h3>
+      <p>Let's create something unforgettable together at ASTRA FEST.</p>
+      <div class="ct-actions" id="ctActions"></div>
+      <p class="ct-note" id="ctNote" hidden>Some contact links are not added yet.</p>
+    </aside></div>
+  </div>
+</section>
+</main>
+
+<footer class="ct-foot"><a class="logo" id="ftLogo" href="#">ASTRA</a><ul id="ftLinks"></ul><p>Sathaye College, Mumbai</p></footer>
+<button class="ct-top" id="ctTop" type="button" aria-label="Back to top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+
+<!-- =======================================================================
+     SCRIPT 1 — CONTENT + CONTACT CARDS + FORM
+     ======================================================================= -->
+<script>(()=>{'use strict';
+
+/* =======================================================================
+   EDIT HERE — EVERYTHING YOU NEED TO CHANGE LIVES IN THIS ONE OBJECT.
+   Nothing is invented: leave a value '' and it simply does not render.
+   ======================================================================= */
+
+const CONTACT={
+  team:'',        // URL of a contact page/form. Empty = falls back to email
+  instagram:'',   // official ASTRA Instagram URL (https://...)
+  email:'',       // official ASTRA email address
+
+  /* Optional: paste a form endpoint (Formspree / Getform / Google Apps Script /
+     your own API) to receive the message-form submissions.
+     Leave '' to run in demo mode (the form validates and shows a success
+     message but nothing is actually sent). */
+  formEndpoint:''
+};
+
+/* =======================================================================
+   TEAM + MEMBER DATA
+   -----------------------------------------------------------------------
+   For each member replace:
+     name     → person's real name
+     role     → their designation
+     about    → one short line of responsibility
+     photo    → image path, e.g. 'team/creative-1.jpg'   ('' = placeholder)
+     alt      → short description of the photo
+     whatsapp → country code + number, DIGITS ONLY, e.g. '919876543210'
+     phone    → full number with + for the tel: link, e.g. '+919876543210'
+   ======================================================================= */
+const TEAMS=[
+  { id:'creative', short:'ASTRA_COORDINATORS_2026', name:'Coordinators', accent:'#ff7ab8',
+    blurb:'Visual design, branding and artistic direction — the look and feel of ASTRA.',
+    members:[
+      { name:'Vibhuti Patil', role:'Astra-Head', about:'Art direction and visual identity.',
+        photo:'contactimage/person.png', alt:'', whatsapp:'918779529002', phone:'+918779529002' },
+      { name:'Member Name', role:'Astra-SubHead', about:'Posters, branding and festival visuals.',
+        photo:'contactimage/person.png', alt:'', whatsapp:'919930897556', phone:'+919930897556' }
+    ]},
+
+  // { id:'marketing', short:'Marketing', name:'Marketing Team', accent:'#ff6a3d',
+  //   blurb:'Promotions, social media and outreach that get the whole city talking.',
+  //   members:[
+  //     { name:'Member Name', role:'Marketing Lead', about:'Campaigns and audience growth.',
+  //       photo:'contactimage/person.png', alt:'', whatsapp:'', phone:'' },
+  //     { name:'Member Name', role:'Marketing Coordinator', about:'Social media and outreach.',
+  //       photo:'contactimage/elon.jpg', alt:'', whatsapp:'', phone:'' }
+  //   ]},
+
+  // { id:'pr', short:'PR', name:'PR Team', accent:'#8fb4ff',
+  //   blurb:'Communication, public relations and networking with partners and colleges.',
+  //   members:[
+  //     { name:'Member Name', role:'PR Lead', about:'Press, communication and networking.',
+  //       photo:'contactimage/person.png', alt:'', whatsapp:'', phone:'' },
+  //     { name:'Member Name', role:'PR Coordinator', about:'Partnerships and inter-college relations.',
+  //       photo:'contactimage/person.png', alt:'', whatsapp:'', phone:'' }
+  //   ]},
+
+  // { id:'sponsors', short:'Sponsors', name:'Sponsors Team', accent:'#e9c46a',
+  //   blurb:'Sponsorship opportunities, brand collaborations and corporate partnerships.',
+  //   members:[
+  //     { name:'Member Name', role:'Sponsorship Lead', about:'Corporate partnerships and proposals.',
+  //       photo:'contactimage/person.png', alt:'', whatsapp:'', phone:'' },
+  //     { name:'Member Name', role:'Sponsorship Coordinator', about:'Brand collaborations and deliverables.',
+  //       photo:'contactimage/person.png', alt:'', whatsapp:'', phone:'' }
+  //   ]},
+
+  // { id:'events', short:'Events', name:'Event Management Team', accent:'#5fe0b0',
+  //   blurb:'Coordination, logistics and operations — making every event run on time.',
+  //   members:[
+  //     { name:'Member Name', role:'Event Manager', about:'Planning, logistics and execution.',
+  //       photo:'contactimage/person.png', alt:'', whatsapp:'', phone:'' },
+  //     { name:'Member Name', role:'Event Coordinator', about:'On-ground operations and volunteers.',
+  //       photo:'contactimage/person.png', alt:'', whatsapp:'', phone:'' }
+  //   ]}
+];
+
+/* ---------- helpers ---------- */
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const isUrl=u=>/^https?:\/\//i.test(u||'');
+const isMail=e=>/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e||'');
+const digits=v=>String(v||'').replace(/\D/g,'');
+const waHref=v=>{const d=digits(v);return d.length>=8?'https://wa.me/'+d:'';};      // https://wa.me/919876543210
+const telHref=v=>{const d=String(v||'').replace(/[^\d+]/g,'').replace(/(?!^)\+/g,'');return d.replace(/\D/g,'').length>=7?'tel:'+d:'';};
+
+const IC={
+  mail:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
+  instagram:'<rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17" cy="7" r=".6"/>',
+  linkedin:'<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 11v5M8 8v.1M12 16v-5M12 13a2.5 2.5 0 0 1 5 0v3"/>',
+  chat:'<path d="M4 5h16v11H9l-5 4z"/>'
+};
+const svg=k=>`<svg viewBox="0 0 24 24" aria-hidden="true">${IC[k]}</svg>`;
+
+/* official-looking WhatsApp glyph (filled, uses currentColor) */
+const WA_ICON='<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12.04 2a9.9 9.9 0 0 0-8.4 15.1L2 22l5.05-1.6A9.9 9.9 0 1 0 12.04 2Zm0 1.8a8.1 8.1 0 1 1-4.15 15.05l-.3-.18-3 .95.96-2.92-.2-.31A8.1 8.1 0 0 1 12.04 3.8Zm-3.3 4.1c-.18 0-.47.07-.72.34-.25.27-.95.93-.95 2.26 0 1.33.97 2.62 1.1 2.8.14.18 1.9 3.03 4.66 4.13 2.3.9 2.77.72 3.27.68.5-.05 1.6-.66 1.83-1.29.23-.63.23-1.17.16-1.28-.07-.11-.25-.18-.52-.32-.27-.13-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.13-.42-2.15-1.33-.8-.71-1.33-1.59-1.49-1.86-.16-.27-.02-.42.12-.55.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.13-.61-1.47-.83-2.01-.22-.53-.44-.46-.61-.47l-.52-.01Z"/></svg>';
+const TEL_ICON='<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6.8 3.5h2l1.3 3.3-1.6 1.1a12.4 12.4 0 0 0 5.6 5.6l1.1-1.6 3.3 1.3v2a2.4 2.4 0 0 1-2.7 2.4A15.4 15.4 0 0 1 4.4 6.2 2.4 2.4 0 0 1 6.8 3.5Z"/></svg>';
+
+/* placeholder portrait (used when photo is empty or fails to load) */
+const ph=(c,k)=>`<svg viewBox="0 0 400 410" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Profile photo coming soon">
+  <defs>
+    <linearGradient id="ctg${k}" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="${c}" stop-opacity=".65"/><stop offset="1" stop-color="#1a0b10"/>
+    </linearGradient>
+    <radialGradient id="cth${k}" cx=".5" cy=".25" r=".7">
+      <stop offset="0" stop-color="#fff" stop-opacity=".32"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="400" height="410" fill="url(#ctg${k})"/>
+  <rect width="400" height="410" fill="url(#cth${k})"/>
+  <circle cx="200" cy="158" r="66" fill="rgba(251,233,198,.30)"/>
+  <path d="M62 410c0-88 60-140 138-140s138 52 138 140z" fill="rgba(251,233,198,.24)"/>
+</svg>`;
+
+/* ---------- render team sections + cards ---------- */
+let k=0;
+const card=(m,t)=>{
+  k++;
+  const wa=waHref(m.whatsapp), tel=telHref(m.phone);
+  const media = m.photo
+    ? `<img src="${esc(m.photo)}" alt="${esc(m.alt||('Portrait of '+m.name+', '+m.role+', '+t.name))}" loading="lazy" decoding="async" width="400" height="410">`
+    : ph(t.accent,k);
+
+  const waBtn = wa
+    ? `<a class="ct-wa" href="${esc(wa)}" target="_blank" rel="noopener noreferrer" aria-label="Chat with ${esc(m.name)} on WhatsApp">${WA_ICON}<span>WhatsApp</span></a>`
+    : `<a class="ct-wa is-off" href="#" role="link" aria-disabled="true" title="WhatsApp number not added yet" aria-label="WhatsApp number not added yet for ${esc(m.name)}">${WA_ICON}<span>WhatsApp</span></a>`;
+
+  const telBtn = tel
+    ? `<a class="ct-call" href="${esc(tel)}" aria-label="Call ${esc(m.name)}">${TEL_ICON}<span>Call</span></a>`
+    : `<a class="ct-call is-off" href="#" role="link" aria-disabled="true" title="Phone number not added yet" aria-label="Phone number not added yet for ${esc(m.name)}">${TEL_ICON}<span>Call</span></a>`;
+
+  return `<article class="ct-card" style="--accent:${t.accent};--i:${k%2}" data-ph="${k}">
+    <div class="ct-photo">
+      ${media}
+      <span class="ct-badge">${esc(t.short)}</span>
+    </div>
+    <i class="ct-edge" aria-hidden="true"></i>
+    <div class="ct-body">
+      <h4 class="ct-name">${esc(m.name)}</h4>
+      <p class="ct-role">${esc(m.role)} · ${esc(t.name)}</p>
+      ${m.about?`<p class="ct-about">${esc(m.about)}</p>`:''}
+      <div class="ct-acts">${waBtn}${telBtn}</div>
+    </div>
+  </article>`;
+};
+
+document.getElementById('ctTeams').innerHTML = TEAMS.map((t,n)=>`
+  <section class="ct-team" id="team-${t.id}" data-short="${esc(t.short)}" style="--accent:${t.accent}" aria-labelledby="ct-t-${t.id}">
+    <div class="ct-tinfo">
+      <span class="ct-num" aria-hidden="true">0${n+1}</span>
+      <h3 class="ct-tname" id="ct-t-${t.id}">${esc(t.name)}</h3>
+      <span class="ct-tbar" aria-hidden="true"></span>
+      <p class="ct-tdesc">${esc(t.blurb)}</p>
+    </div>
+    <div class="ct-pair">${t.members.map(m=>card(m,t)).join('')}</div>
+  </section>`).join('');
+
+/* disabled contact buttons should not navigate */
+document.querySelectorAll('.ct [aria-disabled="true"]').forEach(a=>{
+  a.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();});
+});
+
+/* broken photo path → placeholder portrait */
+document.querySelectorAll('.ct-photo img').forEach(img=>{
+  img.addEventListener('error',()=>{
+    const c=img.closest('.ct-card');
+    const accent=getComputedStyle(c).getPropertyValue('--accent').trim()||'#ffb23e';
+    img.outerHTML=ph(accent,'e'+c.dataset.ph);
+  },{once:true});
+});
+
+/* ---------- CTA buttons ---------- */
+const teamHref = isUrl(CONTACT.team) ? CONTACT.team
+               : (isMail(CONTACT.email) ? 'mailto:'+CONTACT.email : '');
+const acts=[
+  {t:'Contact the Team', i:'chat',      h:teamHref,                                    c:''},
+  {t:'Instagram',        i:'instagram', h:isUrl(CONTACT.instagram)?CONTACT.instagram:'https://www.instagram.com/astrafest.sathaye/',c:''},
+  {t:'Email Us',         i:'mail',      h:isMail(CONTACT.email)?'mailto:'+CONTACT.email:'https://sathayecollege.edu.in/',c:''},
+  {t:'Send a Message',   i:'chat',      h:'#message',                                  c:''}
+];
+document.getElementById('ctActions').innerHTML = acts.map(a=>a.h
+  ? `<a class="ct-btn ${a.c}" href="${esc(a.h)}"${a.h.startsWith('http')?' target="_blank" rel="noopener noreferrer"':''}>${svg(a.i)}${a.t}</a>`
+  : `<a class="ct-btn ${a.c}" role="link" aria-disabled="true" title="Link not added yet">${svg(a.i)}${a.t}</a>`).join('');
+if(acts.some(a=>!a.h)) document.getElementById('ctNote').hidden=false;
+
+/* =======================================================================
+   MESSAGE FORM — validation + submission
+   ======================================================================= */
+const form=document.getElementById('ctForm');
+const noteEl=document.getElementById('ctFormNote');
+const countEl=document.getElementById('fMsgCount');
+const msgEl=document.getElementById('fMsg');
+
+/* populate the "who should answer this" dropdown from the teams */
+document.getElementById('fTeam').insertAdjacentHTML('beforeend',
+  TEAMS.map(t=>`<option value="${esc(t.name)}">${esc(t.name)}</option>`).join('') +
+  `<option value="General enquiry">General enquiry</option>`);
+
+const F={
+  name:{el:document.getElementById('fName'), err:document.getElementById('fNameErr'),
+        test:v=>v.trim().length>=2, msg:'Please enter your name (at least 2 characters).'},
+  email:{el:document.getElementById('fEmail'), err:document.getElementById('fEmailErr'),
+        test:v=>isMail(v.trim()), msg:'Please enter a valid email address, e.g. you@example.com.'},
+  team:{el:document.getElementById('fTeam'), err:document.getElementById('fTeamErr'),
+        test:v=>v!=='', msg:'Please choose which team should answer you.'},
+  message:{el:msgEl, err:document.getElementById('fMsgErr'),
+        test:v=>v.trim().length>=10, msg:'Please describe your query in at least 10 characters.'}
+};
+
+const setNote=(txt,kind)=>{noteEl.textContent=txt||'';noteEl.className='ct-form-note'+(kind?' '+kind:'');};
+
+function check(f,silent){
+  const v=f.el.value;
+  const ok=f.test(v);
+  if(ok){
+    f.el.removeAttribute('aria-invalid');
+    f.err.hidden=true; f.err.textContent='';
+  }else if(!silent){
+    f.el.setAttribute('aria-invalid','true');
+    f.err.textContent=f.msg; f.err.hidden=false;
+  }
+  return ok;
+}
+
+Object.values(F).forEach(f=>{
+  f.el.addEventListener('blur',()=>check(f));
+  f.el.addEventListener('input',()=>{ if(f.el.getAttribute('aria-invalid')==='true') check(f); });
+  f.el.addEventListener('change',()=>check(f));
+});
+
+msgEl.addEventListener('input',()=>{countEl.textContent=msgEl.value.length+' / 800';});
+
+form.addEventListener('submit',async e=>{
+  e.preventDefault();
+  if(document.getElementById('fHp').value) return;           // bot trap
+
+  const bad=[];
+  Object.values(F).forEach(f=>{ if(!check(f)) bad.push(f.el); });
+
+  if(bad.length){
+    bad[0].focus({preventScroll:false});
+    setNote('Please fix the highlighted fields and try again.','bad');
+    return;
+  }
+
+  const btn=form.querySelector('button[type="submit"]');
+  const data=Object.fromEntries(new FormData(form).entries());
+  const first=(data.name||'').trim().split(/\s+/)[0]||'there';
+
+  btn.disabled=true;
+  setNote('Sending your message…','');
+
+  try{
+    if(CONTACT.formEndpoint){
+      const res=await fetch(CONTACT.formEndpoint,{
+        method:'POST',
+        headers:{'Content-Type':'application/json',Accept:'application/json'},
+        body:JSON.stringify(data)
+      });
+      if(!res.ok) throw new Error('HTTP '+res.status);
+    }else{
+      /* DEMO MODE — no endpoint configured yet.
+         Replace the line below with your own fetch() call when ready. */
+      await new Promise(r=>setTimeout(r,700));
+    }
+
+    form.reset();
+    countEl.textContent='0 / 800';
+    Object.values(F).forEach(f=>{f.el.removeAttribute('aria-invalid');f.err.hidden=true;});
+    setNote(`Thanks, ${first}! Your message has been received — the ${data.team} will get back to you soon.`,'ok');
+  }catch(err){
+    setNote('Sorry — your message could not be sent. Please check your connection and try again, or reach us on Instagram.','bad');
+  }finally{
+    btn.disabled=false;
+  }
+});
+
+/* =======================================================================
+   MOTION — reveals, tilt, parallax
+   ======================================================================= */
+const root=document.getElementById('contact');
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const coarse=matchMedia('(pointer:coarse)').matches||innerWidth<700;
+
+const reveal=[...root.querySelectorAll('.ct-team,.ct-ctawrap,.ct-msgwrap')];
+if(reduce) reveal.forEach(e=>e.classList.add('in'));
+else{
+  const io=new IntersectionObserver((es,o)=>es.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('in');o.unobserve(e.target);}
+  }),{threshold:.15});
+  reveal.forEach(e=>io.observe(e));
+}
+
+const cards=[...root.querySelectorAll('.ct-card')];
+cards.forEach(c=>{
+  if(!reduce&&!coarse){
+    let raf=0;
+    c.addEventListener('pointermove',e=>{
+      if(raf) return;
+      raf=requestAnimationFrame(()=>{
+        raf=0;
+        const r=c.getBoundingClientRect();
+        const x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+        c.style.setProperty('--ry',(x*7).toFixed(2)+'deg');
+        c.style.setProperty('--rx',(-y*5).toFixed(2)+'deg');
+      });
+    });
+    c.addEventListener('pointerleave',()=>{
+      c.style.setProperty('--rx','0deg');c.style.setProperty('--ry','0deg');
+    });
+  }
+  /* touch: tap to reveal the hover state, tap outside to reset */
+  c.addEventListener('click',()=>{
+    if(!coarse) return;
+    const was=c.classList.contains('is-active');
+    cards.forEach(x=>x.classList.remove('is-active'));
+    if(!was) c.classList.add('is-active');
+  });
+  c.querySelectorAll('a').forEach(a=>a.addEventListener('click',e=>e.stopPropagation()));
+});
+document.addEventListener('click',e=>{
+  if(coarse&&!e.target.closest('.ct-card')) cards.forEach(x=>x.classList.remove('is-active'));
+});
+
+/* CTA button ripple */
+document.querySelectorAll('.ct-btn:not([aria-disabled=true])').forEach(b=>{
+  b.addEventListener('pointerdown',e=>{
+    if(reduce) return;
+    const r=b.getBoundingClientRect(), d=Math.max(r.width,r.height)*2;
+    const i=document.createElement('span');
+    i.className='ct-rip';
+    i.style.cssText=`width:${d}px;height:${d}px;left:${e.clientX-r.left-d/2}px;top:${e.clientY-r.top-d/2}px`;
+    b.appendChild(i);
+    setTimeout(()=>i.remove(),700);
+  });
+});
+
+})();
+</script>
+
+<!-- =======================================================================
+     SCRIPT 2 — NAV, HERO, SCROLL, CHIPS  (unchanged behaviour)
+     ======================================================================= -->
+<script>(()=>{'use strict';
+const SITE='astra-fest.html'; /* file name of your main one-page site */
+const $=id=>document.getElementById(id);
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const coarse=matchMedia('(pointer:coarse)').matches;
+
+/* ----- navigation ----- */
+const LINKS=[['Home',SITE+'#home'],['About',SITE+'#about'],['Admin',SITE+'#admin'],['Register',SITE+'#register'],['Contact','contact.html']];
+$('axLinks').innerHTML=LINKS.map(([t,h])=>`<li><a href="${h}"${t==='Contact'?' aria-current="page"':''}${t==='Register'?' class="cta"':''}>${t}</a></li>`).join('');
+$('axLogo').href=SITE+'#home';$('ftLogo').href=SITE+'#home';
+$('ftLinks').innerHTML=LINKS.map(([t,h])=>`<li><a class="l" href="${h}">${t}</a></li>`).join('');
+
+/* ----- hero: title letters, skyline, dust, marquee ----- */
+const h1=$('chTitle');h1.setAttribute('aria-label',"Let's Connect");let ci=0;
+h1.innerHTML="LET'S CONNECT".split(' ').map(w=>`<span class="wd" aria-hidden="true">${[...w].map(ch=>`<span class="c" style="--i:${ci++}">${ch}</span>`).join('')}</span>`).join(' ');
+let s=11;const R=()=>(s=(s*16807)%2147483647)/2147483647;
+function city(el,fill,minH,maxH,lit){let x=0,h='';const W=1200,H=300;
+  while(x<W){const bw=30+R()*60,bh=minH+R()*(maxH-minH);h+=`<rect x="${x}" y="${H-bh}" width="${bw}" height="${bh}" fill="${fill}"/>`;
+    if(lit)for(let wy=H-bh+10;wy<H-8;wy+=16)for(let wx=x+6;wx<x+bw-8;wx+=12)if(R()<.18)h+=`<rect${R()<.3?` class="t" style="animation-delay:${(-R()*3).toFixed(1)}s"`:''} x="${wx}" y="${wy}" width="4" height="6" fill="#ffd98a" opacity="${(.5+R()*.5).toFixed(2)}"/>`;
+    x+=bw+R()*8}
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">${h}</svg>`}
+city($('chFar'),'#7a2e3a',60,170,false);city($('chNear'),'#1a0b10',50,200,true);
+const dust=$('chDust');if(!reduce)for(let i=0;i<14;i++){const p=document.createElement('i');p.style.cssText=`left:${R()*100}%;bottom:-10px;opacity:${.2+R()*.4};animation-duration:${18+R()*20}s;animation-delay:${-R()*30}s`;dust.appendChild(p)}
+const half=['MUMBAI MERI JAAN','ASTRA FEST','EK SHEHAR. HAZAAR KAHAANIYAN. EK JASHN','SATHAYE COLLEGE, MUMBAI'];
+const run=[...half,...half].map(t=>`<span>${t}</span>`).join('');$('ctMarq').innerHTML=run+run;
+if(reduce){const f=document.querySelector('.ch-flight');f&&f.pauseAnimations&&f.pauseAnimations()}
+
+/* ----- hero: pointer parallax + spotlight, pause offscreen ----- */
+const hero=document.querySelector('.ch'),copy=hero.querySelector('.ch-copy');
+if(!reduce&&!coarse){let q=0;hero.addEventListener('pointermove',e=>{if(q)return;q=requestAnimationFrame(()=>{q=0;const r=hero.getBoundingClientRect();
+  hero.style.setProperty('--mx',(e.clientX/innerWidth-.5).toFixed(2));hero.style.setProperty('--my',(e.clientY/innerHeight-.5).toFixed(2));
+  hero.style.setProperty('--sx',(e.clientX-r.left)+'px');hero.style.setProperty('--sy',(e.clientY-r.top)+'px')})},{passive:true})}
+new IntersectionObserver(e=>hero.classList.toggle('ch-paused',!e[0].isIntersecting)).observe(hero);
+document.addEventListener('visibilitychange',()=>hero.classList.toggle('ch-paused',document.hidden));
+
+/* ----- scroll: progress bar, nav state, hero fade, back-to-top, team jump-bar ----- */
+const bar=$('axBar'),nav=document.querySelector('.ax-nav'),topBtn=$('ctTop');
+const secs=[...document.querySelectorAll('.ct-team')],inner=document.querySelector('.ct-chips-in');
+inner.innerHTML=secs.map(sec=>`<a href="#${sec.id}" style="--accent:${sec.style.getPropertyValue('--accent').trim()}">${sec.dataset.short}</a>`).join('');
+const chips=[...inner.children];let cur=-1,t=0;
+const update=()=>{t=0;const y=scrollY,max=document.documentElement.scrollHeight-innerHeight;
+  bar.style.setProperty('--p',max>0?Math.min(y/max,1).toFixed(4):0);
+  nav.classList.toggle('sc',y>40);
+  topBtn.classList.toggle('show',y>innerHeight*.8);
+  const p=Math.min(y/innerHeight,1);
+  copy.style.opacity=(1-p*1.2).toFixed(2);
+  copy.style.translate=`0 ${(p*-60).toFixed(0)}px`;
+  let a=-1;secs.forEach((sec,i)=>{if(sec.getBoundingClientRect().top<=innerHeight*.5)a=i});
+  if(a!==cur){
+    cur=a;
+    chips.forEach((c,i)=>i===a?c.setAttribute('aria-current','true'):c.removeAttribute('aria-current'));
+    if(a>=0&&inner.scrollWidth>inner.clientWidth){
+      const c=chips[a];
+      inner.scrollTo({left:c.offsetLeft-(inner.clientWidth-c.clientWidth)/2,behavior:reduce?'auto':'smooth'});
+    }
+  }};
+addEventListener('scroll',()=>{if(!t)t=requestAnimationFrame(update)},{passive:true});
+addEventListener('resize',update);update();
+topBtn.addEventListener('click',()=>scrollTo({top:0,behavior:reduce?'auto':'smooth'}));
+})();
+</script>
+</body></html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sign in — ASTRA FEST 2026</title><link rel="stylesheet" href="/css/app.css"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"></head><body>
+<nav aria-label="Main"><a class="logo" href="/" aria-label="ASTRA FEST 2026 home"><img src="/Image/astra-logo.png" alt="" style="height:58px;width:auto;display:block"></a><div class="links"><a class="l" href="/">Home</a><a class="l" href="/event.html">Events</a><a class="l" href="/register.html">Register</a><a class="l" href="/cl-login.html">College Leader</a></div></nav>
+<header class="top"><h1>SIGN IN</h1><p>Choose how you want to continue</p></header>
+<main class="panel narrow" id="main">
+<div class="choices">
+  <a href="/cl-register.html"><b>Register your college</b>Only Contigent leader can Register (needs approval).</a>
+  <a href="/cl-login.html"><b>Contigent leader</b>Sign in to your college dashboard.</a>
+<a href="/register.html"><b>Participants Registration</b>Register for events with your college code.</a>
+
+<a href="/admin.html"><b>ASTRA committee</b>Administrator sign-in.</a></div>
+</main>
+<script src="/js/api.js"></script>
+<script>
+api("/api/session").then((x) => { if (!x.role) return;
+  const dash = x.role === "admin" ? "/admin.html" : "/cl-dashboard.html", out = x.role === "admin" ? "/api/admin/logout" : "/api/cl/logout";
+  const box = document.createElement("div"); box.className = "good";
+  box.innerHTML = `You are signed in as <b>${esc(x.name)}</b>. <a class="btn sec" href="${dash}">Open dashboard</a> <button class="btn bad-b" id="lo">Log out</button>`;
+  $("#main").prepend(box); $("#lo").onclick = async () => { await api(out, { method: "POST", body: {} }); location.reload(); }; }).catch(() => {});
+</script></body></html>
