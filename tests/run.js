@@ -213,6 +213,102 @@ test("Webhook: signature required, duplicate events ignored, amount mismatch not
   assert.equal((await hook(evt(30000), sign("wh_secret_123", evt(30000)), "ev3")).duplicate, true); assert.equal(S.paidCalls.length, 1);
 });
 
+test("Admin login: only failed attempts count toward rate limit, not successful logins", async () => {
+  const orig = db.query;
+  const hash = await hashPassword("GoodPass123!");
+  let failCount = 0;
+  db.query = async (t, p) => {
+    if (t.includes("FROM auth_attempts") && t.includes("count(*)")) return [{ n: failCount }];
+    if (t.includes("INSERT INTO auth_attempts")) { failCount++; return []; }
+    if (t.includes("DELETE FROM auth_attempts WHERE key")) { failCount = 0; return []; }
+    if (t.includes("FROM admin_users WHERE lower(email)") && t.includes("password_hash")) {
+      if (p[0] === "admin@x.com") return [{ id: "a1", password_hash: hash }];
+      return [];
+    }
+    if (t.includes("UPDATE admin_users SET last_login_at")) return [];
+    return orig(t, p);
+  };
+  // Two failed attempts
+  assert.equal((await call("POST", "/api/admin/login", { body: { email: "admin@x.com", password: "wrong" } })).status, 401);
+  assert.equal((await call("POST", "/api/admin/login", { body: { email: "admin@x.com", password: "wrong" } })).status, 401);
+  assert.equal(failCount, 2, "two failures recorded");
+  // Successful login resets counter
+  const ok = await call("POST", "/api/admin/login", { body: { email: "admin@x.com", password: "GoodPass123!" } });
+  assert.equal(ok.status, 200, "successful login should work");
+  assert.equal(failCount, 0, "counter reset after successful login");
+  db.query = orig;
+});
+
+test("cancelPending: CL can cancel own created batch, cannot cancel paid batch", async () => {
+  const cookie = await clCookie();
+  const orig = db.query;
+  const B_CREATED = "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa";
+  const B_PAID    = "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb";
+  const B_OTHER   = "cccccccc-cccc-4ccc-8ccc-cccccccccccc";
+  const batches = {
+    [B_CREATED]: { id: B_CREATED, razorpay_order_id: "order_c1", status: "created", college_id: "c-session" },
+    [B_PAID]:    { id: B_PAID,    razorpay_order_id: "order_p1", status: "paid",    college_id: "c-session" },
+    [B_OTHER]:   { id: B_OTHER,   razorpay_order_id: "order_o1", status: "created", college_id: "other-college" },
+  };
+  const realFetch = globalThis.fetch;
+  globalThis.fetch = async (url) => {
+    if (url.includes("order_c1")) return { ok: true, json: async () => ({ status: "created" }) };
+    return { ok: true, json: async () => ({ status: "paid" }) };
+  };
+  db.query = async (t, p) => {
+    if (t.includes("FROM auth_attempts") && t.includes("count(*)")) return [{ n: 0 }];
+    if (t.includes("INSERT INTO auth_attempts")) return [];
+    if (t.includes("FROM college_leaders l JOIN colleges c ON c.id = l.college_id")) {
+      const l = S.leaders.find((x) => x.id === p[0] && x.status === "approved");
+      return l ? [{ id: l.id, college_id: l.college_id, full_name: "CL", email: l.email, college_name: "Test College", join_code: "X" }] : [];
+    }
+    if (t.includes("FROM payment_batches WHERE id=$1")) return batches[p[0]] ? [batches[p[0]]] : [];
+    if (t.includes("UPDATE payment_batches SET status='failed'") && t.includes("created_at < now()")) return [];
+    if (t.includes("UPDATE payment_batches SET status='failed', failure_reason")) return [];
+    return orig(t, p);
+  };
+  // Cannot cancel paid batch
+  const paid = await call("POST", "/api/cl/payments/cancel", { cookie, body: { batch_id: B_PAID } });
+  assert.equal(paid.status, 409, "paid batch cannot be cancelled");
+  // Cannot cancel another college's batch
+  const other = await call("POST", "/api/cl/payments/cancel", { cookie, body: { batch_id: B_OTHER } });
+  assert.equal(other.status, 403, "cannot cancel another college batch");
+  // Can cancel own created batch
+  const ok = await call("POST", "/api/cl/payments/cancel", { cookie, body: { batch_id: B_CREATED } });
+  assert.equal(ok.status, 200, "should cancel created batch");
+  globalThis.fetch = realFetch;
+  db.query = orig;
+  S.leaders.length = 0;
+});
+
+test("createBatch: stale batches auto-expired, retry creates a new order", async () => {
+  const cookie = await clCookie();
+  S.payable = [{ id: U1, fee_paise: 10000 }];
+  const orig = db.query;
+  let autoExpireCalled = false;
+  db.query = async (t, p) => {
+    if (t.includes("FROM auth_attempts") && t.includes("count(*)")) return [{ n: 0 }];
+    if (t.includes("INSERT INTO auth_attempts")) return [];
+    if (t.includes("FROM college_leaders l JOIN colleges c ON c.id = l.college_id")) {
+      const l = S.leaders.find((x) => x.id === p[0] && x.status === "approved");
+      return l ? [{ id: l.id, college_id: l.college_id, full_name: "CL", email: l.email, college_name: "Test College", join_code: "X" }] : [];
+    }
+    if (t.includes("UPDATE payment_batches SET status='failed'") && t.includes("30 minutes")) { autoExpireCalled = true; return []; }
+    if (t.includes("AND r.id = ANY($2::uuid[])") && t.includes("e.fee_paise")) return p[0] === "c-session" ? S.payable.filter((r) => p[1].includes(r.id)) : [];
+    if (t.includes("FROM payment_batches b") && t.includes("status='created'") && t.includes("amount_paise=$2")) return []; // no existing batch
+    if (t.includes("FROM payment_batch_items i JOIN payment_batches b") && t.includes("status='created'")) return []; // no conflict
+    return orig(t, p);
+  };
+  const realFetch = globalThis.fetch;
+  globalThis.fetch = async (url, o) => { const sent = JSON.parse(o.body); return { ok: true, status: 200, json: async () => ({ id: "order_new", amount: sent.amount }) }; };
+  const r = await call("POST", "/api/cl/payments/order", { cookie, body: { registration_ids: [U1] } });
+  assert.equal(r.status, 200);
+  assert.ok(autoExpireCalled, "stale batches should be auto-expired before creating new order");
+  globalThis.fetch = realFetch;
+  db.query = orig;
+  S.leaders.length = 0; S.payable = [];
+});
+
 test("Session endpoint reports no role when signed out; new admin/CL actions need auth", async () => {
   const r = await call("GET", "/api/session"); assert.equal(r.status, 200); assert.equal(r.body.role, null);
   assert.equal((await call("POST", "/api/admin/cl/abc/reset-password", { body: {} })).status, 401);

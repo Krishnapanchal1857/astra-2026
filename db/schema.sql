@@ -230,3 +230,6 @@ CREATE TABLE IF NOT EXISTS payment_batch_items (
   PRIMARY KEY (batch_id, registration_id)
 );
 CREATE INDEX IF NOT EXISTS ix_batch_items_registration ON payment_batch_items (registration_id);
+
+-- Payment batch failure tracking
+ALTER TABLE payment_batches ADD COLUMN IF NOT EXISTS failure_reason text;
