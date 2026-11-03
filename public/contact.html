@@ -876,7 +876,7 @@ const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
 const coarse=matchMedia('(pointer:coarse)').matches;
 
 /* ----- navigation ----- */
-const LINKS=[['Home',SITE+'#home'],['About',SITE+'#about'],['Admin',SITE+'#admin'],['Register',SITE+'#register'],['Contact','contact.html']];
+const LINKS=[['Home','./'],['About','about.html'],['Admin','login.html'],['Register','register.html'],['Contact','contact.html']];
 $('axLinks').innerHTML=LINKS.map(([t,h])=>`<li><a href="${h}"${t==='Contact'?' aria-current="page"':''}${t==='Register'?' class="cta"':''}>${t}</a></li>`).join('');
 $('axLogo').href=SITE+'#home';$('ftLogo').href=SITE+'#home';
 $('ftLinks').innerHTML=LINKS.map(([t,h])=>`<li><a class="l" href="${h}">${t}</a></li>`).join('');
