@@ -713,13 +713,141 @@
 /* added: long instruction lists stay readable */
 .instructions-overlay{overflow-y:auto}.instructions-overlay li{margin-bottom:7px}
 </style>
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"></head>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png">
+<style id="gaming-style-nav">
+  /* ---- Gaming-style Hamburger Navigation ---- */
+  .nav-toggle {
+    display: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, .25);
+    background: rgba(255, 255, 255, .06);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    cursor: pointer;
+    padding: 0;
+    flex: none;
+    -webkit-tap-highlight-color: transparent;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    line-height: 0;
+  }
+
+  .nav-toggle span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    border-radius: 2px;
+    background: #dbe6ff;
+    margin: 0;
+    transition: transform .3s ease, opacity .25s ease;
+  }
+
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  @media (max-width: 860px) {
+    .nav-toggle {
+      display: flex !important;
+      margin-left: auto;
+    }
+
+    .site-nav {
+      position: sticky !important;
+      top: 0;
+      z-index: 100 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+    }
+
+    .site-nav .nav-links {
+      position: absolute !important;
+      top: 100% !important;
+      left: 0 !important;
+      right: 0 !important;
+      flex-direction: column !important;
+      align-items: stretch !important;
+      gap: 0.35rem !important;
+      padding: 1rem 1.4rem 1.5rem !important;
+      background: rgba(6, 10, 20, 0.98) !important;
+      backdrop-filter: blur(22px) saturate(150%) !important;
+      -webkit-backdrop-filter: blur(22px) saturate(150%) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+      box-shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.95) !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+      transform: translateY(-10px) !important;
+      transition: opacity .28s ease, transform .28s ease, visibility .28s !important;
+    }
+
+    .site-nav .nav-links.open {
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+      transform: none !important;
+      display: flex !important;
+    }
+
+    .site-nav .nav-links a {
+      display: none;
+    }
+
+    .site-nav .nav-links.open a {
+      display: block !important;
+      padding: 0.85rem 1rem !important;
+      border-radius: 10px !important;
+      letter-spacing: .12em !important;
+      text-transform: uppercase !important;
+      font-size: 13px !important;
+      font-weight: 700 !important;
+      color: #dbe6ff !important;
+      text-decoration: none !important;
+      transition: background .2s, color .2s !important;
+    }
+
+    .site-nav .nav-links.open a:hover,
+    .site-nav .nav-links.open a:focus {
+      background: rgba(255, 255, 255, 0.1) !important;
+      color: #fff !important;
+    }
+
+    .site-nav .nav-links .nav-cta {
+      display: none !important;
+    }
+  }
+</style>
+</head>
 
 <body>
   <div class="background-glow" aria-hidden="true"></div><canvas id="particles" aria-hidden="true"></canvas>
-  <nav class="site-nav" aria-label="Main navigation"><a class="brand-mark" href="#top" aria-label="ASTRA home"><img class="astra-logo" src="/Image/astra-logo.png" alt="ASTRA 2026 logo" style="height:60px;width:auto;display:block"></a>
-    <div class="nav-links"><a href="#top">Home</a><a href="#events">Events</a><a href="#register">Contact</a><a
-        class="nav-cta" href="#events">Explore Events <span aria-hidden="true">↗</span></a></div>
+  <nav class="site-nav" aria-label="Main navigation">
+    <a class="brand-mark" href="/" aria-label="ASTRA home">
+      <img class="astra-logo" src="/Image/astra-logo.png" alt="ASTRA 2026 logo" style="height:60px;width:auto;display:block">
+    </a>
+
+    <button class="nav-toggle" type="button" id="navToggle" aria-expanded="false" aria-controls="navMenu" aria-label="Toggle navigation menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <div class="nav-links" id="navMenu">
+      <a href="/">Home</a>
+      <a href="/event.html">Events</a>
+      <a href="/contact.html">Contact</a>
+    </div>
   </nav>
   <main id="top">
     <header class="intro"><span class="eyebrow">✦ &nbsp; SATHAYE COLLEGE PRESENTS &nbsp; ✦</span>
@@ -912,6 +1040,49 @@
     (() => { const canvas = document.getElementById('particles'), ctx = canvas.getContext('2d'); let w, h, dpr, particles = []; function resize() { dpr = Math.min(window.devicePixelRatio || 1, 2); w = innerWidth; h = innerHeight; canvas.width = w * dpr; canvas.height = h * dpr; canvas.style.width = w + 'px'; canvas.style.height = h + 'px'; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); particles = Array.from({ length: Math.min(85, Math.floor(w / 15)) }, () => ({ x: Math.random() * w, y: Math.random() * h, r: Math.random() * 1.5 + .35, vx: (Math.random() - .5) * .22, vy: Math.random() * .28 + .06, a: Math.random() * .55 + .15, phase: Math.random() * 6.28 })) } function draw(t) { ctx.clearRect(0, 0, w, h); for (const p of particles) { p.x += p.vx; p.y -= p.vy; p.phase += .012; if (p.y < -5) { p.y = h + 5; p.x = Math.random() * w } if (p.x < -5) p.x = w + 5; if (p.x > w + 5) p.x = -5; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(239,206,147,${p.a * (.65 + .35 * Math.sin(p.phase))})`; ctx.fill() } requestAnimationFrame(draw) } resize(); addEventListener('resize', resize); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) requestAnimationFrame(draw) })();
   </script>
 <script src="/js/event-links.js" defer></script>
+
+<script id="gaming-style-js">
+  (() => {
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
+
+    function setMenu(open) {
+      if (!navToggle || !navMenu) return;
+      navToggle.setAttribute('aria-expanded', String(open));
+      navMenu.classList.toggle('open', open);
+    }
+
+    if (navToggle && navMenu) {
+      navToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
+        setMenu(!isOpen);
+      });
+
+      navMenu.addEventListener('click', (ev) => {
+        if (ev.target.closest('a')) setMenu(false);
+      });
+
+      document.addEventListener('click', (ev) => {
+        if (navToggle.getAttribute('aria-expanded') !== 'true') return;
+        if (ev.target.closest('.site-nav')) return;
+        setMenu(false);
+      });
+
+      document.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Escape' && navToggle.getAttribute('aria-expanded') === 'true') {
+          setMenu(false);
+          navToggle.focus();
+        }
+      });
+
+      const mq = window.matchMedia('(min-width: 861px)');
+      const onMq = (e) => { if (e.matches) setMenu(false); };
+      if (mq.addEventListener) mq.addEventListener('change', onMq);
+      else if (mq.addListener) mq.addListener(onMq);
+    }
+  })();
+</script>
 </body>
 
 </html>
