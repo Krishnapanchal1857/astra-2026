@@ -81,7 +81,7 @@
   <p><b>Total: <span id="tot"></span></b> <button class="btn ok-b" id="paybtn">Pay now</button></p><div id="paymsg"></div>${hist}`;
       const recalc = () => { const ks = [...box.querySelectorAll(".pk:checked")]; $("#tot").textContent = rupees(ks.reduce((s, k) => s + +k.dataset.fee, 0)); $("#paybtn").disabled = !ks.length || paymentInFlight; };
       box.onchange = recalc; recalc();
-      $("#paybtn").onclick = () => payNow(box, d);
+      $("#paybtn").onclick = () => window.open("https://form.qfixonline.com/ptvregform", "_blank");
       attachCancelHandlers(box);
     }
 
