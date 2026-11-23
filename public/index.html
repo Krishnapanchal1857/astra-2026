@@ -36,6 +36,9 @@
   #hero{position:fixed;inset:0;overflow:hidden}
   #gl{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:0;transition:opacity .8s ease}
   body.ready #gl{opacity:1}
+  /* Mobile video background — hidden on desktop, shown on mobile via media query */
+  #mob-vid{display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0;transition:opacity .8s ease}
+  body.ready #mob-vid{opacity:1}
   .shade{position:absolute;inset:0;pointer-events:none;
     background:linear-gradient(180deg,rgba(5,7,13,.35),rgba(5,7,13,0) 30%,rgba(5,7,13,.15) 70%,rgba(5,7,13,.55))}
   .layer{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none}
@@ -255,6 +258,10 @@
   #mlinks::-webkit-scrollbar{display:none}
   #mlinks a{flex:none;font:700 10px var(--nav);letter-spacing:.1em;text-transform:uppercase;color:#fff;padding:7px 12px;border:1px solid var(--line);border-radius:999px;background:rgba(14,18,30,.6)}
   #left a{padding:7px 0;font-size:9px;gap:3px} #left svg.i{width:22px;height:22px}
+  /* Mobile background video */
+  #gl{display:none}
+  #mob-vid{display:block}
+  html,body{background:#05070d}
 }
 
 /* ---- navigation lives inside the header (desktop) so the city image below stays clear ---- */
@@ -308,6 +315,7 @@
 
 <main id="hero">
   <canvas id="gl"></canvas>
+  <video id="mob-vid" muted playsinline autoplay loop preload="auto" src="/videos/astra-intro-mobile-full-astra-720x1280.mp4"></video>
   <div class="shade"></div>
   <div id="bgfill"></div>
   <div id="bg"></div>
