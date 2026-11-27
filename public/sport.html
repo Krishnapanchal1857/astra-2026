@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -494,6 +495,20 @@
                 scroll-behavior: auto
             }
         }
+
+        /* ===== Registration countdown ===== */
+.reg-timer{margin:0 auto 34px;padding:22px 26px;max-width:880px;border:1px solid var(--bd);border-radius:22px;background:linear-gradient(160deg,rgba(255,106,26,.18),rgba(10,16,32,.7));backdrop-filter:blur(8px);box-shadow:0 0 40px rgba(255,106,26,.25)}
+.reg-timer .rt-label{font:800 clamp(1rem,2.6vw,1.4rem) 'Barlow Condensed',sans-serif;letter-spacing:.25em;text-transform:uppercase;color:var(--cy);margin-bottom:12px}
+.rt-boxes{display:flex;justify-content:center;gap:clamp(8px,2vw,22px)}
+.rt-box{flex:1;max-width:170px;background:rgba(0,0,0,.45);border:1px solid var(--bd);border-radius:16px;padding:14px 6px}
+.rt-box b{display:block;font:800 clamp(2.6rem,10vw,6rem)/1 'Barlow Condensed',sans-serif;color:#fff;text-shadow:0 0 24px rgba(255,106,26,.7);font-variant-numeric:tabular-nums}
+.rt-box span{font:600 clamp(.7rem,2vw,1rem) Inter,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--mut)}
+.rt-note{margin-top:12px;font-size:.95rem;color:#dbe4f8}
+.reg-timer.closed{border-color:#ff4d4d;background:linear-gradient(160deg,rgba(255,77,77,.22),rgba(10,16,32,.8));box-shadow:0 0 40px rgba(255,77,77,.3)}
+.reg-timer.closed .rt-boxes{display:none}
+.reg-timer .rt-closed{display:none;font:800 clamp(2.4rem,9vw,5.5rem)/1 'Barlow Condensed',sans-serif;text-transform:uppercase;color:#ff6b6b}
+.reg-timer.closed .rt-closed{display:block}
+.cta[disabled]{background:#555!important;box-shadow:none!important}
     </style>
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"></head>
 
@@ -513,6 +528,17 @@
             <a class="cta" href="#events">Explore Events <span class="ar">→</span></a>
             <div class="count"><b id="n">0</b> SPORTS EVENTS</div>
         </div>
+        <div class="reg-timer" id="regTimer" role="timer" aria-live="polite">
+    <div class="rt-label" id="rtLabel">Registrations close in</div>
+    <div class="rt-boxes">
+        <div class="rt-box"><b id="rtD">00</b><span>Days</span></div>
+        <div class="rt-box"><b id="rtH">00</b><span>Hours</span></div>
+        <div class="rt-box"><b id="rtM">00</b><span>Minutes</span></div>
+        <div class="rt-box"><b id="rtS">00</b><span>Seconds</span></div>
+    </div>
+    <div class="rt-closed">Registrations Closed</div>
+    <div class="rt-note" id="rtNote">Last date: 7th December, 11:59 PM</div>
+</div>
     </header>
 
     <section id="events">
@@ -612,6 +638,40 @@
             })
         }, { passive: true });
         document.addEventListener('visibilitychange', () => ph.style.animationPlayState = document.hidden ? 'paused' : 'running');
+
+        // ===== Registration countdown (ends 7 Dec 2026, 11:59:59 PM) =====
+(function () {
+    const DEADLINE = new Date(2026, 11, 7, 23, 59, 59).getTime();
+    const $ = id => document.getElementById(id), pad = v => String(v).padStart(2, '0');
+    const box = $('regTimer'); let closed = false;
+
+    function closeAll() {
+        if (closed) return; closed = true;
+        box.classList.add('closed');
+        $('rtLabel').textContent = 'Sorry!';
+        $('rtNote').textContent = 'The registration deadline (7th December) has passed. All registrations are now closed.';
+        reg.disabled = true;
+        reg.textContent = 'Registrations Closed';
+        reg.onclick = null;
+        clearInterval(timer);
+    }
+
+    const origReg = reg.onclick;
+    reg.onclick = function (e) {
+        if (Date.now() >= DEADLINE) { closeAll(); return; }
+        if (origReg) origReg.call(reg, e);
+    };
+
+    function tick() {
+        const diff = DEADLINE - Date.now();
+        if (diff <= 0) return closeAll();
+        $('rtD').textContent = pad(Math.floor(diff / 864e5));
+        $('rtH').textContent = pad(Math.floor(diff % 864e5 / 36e5));
+        $('rtM').textContent = pad(Math.floor(diff % 36e5 / 6e4));
+        $('rtS').textContent = pad(Math.floor(diff % 6e4 / 1e3));
+    }
+    const timer = setInterval(tick, 1000); tick();
+})();
     </script>
 </body>
 
