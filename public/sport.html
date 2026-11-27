@@ -509,6 +509,51 @@
 .reg-timer .rt-closed{display:none;font:800 clamp(2.4rem,9vw,5.5rem)/1 'Barlow Condensed',sans-serif;text-transform:uppercase;color:#ff6b6b}
 .reg-timer.closed .rt-closed{display:block}
 .cta[disabled]{background:#555!important;box-shadow:none!important}
+
+/* ===== Sports Schedule popup ===== */
+html.sched-lock{overflow:hidden}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.nav-sched{margin-left:18px;background:transparent;color:var(--tx);border:1px solid var(--or);border-radius:99px;padding:8px 16px;font:600 1rem Inter,sans-serif;cursor:pointer;transition:background .25s,box-shadow .25s,transform .2s}
+.nav-sched:hover,.nav-sched:focus-visible{background:var(--or);box-shadow:0 0 22px rgba(255,106,26,.55)}
+.nav-sched:active{transform:scale(.96)}
+
+#schedDlg{max-width:880px;padding:0;overflow:hidden;opacity:0;transform:translateY(14px) scale(.94);transition:opacity .3s ease,transform .3s ease;box-shadow:0 30px 80px #000,0 0 50px rgba(255,106,26,.18)}
+#schedDlg.show{opacity:1;transform:none}
+#schedDlg::backdrop{opacity:0;transition:opacity .3s ease}
+#schedDlg.show::backdrop{opacity:1}
+.sch-wrap{max-height:85svh;overflow-y:auto;padding:28px;overscroll-behavior:contain}
+.sch-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:6px}
+.sch-head h3{font-size:clamp(2rem,6vw,3rem);color:var(--or)}
+.sch-x{flex:none;width:44px;height:44px;border-radius:50%;border:1px solid var(--bd);background:transparent;color:var(--tx);font-size:1.6rem;line-height:1;cursor:pointer;transition:border-color .2s,box-shadow .2s,transform .3s}
+.sch-x:hover,.sch-x:focus-visible{border-color:var(--or);box-shadow:0 0 18px rgba(255,106,26,.5);transform:rotate(90deg)}
+.sch-note{font-size:.85rem;color:var(--mut);margin-top:16px}
+
+.sch{width:100%;border-collapse:separate;border-spacing:0 10px}
+.sch th{text-align:left;font:600 .72rem Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);padding:0 16px}
+.sch td{padding:14px 16px;background:var(--glass);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);transition:background .25s,border-color .25s}
+.sch td:first-child{border-left:4px solid var(--c);border-radius:14px 0 0 14px}
+.sch td:last-child{border-right:1px solid var(--bd);border-radius:0 14px 14px 0}
+.sch tr{--c:var(--or)}
+.sch tbody tr:hover td{background:color-mix(in srgb,var(--c) 14%,transparent);border-color:var(--c)}
+.sch tbody tr{filter:drop-shadow(0 0 0 transparent);transition:filter .3s}
+.sch tbody tr:hover{filter:drop-shadow(0 0 12px color-mix(in srgb,var(--c) 45%,transparent))}
+.sch .d{font:800 1.9rem/1 'Barlow Condensed',sans-serif;color:#fff}
+.sch .d small{display:block;font:600 .72rem Inter,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-top:3px}
+.sch .g{font:800 1.5rem 'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.03em}
+.sch .g small{display:block;font:400 .85rem Inter,sans-serif;text-transform:none;letter-spacing:0;color:var(--mut)}
+
+@media(max-width:700px){
+  .nav-sched{margin-left:10px;padding:6px 12px;font-size:.9rem}
+  .sch-wrap{padding:20px 16px}
+  .sch thead{display:none}
+  .sch,.sch tbody,.sch tr,.sch td{display:block;width:100%}
+  .sch{border-spacing:0}
+  .sch tr{margin-bottom:14px;border:1px solid var(--bd);border-left:4px solid var(--c);border-radius:14px;background:var(--glass);overflow:hidden}
+  .sch td,.sch td:first-child,.sch td:last-child{display:flex;justify-content:space-between;gap:14px;align-items:center;border:0;border-radius:0;background:none;padding:10px 14px}
+  .sch td::before{content:attr(data-label);flex:none;font:600 .7rem Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
+  .sch td>*{text-align:right}
+  .sch tbody tr:hover td{background:none}
+}
     </style>
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/favicon-180.png"></head>
 
@@ -518,8 +563,57 @@
         <div class="photo"></div>
     </div>
     <nav><b>ASTRA FEST</b>
-        <div><a href="/">Home</a><a href="#events">Events</a><a href="#rules">Rules</a></div>
-    </nav>
+     <div><a href="/">Home</a><!--<a href="#events">Events</a><a href="#rules">Rules</a> -->
+    <button type="button" class="nav-sched" data-open-schedule aria-haspopup="dialog">Sports Schedule</button></div>
+    <dialog id="schedDlg" aria-labelledby="schedTitle">
+    <div class="sch-wrap">
+        <div class="sch-head">
+            <div>
+                <h3 id="schedTitle">Sports Schedule</h3>
+                <p class="sub" style="margin:0">Astra Preliminary Rounds · December 2026</p>
+            </div>
+            <button type="button" class="sch-x" id="schedClose" aria-label="Close schedule" autofocus>&times;</button>
+        </div>
+        <table class="sch">
+            <caption class="sr">Astra Fest sports preliminary rounds schedule</caption>
+            <thead><tr><th scope="col">Date</th><th scope="col">Round</th><th scope="col">Game</th><th scope="col">Venue</th></tr></thead>
+            <tbody>
+                <tr style="--c:#ff6a1a">
+                    <td data-label="Date"><div class="d"><time datetime="2026-12-07">7 Dec</time><small>2026</small></div></td>
+                    <td data-label="Round">Astra Preliminary Rounds</td>
+                    <td data-label="Game"><div class="g">🏀 Basketball<small>Men / Women</small></div></td>
+                    <td data-label="Venue">Basketball Court</td>
+                </tr>
+                <tr style="--c:#2ecc71">
+                    <td data-label="Date"><div class="d"><time datetime="2026-12-07">7 Dec</time><small>2026</small></div></td>
+                    <td data-label="Round">Astra Preliminary Rounds</td>
+                    <td data-label="Game"><div class="g">⚽ Football<small>Men / Women</small></div></td>
+                    <td data-label="Venue">Multisport Turf</td>
+                </tr>
+                <tr style="--c:#ffb020">
+                    <td data-label="Date"><div class="d"><time datetime="2026-12-08">8 Dec</time><small>2026</small></div></td>
+                    <td data-label="Round">Astra Preliminary Rounds</td>
+                    <td data-label="Game"><div class="g">🏏 Box Cricket<small>Men</small></div></td>
+                    <td data-label="Venue">Multisport Turf</td>
+                </tr>
+                <tr style="--c:#b6e24b">
+                    <td data-label="Date"><div class="d"><time datetime="2026-12-08">8 Dec</time><small>2026</small></div></td>
+                    <td data-label="Round">Astra Preliminary Rounds</td>
+                    <td data-label="Game"><div class="g">🎾 Pickle Ball<small>Men / Women</small></div></td>
+                    <td data-label="Venue">Basketball Court</td>
+                </tr>
+                <tr style="--c:#c9a8ff">
+                    <td data-label="Date"><div class="d"><time datetime="2026-12-09">9 Dec</time><small>2026</small></div></td>
+                    <td data-label="Round">Astra Preliminary Rounds</td>
+                    <td data-label="Game"><div class="g">♞ Chess / Carrom / Table Tennis<small>Indoor games</small></div></td>
+                    <td data-label="Venue">Gymkhana</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="sch-note">Schedule is subject to change. The Organising Committee’s decision is final.</p>
+    </div>
+</dialog>
+</nav>
     <header class="hero">
         <div>
             <!-- <span class="ball" aria-hidden="true">⚽</span> -->
@@ -671,6 +765,42 @@
         $('rtS').textContent = pad(Math.floor(diff % 6e4 / 1e3));
     }
     const timer = setInterval(tick, 1000); tick();
+})();
+
+// ===== Sports Schedule popup =====
+(function () {
+    const dlg = document.getElementById('schedDlg'); if (!dlg) return;
+    const root = document.documentElement; let last = null, closing = false;
+
+    function openSched() {
+        if (dlg.open) return;
+        last = document.activeElement;
+        root.classList.add('sched-lock');
+        dlg.showModal();
+        requestAnimationFrame(() => dlg.classList.add('show'));
+    }
+    function closeSched() {
+        if (!dlg.open || closing) return;
+        closing = true; dlg.classList.remove('show');
+        const done = () => {
+            if (!closing) return; closing = false;
+            dlg.close(); root.classList.remove('sched-lock');
+            if (last && last.focus) last.focus();
+        };
+        dlg.addEventListener('transitionend', function h(e) {
+            if (e.target === dlg && e.propertyName === 'opacity') { dlg.removeEventListener('transitionend', h); done(); }
+        });
+        setTimeout(done, 450); // fallback
+    }
+
+    // works for the nav button and any other element with data-open-schedule
+    document.addEventListener('click', e => {
+        if (e.target.closest('[data-open-schedule]')) { e.preventDefault(); openSched(); }
+    });
+    document.getElementById('schedClose').addEventListener('click', closeSched);
+    dlg.addEventListener('click', e => { if (e.target === dlg) closeSched(); }); // backdrop click
+    dlg.addEventListener('cancel', e => { e.preventDefault(); closeSched(); });  // Escape key
+    dlg.addEventListener('close', () => root.classList.remove('sched-lock'));    // safety net
 })();
     </script>
 </body>
